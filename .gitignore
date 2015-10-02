@@ -1,3 +1,5 @@
+*.qws
+
 # ignore Quartus II generated folders
 db/
 incremental_db/
