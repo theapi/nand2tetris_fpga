@@ -1,3 +1,4 @@
+*.bak
 *.qws
 
 # ignore Quartus II generated folders
