@@ -1,5 +1,6 @@
 *.bak
 *.qws
+*.rpt
 
 # ignore Quartus II generated folders
 db/

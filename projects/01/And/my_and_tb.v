@@ -1,4 +1,6 @@
 `include "my_and.v"
+
+`timescale 1ns/1ns
 module my_and_tb();
 
 // Declare inputs as regs and outputs as wires
@@ -23,5 +25,7 @@ initial begin
   #10 $finish;      // Terminate simulation
 
 end
+
+my_and DUT (out, a, b);
 
 endmodule
