@@ -1,4 +1,4 @@
-`include "my_not.v"
+//`include "my_not.v"
 
 `timescale 1ns/1ns
 module my_not_tb();
