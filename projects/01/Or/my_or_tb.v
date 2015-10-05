@@ -1,4 +1,3 @@
-`include "my_or.v"
 
 `timescale 1ns/1ns
 module my_or_tb();

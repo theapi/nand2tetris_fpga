@@ -1,4 +1,4 @@
-`include "my_and.v"
+//`include "my_and.v"
 
 `timescale 1ns/1ns
 module my_and_tb();
