@@ -1,6 +1,6 @@
 /**
  * Frame buffer
- * 800x480 ( / 16 = 24000)
+ * 800x480 ( / 16 = 24000) for hack screen of 512 x 256
  *
  * Translate pixel positions to ram addresses then uses ram.
  */
@@ -30,16 +30,30 @@
     wire[4:0] pixel_bit;
     
     wire[15:0] read_address;
-     
-    wire [15:0] address;
     
-    assign address = (vga_h + (vga_v * 800) ) / 16;
-     
-    //assign read_address = (vga_h + (vga_v * 800) ) / 16;
-    assign read_address = (address < 8193) ? address : 0; // Bigger vga than hack screen memory
-    assign pixel_bit = (vga_h + vga_v) % 16;
-    assign pixel_out = (address < 8193) ? read_value[pixel_bit] : 0; // Bigger vga than hack screen memory
-
+    reg out;
+    
+    assign read_address = (vga_h + (vga_v * 512) ) / 16;
+    assign pixel_bit = (vga_h + vga_h) % 16;
+    //assign pixel_out = read_value[pixel_bit];
+    
+    
+    always @ (vga_h or vga_v)
+    begin
+        // black board surrounding the hack screen of 512 x 256 
+        // on the 800 x 480 vga screen
+        if (vga_h > 511) begin
+            out = 0;
+        end
+        else if (vga_v > 255) begin
+            out = 0;
+        end
+        else begin
+            out = read_value[pixel_bit];
+        end
+    end
+    
+    assign pixel_out = out;
     
     
     vga_ram vgaram(

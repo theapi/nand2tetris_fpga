@@ -14,7 +14,7 @@ module vga_ram(
     input [15:0] write_address, read_address,
     input we, clk
 );
-    // 256 by 512 black-and-white ( / 16 = 8192)
+    // 512 x 256 black-and-white ( / 16 = 8192)
     reg [15:0] mem [8192:0]; // 8K 16-bit RAM
     
     

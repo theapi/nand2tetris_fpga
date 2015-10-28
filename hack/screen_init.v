@@ -30,22 +30,16 @@
             counter <= 0;
             wren <= 1;
         end else begin
-            if (counter == 131072) begin // 256 x 512
+            //if (counter == 131072) begin //  512 x 256 
+            if (buffer_addr == 8192) begin
                 counter <= 0;
                 wren <= 0; // write no more
             end
             else begin
                 counter <= counter + 1;
+                // 32 address registers per line (512 / 16 = 32)
                 buffer_addr <= counter / 16;
-                
-                // 16 address registers per line (256 / 16 = 16)
-                if (buffer_addr % 16) begin
-                    data <= 16'h00_00;
-                end
-                else begin
-                    data <= 16'hFF_FF;
-                end
-                
+                data <= 16'hFF_FF;
             end
 
         end
