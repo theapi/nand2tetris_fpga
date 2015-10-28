@@ -31,9 +31,14 @@
     
     wire[15:0] read_address;
      
-    assign read_address = (vga_h + (vga_v * 800) ) / 16;
+    wire [15:0] address;
+    
+    assign address = (vga_h + (vga_v * 800) ) / 16;
+     
+    //assign read_address = (vga_h + (vga_v * 800) ) / 16;
+    assign read_address = (address < 8193) ? address : 0; // Bigger vga than hack screen memory
     assign pixel_bit = (vga_h + vga_v) % 16;
-    assign pixel_out = read_value[pixel_bit];
+    assign pixel_out = (address < 8193) ? read_value[pixel_bit] : 0; // Bigger vga than hack screen memory
 
     
     
