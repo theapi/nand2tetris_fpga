@@ -38,7 +38,7 @@
     //assign pixel_out = read_value[pixel_bit];
     
     
-    always @ (vga_h or vga_v)
+    always @ (vga_h or vga_v or read_value or pixel_bit)
     begin
         // black board surrounding the hack screen of 512 x 256 
         // on the 800 x 480 vga screen

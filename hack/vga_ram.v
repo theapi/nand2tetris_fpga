@@ -21,6 +21,18 @@ module vga_ram(
     // 800x480 ( / 16 = 24000)
     //reg [15:0] mem [24000:0];
     
+    /*
+    // initialize ram as per quartusii_handbook.pdf
+    integer i;
+    initial begin
+        for (i = 0; i < 4000; i = i + 1)
+            mem[i] = i[15:0];
+        for (i = 4000; i < 8193; i = i + 1)
+            mem[i] = i[15:0];
+    end
+    */
+    
+    
     always @ (posedge clk) begin
         if (we)
             mem[write_address] = d;
