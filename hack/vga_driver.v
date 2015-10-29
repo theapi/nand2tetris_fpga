@@ -59,10 +59,10 @@ module vga_driver
             if (ver_max) begin
                 ver_reg <= 0;
             end else begin
-                ver_reg <= ver_reg + 1;
+                ver_reg <= ver_reg + 1'b1;
             end
         end else begin
-            hor_reg <= hor_reg + 1;
+            hor_reg <= hor_reg + 1'b1;
         end
 
     end

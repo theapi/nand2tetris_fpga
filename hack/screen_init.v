@@ -19,7 +19,8 @@
 
     reg [15:0] data;   
     reg [12:0] buffer_addr; 
-    reg [32:0] counter;
+    reg [17:0] counter;
+    reg [17:0] counter_divider;
     reg wren;
     
  
@@ -30,15 +31,20 @@
             counter <= 0;
             wren <= 1;
         end else begin
-            //if (counter == 131072) begin //  512 x 256 
-            if (buffer_addr == 8192) begin
+            if (buffer_addr == 13'd8191) begin
                 counter <= 0;
                 wren <= 0; // write no more
             end
             else begin
-                counter <= counter + 1;
                 // 32 address registers per line (512 / 16 = 32)
-                buffer_addr <= counter / 16;
+                counter <= counter + 18'd1;
+                
+                // prevent assignment truncation warnings
+                // by performing the calculation into a 
+                // temporary variable of the same size as the counter
+                counter_divider <= counter / 18'd16;
+                // then truncate explicitly
+                buffer_addr <= counter_divider[12:0]; 
                 data <= 16'hFF_FF;
                 wren <= 1;
             end
