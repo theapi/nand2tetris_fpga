@@ -30,10 +30,11 @@
     wire[4:0] pixel_bit;
     
     wire[15:0] read_address;
+    reg[15:0] r_address;
     
     reg out;
     
-    assign read_address = (vga_h + (vga_v * 512) ) / 16;
+    //assign read_address = (vga_h + (vga_v * 512) ) / 16;
     assign pixel_bit = (vga_h + vga_h) % 16;
     //assign pixel_out = read_value[pixel_bit];
     
@@ -44,15 +45,19 @@
         // on the 800 x 480 vga screen
         if (vga_h > 511) begin
             out = 0;
+            r_address = 0;
         end
         else if (vga_v > 255) begin
             out = 0;
+            r_address = 0;
         end
         else begin
+            r_address = (vga_h + (vga_v * 512) ) / 16;
             out = read_value[pixel_bit];
         end
     end
     
+    assign read_address = r_address;
     assign pixel_out = out;
     
     
