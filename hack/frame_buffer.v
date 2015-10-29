@@ -69,6 +69,17 @@
         .we(load), // do a write
         .clk(clk)
     );
+    
+    /*
+    ram_m9k vgaram(
+        .clock(clk),
+        .data(data_in),
+        .rdaddress(read_address),
+        .wraddress(write_address),
+        .wren(load),
+        .q(read_value)
+    );
+    */
 
     
 endmodule

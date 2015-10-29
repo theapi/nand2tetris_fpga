@@ -1,4 +1,4 @@
-`include "../Screen_export.v"
+//`include "../Screen_export.v"
 
 `timescale 10ns/10ns
 module Screen_export_tb();
