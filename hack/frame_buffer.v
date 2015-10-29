@@ -17,7 +17,7 @@
  
     input clk;             // the system clock
     
-    input [15:0] write_address;
+    input [12:0] write_address;
     input [15:0] data_in;       // what to write (16 pixels, black or white)
     input load;            // write-enable bit
     
@@ -29,8 +29,8 @@
     wire[15:0] read_value;
     wire[4:0] pixel_bit;
     
-    wire[15:0] read_address;
-    reg[15:0] r_address;
+    wire[12:0] read_address;
+    reg[12:0] r_address;
     
     reg out;
     

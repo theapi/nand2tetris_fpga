@@ -13,12 +13,12 @@
     input clk;
     input reset;
     output load; 
-    output [15:0] address; // ram address to write the pixel data
+    output [12:0] address; // ram address to write the pixel data
     output [15:0] out;     // pixel values for ram address in the buffer
 
 
     reg [15:0] data;   
-    reg [15:0] buffer_addr; 
+    reg [12:0] buffer_addr; 
     reg [32:0] counter;
     reg wren;
     
@@ -40,6 +40,7 @@
                 // 32 address registers per line (512 / 16 = 32)
                 buffer_addr <= counter / 16;
                 data <= 16'hFF_FF;
+                wren <= 1;
             end
 
         end
