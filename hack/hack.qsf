@@ -73,7 +73,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_RED
 
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name VERILOG_FILE testbench/Screen_export_tb.v
+set_global_assignment -name VERILOG_FILE Screen_export_tb.v
 set_global_assignment -name VERILOG_FILE Screen_export.v
 set_global_assignment -name BDF_FILE hack.bdf
 set_global_assignment -name VERILOG_FILE vga_ram.v

@@ -285,8 +285,8 @@ agreement for further details.
 	(port
 		(pt 176 32)
 		(output)
-		(text "address[12..0]" (rect 0 0 70 11)(font "Arial" ))
-		(text "address[12..0]" (rect 96 27 155 38)(font "Arial" ))
+		(text "address[13..0]" (rect 0 0 70 11)(font "Arial" ))
+		(text "address[13..0]" (rect 96 27 155 38)(font "Arial" ))
 		(line (pt 176 32)(pt 160 32)(line_width 3))
 	)
 	(port
@@ -321,8 +321,8 @@ agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "write_address[12..0]" (rect 0 0 99 11)(font "Arial" ))
-		(text "write_address[12..0]" (rect 21 43 120 54)(font "Arial" ))
+		(text "write_address[13..0]" (rect 0 0 99 11)(font "Arial" ))
+		(text "write_address[13..0]" (rect 21 43 120 54)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port

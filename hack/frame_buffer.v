@@ -17,7 +17,7 @@
  
     input clk;             // the system clock
     
-    input [12:0] write_address;
+    input [13:0] write_address;
     input [15:0] data_in;       // what to write (16 pixels, black or white)
     input load;            // write-enable bit
     
@@ -29,8 +29,8 @@
     wire[15:0] read_value;
     wire[4:0] pixel_bit;
     
-    wire[12:0] read_address;
-    reg[12:0] r_address;
+    wire[13:0] read_address;
+    reg[13:0] r_address;
     
     reg out;
     
@@ -53,7 +53,7 @@
         end
         else begin
             // hack screen contents
-            r_address = (vga_h + (vga_v * 13'd512) ) / 13'd16;
+            r_address = ( (vga_h -144) + ( (vga_v -112) * 14'd512) ) / 14'd16;
             out = read_value[pixel_bit];
         end
     end
