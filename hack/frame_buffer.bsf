@@ -34,8 +34,8 @@ agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "write_address[13..0]" (rect 0 0 79 12)(font "Arial" ))
-		(text "write_address[13..0]" (rect 21 43 100 55)(font "Arial" ))
+		(text "write_address[12..0]" (rect 0 0 79 12)(font "Arial" ))
+		(text "write_address[12..0]" (rect 21 43 100 55)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port

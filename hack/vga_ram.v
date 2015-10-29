@@ -10,7 +10,7 @@
 module vga_ram(
     output reg [15:0] q,
     input [15:0] d,
-    input [13:0] write_address, read_address,
+    input [12:0] write_address, read_address,
     input we, clk
 );
     // 512 x 256 black-and-white ( / 16 = 8192)

@@ -13,7 +13,7 @@
     input clk;
     input reset;
     output load; 
-    output [13:0] address; // ram address to write the pixel data
+    output [12:0] address; // ram address to write the pixel data
     output [15:0] out;     // pixel values for ram address in the buffer
 
 
@@ -57,7 +57,9 @@
         end 
             
         else begin
-            if (buffer_addr == 14'd0 || buffer_addr == 14'd31 || buffer_addr == 14'd8160 || buffer_addr == 14'd8191) begin
+            if (buffer_addr == 14'd0 || buffer_addr == 14'd31 
+             || buffer_addr == 14'd4111
+             || buffer_addr == 14'd8160 || buffer_addr == 14'd8191) begin
                 //data <= 16'h00_00;
                 data <= 16'hFF_FF;
             end else begin
@@ -71,7 +73,7 @@
     
     
     assign load = wren;
-    assign address = buffer_addr;
+    assign address = buffer_addr[12:0];
     assign out = data;
     
 endmodule
