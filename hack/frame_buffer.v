@@ -34,9 +34,9 @@
     
     reg out;
     
-    //assign read_address = (vga_h + (vga_v * 512) ) / 16;
-    assign pixel_bit = (vga_h + vga_h) % 16;
-    //assign pixel_out = read_value[pixel_bit];
+    wire [10:0] pixel_bit_calc;
+    assign pixel_bit_calc = (vga_h + vga_h) % 5'd16;
+    assign pixel_bit = pixel_bit_calc[4:0];
     
     
     always @ (vga_h or vga_v or read_value or pixel_bit)
@@ -52,7 +52,7 @@
             r_address = 0;
         end
         else begin
-            r_address = (vga_h + (vga_v * 512) ) / 16;
+            r_address = (vga_h + (vga_v * 13'd512) ) / 13'd16;
             out = read_value[pixel_bit];
         end
     end
