@@ -34,22 +34,22 @@ agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "wraddress[8..0]" (rect 0 0 87 13)(font "Arial" (font_size 8)))
-		(text "wraddress[8..0]" (rect 4 35 79 47)(font "Arial" (font_size 8)))
+		(text "wraddress[12..0]" (rect 0 0 94 13)(font "Arial" (font_size 8)))
+		(text "wraddress[12..0]" (rect 4 35 86 47)(font "Arial" (font_size 8)))
 		(line (pt 0 48)(pt 112 48)(line_width 3))
 	)
 	(port
 		(pt 0 64)
 		(input)
 		(text "wren" (rect 0 0 29 13)(font "Arial" (font_size 8)))
-		(text "wren" (rect 4 51 29 63)(font "Arial" (font_size 8)))
+		(text "wren" (rect 4 51 30 63)(font "Arial" (font_size 8)))
 		(line (pt 0 64)(pt 112 64))
 	)
 	(port
 		(pt 0 88)
 		(input)
-		(text "rdaddress[8..0]" (rect 0 0 86 13)(font "Arial" (font_size 8)))
-		(text "rdaddress[8..0]" (rect 4 75 77 87)(font "Arial" (font_size 8)))
+		(text "rdaddress[12..0]" (rect 0 0 92 13)(font "Arial" (font_size 8)))
+		(text "rdaddress[12..0]" (rect 4 75 83 87)(font "Arial" (font_size 8)))
 		(line (pt 0 88)(pt 112 88)(line_width 3))
 	)
 	(port
@@ -67,8 +67,8 @@ agreement for further details.
 		(line (pt 256 88)(pt 192 88)(line_width 3))
 	)
 	(drawing
-		(text "8192 Bit(s)" (rect 138 -10 230 174)(font "Arial" )(vertical))
-		(text "RAM" (rect 148 -20 228 150)(font "Arial" )(vertical))
+		(text "8192 Word(s)" (rect 138 -9 236 186)(font "Arial" )(vertical))
+		(text "RAM" (rect 148 -19 228 150)(font "Arial" )(vertical))
 		(text "Block Type: M9K" (rect 40 126 154 262)(font "Arial" ))
 		(line (pt 128 24)(pt 168 24))
 		(line (pt 168 24)(pt 168 96))
