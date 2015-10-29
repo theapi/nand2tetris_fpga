@@ -1,7 +1,6 @@
 
 /*
- * Example 12-13: Verilog HDL Single-Clock Simple Dual-Port Synchronous RAM 
- * with New Data Read-During-Write Behavior
+ * Example 12-14: Single-Clock Synchronous RAM with Old Data Read‐During‐Write Behavior
  *
  * Quartus II handbook
  * https://www.altera.com/content/dam/altera-www/global/en_US/pdfs/literature/hb/qts/quartusii_handbook.pdf
@@ -35,8 +34,8 @@ module vga_ram(
     
     always @ (posedge clk) begin
         if (we)
-            mem[write_address] = d;
-        q = mem[read_address]; // q does get d in this clock cycle if we is high
+            mem[write_address] <= d;
+        q <= mem[read_address]; // q doesn't get d in this clock cycle
     end
     
 endmodule
