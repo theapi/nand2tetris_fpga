@@ -43,15 +43,16 @@
     begin
         // black board surrounding the hack screen of 512 x 256 
         // on the 800 x 480 vga screen
-        if (vga_h > 511) begin
+        if (vga_h < 11'd144 || vga_h > 11'd655) begin
             out = 0;
             r_address = 0;
         end
-        else if (vga_v > 255) begin
+        else if (vga_v < 11'd112 || vga_v > 11'd367) begin
             out = 0;
             r_address = 0;
         end
         else begin
+            // hack screen contents
             r_address = (vga_h + (vga_v * 13'd512) ) / 13'd16;
             out = read_value[pixel_bit];
         end
