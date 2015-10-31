@@ -34,26 +34,36 @@
     
     reg out;
     
-    wire [10:0] pixel_bit_calc;
-    assign pixel_bit_calc = (vga_h + vga_h) % 5'd16;
-    assign pixel_bit = pixel_bit_calc[4:0];
+    //wire [15:0] pixel_bit_calc;
+    //assign pixel_bit_calc = (vga_h + vga_v);// % 5'd16;
+    assign pixel_bit = pixel_bit_calc[3:0];
     
+    reg [15:0] pixel_bit_calc;
+    reg [10:0] h;
+    reg [10:0] v;
+    reg [31:0] pixel_addr;
     
-    always @ (vga_h or vga_v or read_value or pixel_bit)
+    always @ (*)
     begin
         // black board surrounding the hack screen of 512 x 256 
         // on the 800 x 480 vga screen
-        if (vga_h < 11'd144 || vga_h > 11'd655) begin
+        if (vga_h < 11'd144 || vga_h > 11'd655 
+         || vga_v < 11'd112 || vga_v > 11'd367) begin
             out = 0;
             r_address = 0;
-        end
-        else if (vga_v < 11'd112 || vga_v > 11'd367) begin
-            out = 0;
-            r_address = 0;
+            h = 0;
+            v = 0;
+            pixel_addr = 0;
+            pixel_bit_calc = 0;
         end
         else begin
             // hack screen contents
-            r_address = ( (vga_h - 144) + ( (vga_v - 112) * 13'd512) ) / 13'd16;
+            //r_address = ( (vga_h - 144) + ( (vga_v - 112) * 512) ) >> 4; // >> 4 is divide by 16
+            h = vga_h - 11'd144;
+            v = vga_v - 11'd112;
+            pixel_addr = (h + (v * 32'd512)) >> 4;
+            r_address = pixel_addr[12:0];
+            pixel_bit_calc = h + v;
             out = read_value[pixel_bit];
         end
     end
