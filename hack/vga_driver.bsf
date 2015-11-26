@@ -41,9 +41,9 @@ agreement for further details.
 	(port
 		(pt 0 64)
 		(input)
-		(text "PIXEL" (rect 0 0 27 12)(font "Arial" ))
-		(text "PIXEL" (rect 21 59 48 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64)(line_width 1))
+		(text "PIXEL[2..0]" (rect 0 0 47 12)(font "Arial" ))
+		(text "PIXEL[2..0]" (rect 21 59 68 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
 	)
 	(port
 		(pt 232 32)

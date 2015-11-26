@@ -22,7 +22,7 @@ module vga_driver
     );
     input CLOCK_PIXEL;
     input RESET;
-    input PIXEL; // black (0) or white (1)
+    input [2:0] PIXEL; // 1 red, 1 green, 1 blue
     output [10:0] PIXEL_H;
     output [10:0] PIXEL_V;
     output VGA_RED;
@@ -117,18 +117,9 @@ module vga_driver
                 
                 
                 // Draw the pixel.
-                if (PIXEL) begin
-                    // white
-                    red <= 1;
-                    green <= 1;
-                    blue <= 1;
-                end 
-                else begin
-                    // black
-                    red <= 0;
-                    green <= 0;
-                    blue <= 0;
-                end
+                red   <= PIXEL[2];
+                green <= PIXEL[1];
+                blue  <= PIXEL[0];
                 
 
             end

@@ -21,7 +21,7 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 232 160)
+	(rect 16 16 248 160)
 	(text "frame_buffer" (rect 5 0 60 12)(font "Arial" ))
 	(text "inst" (rect 8 128 20 140)(font "Arial" ))
 	(port
@@ -67,13 +67,13 @@ agreement for further details.
 		(line (pt 0 112)(pt 16 112)(line_width 3))
 	)
 	(port
-		(pt 216 32)
+		(pt 232 32)
 		(output)
-		(text "pixel_out" (rect 0 0 34 12)(font "Arial" ))
-		(text "pixel_out" (rect 161 27 195 39)(font "Arial" ))
-		(line (pt 216 32)(pt 200 32)(line_width 1))
+		(text "pixel_out[2..0]" (rect 0 0 54 12)(font "Arial" ))
+		(text "pixel_out[2..0]" (rect 157 27 211 39)(font "Arial" ))
+		(line (pt 232 32)(pt 216 32)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 200 128)(line_width 1))
+		(rectangle (rect 16 16 216 128)(line_width 1))
 	)
 )

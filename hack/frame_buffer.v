@@ -24,7 +24,7 @@
     input [10:0] vga_h; // the current vertical pixel count being displayed
     input [10:0] vga_v; // the current horizontal pixel count being displayed
     
-    output pixel_out;            // The requested  pixel value at vga_h x vga_v
+    output [2:0] pixel_out;            // The requested  pixel value at vga_h x vga_v
     
     wire[15:0] read_value;
     wire[4:0] pixel_bit;
@@ -32,7 +32,7 @@
     wire[12:0] read_address;
     reg[12:0] r_address;
     
-    reg out;
+    reg [2:0] out;
     
     //wire [15:0] pixel_bit_calc;
     //assign pixel_bit_calc = (vga_h + vga_v);// % 5'd16;
@@ -49,7 +49,7 @@
         // on the 800 x 480 vga screen
         if (vga_h < 11'd144 || vga_h > 11'd655 
          || vga_v < 11'd112 || vga_v > 11'd367) begin
-            out = 0;
+            out = 3'b001;
             r_address = 0;
             h = 0;
             v = 0;
@@ -64,7 +64,12 @@
             pixel_addr = (h + (v * 32'd512)) >> 4;
             r_address = pixel_addr[12:0];
             pixel_bit_calc = h + v;
-            out = read_value[pixel_bit];
+            //out = read_value[pixel_bit];
+            if (read_value[pixel_bit]) begin
+                out = 3'b111;
+            end else begin
+                out = 3'b000;
+            end
         end
     end
     
