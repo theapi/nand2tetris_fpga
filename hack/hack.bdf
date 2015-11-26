@@ -56,7 +56,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 320 784 488 800)
+	(rect 240 936 408 952)
 	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
 	(text "PS2_CLOCK" (rect 5 0 72 11)(font "Arial" ))
 	(pt 168 8)
@@ -69,11 +69,11 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 149 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 256 784 320 800))
+	(annotation_block (location)(rect 176 936 240 952))
 )
 (pin
 	(input)
-	(rect 304 840 472 856)
+	(rect 224 992 392 1008)
 	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
 	(text "PS2_DATA" (rect 5 0 64 11)(font "Arial" ))
 	(pt 168 8)
@@ -86,7 +86,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 149 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 240 840 304 856))
+	(annotation_block (location)(rect 160 992 224 1008))
 )
 (pin
 	(output)
@@ -175,7 +175,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect 1128 672 1304 688)
+	(rect 1144 920 1320 936)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[0]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -188,11 +188,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 672 1328 688))
+	(annotation_block (location)(rect 1280 920 1344 936))
 )
 (pin
 	(output)
-	(rect 1128 688 1304 704)
+	(rect 1144 936 1320 952)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[1]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -205,11 +205,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 688 1328 704))
+	(annotation_block (location)(rect 1280 936 1344 952))
 )
 (pin
 	(output)
-	(rect 1128 704 1304 720)
+	(rect 1144 952 1320 968)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[2]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -222,11 +222,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 704 1328 720))
+	(annotation_block (location)(rect 1280 952 1344 968))
 )
 (pin
 	(output)
-	(rect 1128 720 1304 736)
+	(rect 1144 968 1320 984)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[3]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -239,11 +239,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 720 1328 736))
+	(annotation_block (location)(rect 1280 968 1344 984))
 )
 (pin
 	(output)
-	(rect 1128 736 1304 752)
+	(rect 1144 984 1320 1000)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[4]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -256,11 +256,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 736 1320 752))
+	(annotation_block (location)(rect 1280 984 1336 1000))
 )
 (pin
 	(output)
-	(rect 1128 752 1304 768)
+	(rect 1144 1000 1320 1016)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[5]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -273,11 +273,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 752 1320 768))
+	(annotation_block (location)(rect 1280 1000 1336 1016))
 )
 (pin
 	(output)
-	(rect 1128 768 1304 784)
+	(rect 1144 1016 1320 1032)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[6]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -290,11 +290,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 768 1320 784))
+	(annotation_block (location)(rect 1280 1016 1336 1032))
 )
 (pin
 	(output)
-	(rect 1128 784 1304 800)
+	(rect 1144 1032 1320 1048)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
 	(text "LED[7]" (rect 90 0 124 11)(font "Arial" ))
 	(pt 0 8)
@@ -307,7 +307,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 1264 784 1320 800))
+	(annotation_block (location)(rect 1280 1032 1336 1048))
 )
 (symbol
 	(rect 440 128 640 208)
@@ -535,7 +535,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 496 744 688 856)
+	(rect 416 896 608 1008)
 	(text "ps2decoder" (rect 5 0 64 11)(font "Arial" ))
 	(text "inst5" (rect 8 96 32 107)(font "Arial" ))
 	(port
@@ -578,7 +578,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 944 648 1112 824)
+	(rect 960 896 1128 1072)
 	(text "leds" (rect 5 0 27 11)(font "Arial" ))
 	(text "inst6" (rect 8 160 32 171)(font "Arial" ))
 	(port
@@ -649,7 +649,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 696 744 896 824)
+	(rect 712 896 912 976)
 	(text "ascii" (rect 5 0 28 11)(font "Arial" ))
 	(text "inst7" (rect 8 64 32 75)(font "Arial" ))
 	(port
@@ -675,6 +675,56 @@ agreement for further details.
 	)
 	(drawing
 		(rectangle (rect 16 16 184 64))
+	)
+)
+(symbol
+	(rect 1240 640 1432 784)
+	(text "memory" (rect 5 0 46 11)(font "Arial" ))
+	(text "inst8" (rect 8 128 32 139)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 15 11)(font "Arial" ))
+		(text "clk" (rect 21 27 36 38)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "in[15..0]" (rect 0 0 40 11)(font "Arial" ))
+		(text "in[15..0]" (rect 21 43 61 54)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "address[14..0]" (rect 0 0 70 11)(font "Arial" ))
+		(text "address[14..0]" (rect 21 59 91 70)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "load" (rect 0 0 22 11)(font "Arial" ))
+		(text "load" (rect 21 75 43 86)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "keyboard[7..0]" (rect 0 0 70 11)(font "Arial" ))
+		(text "keyboard[7..0]" (rect 21 91 91 102)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 192 32)
+		(output)
+		(text "out[15..0]" (rect 0 0 46 11)(font "Arial" ))
+		(text "out[15..0]" (rect 133 27 179 38)(font "Arial" ))
+		(line (pt 192 32)(pt 176 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 176 128))
 	)
 )
 (connector
@@ -784,10 +834,6 @@ agreement for further details.
 	(pt 392 296)
 )
 (connector
-	(pt 392 296)
-	(pt 392 440)
-)
-(connector
 	(pt 352 224)
 	(pt 856 224)
 )
@@ -839,93 +885,116 @@ agreement for further details.
 	(pt 392 440)
 )
 (connector
-	(pt 696 456)
-	(pt 352 456)
-)
-(connector
-	(pt 912 776)
-	(pt 896 776)
-	(bus)
-)
-(connector
-	(pt 688 792)
-	(pt 696 792)
-	(bus)
-)
-(connector
-	(pt 688 776)
-	(pt 696 776)
-)
-(connector
-	(pt 488 792)
-	(pt 496 792)
-)
-(connector
-	(pt 496 776)
-	(pt 352 776)
-)
-(connector
 	(pt 352 224)
 	(pt 352 456)
 )
 (connector
+	(pt 1144 928)
+	(pt 1128 928)
+)
+(connector
+	(pt 1144 944)
+	(pt 1128 944)
+)
+(connector
+	(pt 1144 960)
+	(pt 1128 960)
+)
+(connector
+	(pt 1144 976)
+	(pt 1128 976)
+)
+(connector
+	(pt 1144 992)
+	(pt 1128 992)
+)
+(connector
+	(pt 1144 1008)
+	(pt 1128 1008)
+)
+(connector
+	(pt 1144 1024)
+	(pt 1128 1024)
+)
+(connector
+	(pt 1144 1040)
+	(pt 1128 1040)
+)
+(connector
+	(pt 408 944)
+	(pt 416 944)
+)
+(connector
+	(pt 416 928)
+	(pt 272 928)
+)
+(connector
+	(pt 272 456)
+	(pt 272 928)
+)
+(connector
+	(pt 400 960)
+	(pt 400 1000)
+)
+(connector
+	(pt 416 960)
+	(pt 400 960)
+)
+(connector
+	(pt 400 1000)
+	(pt 392 1000)
+)
+(connector
+	(pt 272 456)
 	(pt 352 456)
-	(pt 352 776)
 )
 (connector
-	(pt 480 808)
-	(pt 480 848)
+	(pt 352 456)
+	(pt 696 456)
 )
 (connector
-	(pt 496 808)
-	(pt 480 808)
-)
-(connector
-	(pt 480 848)
-	(pt 472 848)
-)
-(connector
-	(pt 1128 680)
-	(pt 1112 680)
-)
-(connector
-	(pt 1128 696)
-	(pt 1112 696)
-)
-(connector
-	(pt 1128 712)
-	(pt 1112 712)
-)
-(connector
-	(pt 1128 728)
-	(pt 1112 728)
-)
-(connector
-	(pt 1128 744)
-	(pt 1112 744)
-)
-(connector
-	(pt 1128 760)
-	(pt 1112 760)
-)
-(connector
-	(pt 1128 776)
-	(pt 1112 776)
-)
-(connector
-	(pt 1128 792)
-	(pt 1112 792)
-)
-(connector
-	(pt 912 680)
-	(pt 944 680)
+	(pt 608 944)
+	(pt 712 944)
 	(bus)
 )
 (connector
-	(pt 912 776)
-	(pt 912 680)
+	(pt 608 928)
+	(pt 712 928)
+)
+(connector
+	(pt 392 296)
+	(pt 392 440)
+)
+(connector
+	(pt 392 440)
+	(pt 392 672)
+)
+(connector
+	(pt 392 672)
+	(pt 1240 672)
+)
+(connector
+	(pt 1240 736)
+	(pt 936 736)
+	(bus)
+)
+(connector
+	(pt 936 736)
+	(pt 936 928)
+	(bus)
+)
+(connector
+	(pt 912 928)
+	(pt 936 928)
+	(bus)
+)
+(connector
+	(pt 936 928)
+	(pt 960 928)
 	(bus)
 )
 (junction (pt 392 296))
 (junction (pt 352 224))
 (junction (pt 352 456))
+(junction (pt 392 440))
+(junction (pt 936 928))
