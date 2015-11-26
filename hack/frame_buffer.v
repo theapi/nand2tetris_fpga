@@ -6,25 +6,21 @@
  */
  
  module frame_buffer(
-    clk,
-    write_address,
-    data_in,
-    load,
-    vga_h,
-    vga_v,
-    pixel_out
+    input clk,             // the system clock
+    
+    input [12:0] write_address,
+    input [15:0] data_in,       // what to write (16 pixels, black or white)
+    input load,            // write-enable bit
+    
+    input [7:0] keyboard, // debug the current keypress on the vga
+    
+    input [10:0] vga_h, // the current vertical pixel count being displayed
+    input [10:0] vga_v, // the current horizontal pixel count being displayed
+    
+    output [2:0] pixel_out    // The requested  pixel value at vga_h x vga_v
  );
  
-    input clk;             // the system clock
-    
-    input [12:0] write_address;
-    input [15:0] data_in;       // what to write (16 pixels, black or white)
-    input load;            // write-enable bit
-    
-    input [10:0] vga_h; // the current vertical pixel count being displayed
-    input [10:0] vga_v; // the current horizontal pixel count being displayed
-    
-    output [2:0] pixel_out;            // The requested  pixel value at vga_h x vga_v
+
     
     wire[15:0] read_value;
     wire[4:0] pixel_bit;
@@ -49,7 +45,33 @@
         // on the 800 x 480 vga screen
         if (vga_h < 11'd144 || vga_h > 11'd655 
          || vga_v < 11'd112 || vga_v > 11'd367) begin
-            out = 3'b001;
+         
+            // Keyboard debug
+            if (vga_v > 11'd10 && vga_v < 11'd16) begin
+                if (vga_h > 11'd10 && vga_h < 11'd16) begin
+                    out = keyboard[7] ? 3'b100 : 3'b000;
+                end else if (vga_h > 11'd20 && vga_h < 11'd26) begin
+                    out = keyboard[6] ? 3'b100 : 3'b000;
+                end else if (vga_h > 11'd30 && vga_h < 11'd36) begin
+                    out = keyboard[5] ? 3'b100 : 3'b000;
+                end else if (vga_h > 11'd40 && vga_h < 11'd46) begin
+                    out = keyboard[4] ? 3'b100 : 3'b000;
+                end else if (vga_h > 11'd50 && vga_h < 11'd56) begin
+                    out = keyboard[3] ? 3'b100 : 3'b000;
+                end else if (vga_h > 11'd60 && vga_h < 11'd66) begin
+                    out = keyboard[2] ? 3'b100 : 3'b000;
+                end else if (vga_h > 11'd70 && vga_h < 11'd76) begin
+                    out = keyboard[1] ? 3'b100 : 3'b000;
+                end else if (vga_h > 11'd80 && vga_h < 11'd86) begin
+                    out = keyboard[0] ? 3'b100 : 3'b000;
+                end else begin
+                    out = 3'b001;
+                end
+            // Border
+            end else begin
+                out = 3'b001;
+            end
+            
             r_address = 0;
             h = 0;
             v = 0;
