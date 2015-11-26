@@ -310,28 +310,6 @@ agreement for further details.
 	(annotation_block (location)(rect 1280 1032 1336 1048))
 )
 (symbol
-	(rect 440 128 640 208)
-	(text "clock_25" (rect 5 0 49 11)(font "Arial" ))
-	(text "inst1" (rect 8 64 32 75)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "CLOCK_50" (rect 0 0 57 11)(font "Arial" ))
-		(text "CLOCK_50" (rect 21 27 78 38)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 200 32)
-		(output)
-		(text "CLOCK_25" (rect 0 0 57 11)(font "Arial" ))
-		(text "CLOCK_25" (rect 131 27 188 38)(font "Arial" ))
-		(line (pt 200 32)(pt 184 32))
-	)
-	(drawing
-		(rectangle (rect 16 16 184 64))
-	)
-)
-(symbol
 	(rect 304 208 352 240)
 	(text "NOT" (rect 1 0 22 10)(font "Arial" (font_size 6)))
 	(text "inst2" (rect 3 21 27 32)(font "Arial" ))
@@ -725,6 +703,28 @@ agreement for further details.
 	)
 	(drawing
 		(rectangle (rect 16 16 176 128))
+	)
+)
+(symbol
+	(rect 440 128 640 208)
+	(text "clock_25" (rect 5 0 49 11)(font "Arial" ))
+	(text "pixel_clock" (rect 8 64 63 75)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "CLOCK_50" (rect 0 0 57 11)(font "Arial" ))
+		(text "CLOCK_50" (rect 21 27 78 38)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 200 32)
+		(output)
+		(text "CLOCK_25" (rect 0 0 57 11)(font "Arial" ))
+		(text "CLOCK_25" (rect 131 27 188 38)(font "Arial" ))
+		(line (pt 200 32)(pt 184 32))
+	)
+	(drawing
+		(rectangle (rect 16 16 184 64))
 	)
 )
 (connector
