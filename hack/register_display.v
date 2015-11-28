@@ -1,3 +1,7 @@
+ /**
+  * Displays the binary content of a 16 bit register on the screen.
+  */
+ 
  module register_display(
     input clk,             // the system clock
     input [15:0] data_in,  // the value of the register to show
@@ -17,23 +21,39 @@
    
    	always @ (posedge clk) begin
         if (vga_v > position_v + 11'd10 && vga_v < position_v + 11'd16 
-        && vga_h > position_h + 11'd10 && vga_h < position_h + 11'd86) begin
+        && vga_h > position_h + 11'd10 && vga_h < position_h + 11'd166) begin
             on <= 1'b1;
             if (vga_h > position_h + 11'd10 && vga_h < position_h + 11'd16) begin
-                out <= data_in[7] ? 3'b100 : 3'b000;
+                out <= data_in[15] ? 3'b100 : 3'b000;
             end else if (vga_h > position_h + 11'd20 && vga_h < position_h + 11'd26) begin
-                out <= data_in[6] ? 3'b100 : 3'b000;
+                out <= data_in[14] ? 3'b100 : 3'b000;
             end else if (vga_h > position_h + 11'd30 && vga_h < position_h + 11'd36) begin
-                out <= data_in[5] ? 3'b100 : 3'b000;
+                out <= data_in[13] ? 3'b100 : 3'b000;
             end else if (vga_h > position_h + 11'd40 && vga_h < position_h + 11'd46) begin
-                out <= data_in[4] ? 3'b100 : 3'b000;
+                out <= data_in[12] ? 3'b100 : 3'b000;
             end else if (vga_h > position_h + 11'd50 && vga_h < position_h + 11'd56) begin
-                out <= data_in[3] ? 3'b100 : 3'b000;
+                out <= data_in[11] ? 3'b100 : 3'b000;
             end else if (vga_h > position_h + 11'd60 && vga_h < position_h + 11'd66) begin
-                out <= data_in[2] ? 3'b100 : 3'b000;
+                out <= data_in[10] ? 3'b100 : 3'b000;
             end else if (vga_h > position_h + 11'd70 && vga_h < position_h + 11'd76) begin
-                out <= data_in[1] ? 3'b100 : 3'b000;
+                out <= data_in[9] ? 3'b100 : 3'b000;
             end else if (vga_h > position_h + 11'd80 && vga_h < position_h + 11'd86) begin
+                out <= data_in[8] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd90 && vga_h < position_h + 11'd96) begin
+                out <= data_in[7] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd100 && vga_h < position_h + 11'd106) begin
+                out <= data_in[6] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd110 && vga_h < position_h + 11'd116) begin
+                out <= data_in[5] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd120 && vga_h < position_h + 11'd126) begin
+                out <= data_in[4] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd130 && vga_h < position_h + 11'd136) begin
+                out <= data_in[3] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd140 && vga_h < position_h + 11'd146) begin
+                out <= data_in[2] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd150 && vga_h < position_h + 11'd156) begin
+                out <= data_in[1] ? 3'b100 : 3'b000;
+            end else if (vga_h > position_h + 11'd160 && vga_h < position_h + 11'd166) begin
                 out <= data_in[0] ? 3'b100 : 3'b000;
             end else begin
                 out <= bg;
