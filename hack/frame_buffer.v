@@ -39,13 +39,20 @@
     reg [10:0] v;
     reg [31:0] pixel_addr;
     
+    wire [2:0] kb_display_out;
+    wire kb_display_on;
+    register_display kb_display (.data_in({8'd0, keyboard}), 
+      .position_h(11'd10), .position_v(11'd10), 
+      .vga_h(vga_h), .vga_v(vga_v), 
+      .bg(3'b001), .pixel_out(kb_display_out), .display_on(kb_display_on));
+
     always @ (*)
     begin
         // black board surrounding the hack screen of 512 x 256 
         // on the 800 x 480 vga screen
         if (vga_h < 11'd144 || vga_h > 11'd655 
          || vga_v < 11'd112 || vga_v > 11'd367) begin
-         
+         /*
             // Keyboard debug
             if (vga_v > 11'd10 && vga_v < 11'd16) begin
                 if (vga_h > 11'd10 && vga_h < 11'd16) begin
@@ -71,7 +78,12 @@
             end else begin
                 out = 3'b001;
             end
-            
+         */
+         if (kb_display_on) begin
+            out = kb_display_out;
+         end else begin
+            out = 3'b001;
+         end
             r_address = 0;
             h = 0;
             v = 0;
@@ -108,16 +120,5 @@
         .clk(clk)
     );
     
-    /*
-    ram_m9k vgaram(
-        .clock(clk),
-        .data(data_in),
-        .rdaddress(read_address),
-        .wraddress(write_address),
-        .wren(load),
-        .q(read_value)
-    );
-    */
-
     
 endmodule
