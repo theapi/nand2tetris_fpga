@@ -48,7 +48,7 @@ module ascii (
                 //8'h77: r_ascii <=  NUM
                 
                 8'h5a: r_ascii <= 8'd10;  // [enter]
-                
+                8'h29: r_ascii <= 8'd32;  // [space]
                 8'h52: r_ascii <= 8'd39;  // '
                 8'h7c: r_ascii <= 8'd42;  // KP *
                 8'h79: r_ascii <= 8'd43;  // KP +
