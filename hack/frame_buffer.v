@@ -26,27 +26,44 @@
     wire[4:0] pixel_bit;
     
     wire[12:0] read_address;
-    reg[12:0] r_address;
+    //reg[12:0] r_address;
     
     reg [2:0] out;
     
-    //wire [15:0] pixel_bit_calc;
-    //assign pixel_bit_calc = (vga_h + vga_v);// % 5'd16;
-    assign pixel_bit = pixel_bit_calc[3:0];
     
-    reg [15:0] pixel_bit_calc;
-    reg [10:0] h;
-    reg [10:0] v;
-    reg [31:0] pixel_addr;
+    
+    wire [15:0] pixel_bit_calc;
+    //reg [10:0] h;
+    //reg [10:0] v;
+    wire [31:0] pixel_addr;
+    
+ 
+    assign pixel_addr = ((vga_h - 11'd144) + ((vga_v - 11'd112) * 32'd512)) >> 4;
+    assign pixel_bit_calc = (vga_h - 11'd144) + (vga_v - 11'd112);
+    assign pixel_bit = pixel_bit_calc[3:0];
+    assign read_address = pixel_addr[12:0];
+    assign pixel_out = out;
+    
+    // Screen ram
+    vga_ram vgaram(
+        .q(read_value), // from ram
+        .d(data_in), // to ram
+        .write_address(write_address), // where to write in ram
+        .read_address(read_address), // where to read from
+        .we(load), // do a write
+        .clk(clk)
+    );
+    
+    
     
     wire [2:0] kb_display_out;
     wire kb_display_on;
-    register_display kb_display (.data_in({8'd0, keyboard}), 
+    register_display kb_display (.clk(clk), .data_in({8'd0, keyboard}), 
       .position_h(11'd10), .position_v(11'd10), 
       .vga_h(vga_h), .vga_v(vga_v), 
       .bg(3'b001), .pixel_out(kb_display_out), .display_on(kb_display_on));
 
-    always @ (*)
+    always @ (posedge clk)
     begin
         // black board surrounding the hack screen of 512 x 256 
         // on the 800 x 480 vga screen
@@ -79,46 +96,38 @@
                 out = 3'b001;
             end
          */
+         
          if (kb_display_on) begin
-            out = kb_display_out;
+            out <= kb_display_out;
          end else begin
-            out = 3'b001;
+            out <= 3'b001;
          end
-            r_address = 0;
-            h = 0;
-            v = 0;
-            pixel_addr = 0;
-            pixel_bit_calc = 0;
+         
+         //out <= 3'b001;
+         
+            //r_address <= 0;
+            //h <= 0;
+           // v <= 0;
+            //pixel_addr <= 0;
+            //pixel_bit_calc <= 0;
         end
         else begin
             // hack screen contents
             //r_address = ( (vga_h - 144) + ( (vga_v - 112) * 512) ) >> 4; // >> 4 is divide by 16
-            h = vga_h - 11'd144;
-            v = vga_v - 11'd112;
-            pixel_addr = (h + (v * 32'd512)) >> 4;
-            r_address = pixel_addr[12:0];
-            pixel_bit_calc = h + v;
+            //h <= vga_h - 11'd144;
+            //v <= vga_v - 11'd112;
+            //pixel_addr <= ((vga_h - 11'd144) + ((vga_v - 11'd112) * 32'd512)) >> 4;
+            //r_address <= pixel_addr[12:0];
+            //pixel_bit_calc <= (vga_h - 11'd144) + (vga_v - 11'd112);
             //out = read_value[pixel_bit];
             if (read_value[pixel_bit]) begin
-                out = 3'b111;
+                out <= 3'b111;
             end else begin
-                out = 3'b000;
+                out <= 3'b000;
             end
         end
     end
     
-    assign read_address = r_address;
-    assign pixel_out = out;
-    
-    
-    vga_ram vgaram(
-        .q(read_value), // from ram
-        .d(data_in), // to ram
-        .write_address(write_address), // where to write in ram
-        .read_address(read_address), // where to read from
-        .we(load), // do a write
-        .clk(clk)
-    );
-    
+
     
 endmodule
