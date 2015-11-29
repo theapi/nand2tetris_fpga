@@ -1,7 +1,7 @@
 module ram_16(
     output reg [15:0] q,
     input [15:0] d,
-    input [12:0] write_address, read_address,
+    input [13:0] write_address, read_address,
     input we, clk
 );
     (* ramstyle = "M9K" *)

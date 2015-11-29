@@ -14,12 +14,12 @@ module memory (
 
 
     
-    wire [12:0] write_address, read_address;
+    wire [13:0] write_address, read_address;
     wire [15:0] ram_q;
     reg ram_we;
     
-    assign write_address = address[12:0];
-    assign read_address = address[12:0];
+    assign write_address = address[13:0];
+    assign read_address = address[13:0];
     
     ram_16 ram16(
         .q(ram_q), // from ram
