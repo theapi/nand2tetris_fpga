@@ -11,7 +11,7 @@ functions, and any output files from any of the foregoing
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus II License Agreement,
+Subscription Agreement, the Altera Quartus Prime License Agreement,
 the Altera MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
@@ -34,15 +34,15 @@ agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "write_address[12..0]" (rect 0 0 79 12)(font "Arial" ))
-		(text "write_address[12..0]" (rect 21 43 100 55)(font "Arial" ))
+		(text "write_address[13..0]" (rect 0 0 79 12)(font "Arial" ))
+		(text "write_address[13..0]" (rect 21 43 100 55)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port
 		(pt 0 64)
 		(input)
-		(text "read_address[12..0]" (rect 0 0 79 12)(font "Arial" ))
-		(text "read_address[12..0]" (rect 21 59 100 71)(font "Arial" ))
+		(text "read_address[13..0]" (rect 0 0 79 12)(font "Arial" ))
+		(text "read_address[13..0]" (rect 21 59 100 71)(font "Arial" ))
 		(line (pt 0 64)(pt 16 64)(line_width 3))
 	)
 	(port

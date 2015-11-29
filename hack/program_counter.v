@@ -1,6 +1,7 @@
 
 /**
  * Selects the needed program instruction
+ only upto 16K for now :(
  */
 
  module program_counter(
@@ -8,11 +9,11 @@
     input reset,
     input inc,
     input load,
-    input [12:0] in,
-    output [12:0] out
+    input [13:0] in,
+    output [13:0] out
  );
 
-    reg [12:0] r_out;
+    reg [13:0] r_out;
     
     assign out = r_out;
     
@@ -22,7 +23,7 @@
         if (reset) begin 
             r_out <= 0;
         end else begin
-            r_out <= r_out + 13'd1;
+            r_out <= r_out + 14'd1;
         end
     end
  
