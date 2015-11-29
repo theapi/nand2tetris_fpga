@@ -5,8 +5,6 @@
  module register_display(
     input clk,               // the system clock
     input [15:0] data_in,    // the value of the register to show
-	input [10:0] position_h, // horizontal pixel where this should appear on the screen
-    input [10:0] position_v, // vertical pixel where this should appear on the screen
     input [10:0] vga_h,      // the current vertical pixel count being displayed
     input [10:0] vga_v,      // the current horizontal pixel count being displayed
     input [2:0] bg,          // the colour of the background pixel
@@ -14,17 +12,20 @@
     output display_on        // whether the screen should be displaying this
  );
  
+    parameter START_H = 10;  // horizontal pixel where this should appear on the screen
+    parameter START_V = 380; // vertical pixel where this should appear on the screen
+ 
     reg [2:0] out = 0;
     assign pixel_out = out;
     reg on = 0;
     assign display_on = on;
    
    	always @ (posedge clk) begin
-        if (vga_v >= position_v && vga_v < position_v + 11'd6
-        && vga_h >= position_h && vga_h < position_h + 11'd161) begin
+        if (vga_v >= START_V && vga_v < START_V + 11'd6
+        && vga_h >= START_H && vga_h < START_H + 11'd161) begin
             on <= 1'b1;
             // 5 x 5 squares that light if the corresponding bit in the data is set.
-            case (vga_h - position_h) 
+            case (vga_h - START_H) 
                   11'd0,  11'd1,  11'd2,  11'd3,  11'd4: out <= data_in[15] ? 3'b100 : 3'b000;
                  11'd10, 11'd11, 11'd12, 11'd13, 11'd14: out <= data_in[14] ? 3'b100 : 3'b000;
                  11'd20, 11'd21, 11'd22, 11'd23, 11'd24: out <= data_in[13] ? 3'b100 : 3'b000;

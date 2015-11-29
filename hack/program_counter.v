@@ -22,7 +22,7 @@
         if (reset) begin 
             r_out <= 0;
         end else begin
-            r_out <= r_out + 12'd1;
+            r_out <= r_out + 13'd1;
         end
     end
  

@@ -13,6 +13,8 @@
     input load,            // write-enable bit
     
     input [7:0] keyboard, // debug the current keypress on the vga
+    input [15:0] instruction, // debug the current instruction register on the vga
+    input [15:0] data_register, // debug the current instruction register on the vga
     
     input [10:0] vga_h, // the current vertical pixel count being displayed
     input [10:0] vga_v, // the current horizontal pixel count being displayed
@@ -47,10 +49,30 @@
     // Keyboard debug
     wire [2:0] kb_display_out;
     wire kb_display_on;
-    register_display kb_display (.clk(clk), .data_in({8'd0, keyboard}), 
-      .position_h(11'd10), .position_v(11'd10), 
-      .vga_h(vga_h), .vga_v(vga_v), 
-      .bg(3'b001), .pixel_out(kb_display_out), .display_on(kb_display_on));
+    register_display #(.START_H(11'd10), .START_V(11'd10)) kb_display (
+        .clk(clk), .data_in({8'd0, keyboard}),
+        .vga_h(vga_h), .vga_v(vga_v),
+        .bg(3'b001), .pixel_out(kb_display_out), .display_on(kb_display_on)
+    );
+    
+    // Instruction debug
+    wire [2:0] instruction_display_out;
+    wire instruction_display_on;
+    register_display #(.START_H(11'd10), .START_V(11'd20)) instruction_display (
+        .clk(clk), .data_in(instruction),
+        .vga_h(vga_h), .vga_v(vga_v),
+        .bg(3'b001), .pixel_out(instruction_display_out), .display_on(instruction_display_on)
+    );
+    
+    
+    // data_register debug
+    wire [2:0] data_register_display_out;
+    wire data_register_display_on;
+    register_display #(.START_H(11'd10), .START_V(11'd30)) data_register_display (
+        .clk(clk), .data_in(data_register),
+        .vga_h(vga_h), .vga_v(vga_v),
+        .bg(3'b001), .pixel_out(data_register_display_out), .display_on(data_register_display_on)
+    );
 
       
     always @ (posedge clk) begin
@@ -60,6 +82,10 @@
         || vga_v < 11'd112 || vga_v > 11'd367) begin
             if (kb_display_on) begin
                 out <= kb_display_out;
+            end else if (instruction_display_on) begin
+                out <= instruction_display_out;
+            end else if (data_register_display_on) begin
+                out <= data_register_display_out;
             end else begin
                 out <= 3'b001;
             end
