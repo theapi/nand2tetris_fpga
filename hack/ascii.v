@@ -24,7 +24,7 @@ module ascii (
             end else 
             case (scan_code)
             
-                8'h66: r_ascii <= 8'd8;  // [back space]
+                
                 8'h0d: r_ascii <= 8'd9;  // [tab]
                 //8'h58: r_ascii <=  CAPS
                 //8'h12: r_ascii <=  L SHIFT
@@ -47,7 +47,7 @@ module ascii (
                 //8'h7e: r_ascii <=  SCROLL
                 //8'h77: r_ascii <=  NUM
                 
-                8'h5a: r_ascii <= 8'd10;  // [enter]
+                
                 8'h29: r_ascii <= 8'd32;  // [space]
                 8'h52: r_ascii <= 8'd39;  // '
                 8'h7c: r_ascii <= 8'd42;  // KP *
@@ -114,6 +114,23 @@ module ascii (
                 8'h22: r_ascii <= 8'd120; // x
                 8'h35: r_ascii <= 8'd121; // y
                 8'h1a: r_ascii <= 8'd122; // z
+                
+                // nand2tetris special codes
+                8'h5a: r_ascii <= 8'd128;  // [enter]
+                8'h66: r_ascii <= 8'd129;  // [back space]
+                8'h05: r_ascii <= 8'd141;  // F1
+                8'h06: r_ascii <= 8'd142;  // F2
+                8'h04: r_ascii <= 8'd143;  // F3
+                8'h0c: r_ascii <= 8'd144;  // F4
+                8'h03: r_ascii <= 8'd145;  // F5
+                8'h0b: r_ascii <= 8'd146;  // F6
+                8'h83: r_ascii <= 8'd147;  // F7
+                8'h0a: r_ascii <= 8'd148;  // F8
+                8'h01: r_ascii <= 8'd149;  // F9
+                8'h09: r_ascii <= 8'd150;  // F10
+                8'h78: r_ascii <= 8'd151;  // F11
+                8'h07: r_ascii <= 8'd152;  // F12
+                
                 
                 default: r_ascii <= 8'd0; // null
             endcase
