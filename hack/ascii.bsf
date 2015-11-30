@@ -21,22 +21,29 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 216 96)
+	(rect 16 16 216 128)
 	(text "ascii" (rect 5 0 21 12)(font "Arial" ))
-	(text "inst" (rect 8 64 20 76)(font "Arial" ))
+	(text "inst" (rect 8 96 20 108)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
-		(text "scan_ready" (rect 0 0 48 12)(font "Arial" ))
-		(text "scan_ready" (rect 21 27 69 39)(font "Arial" ))
+		(text "clk" (rect 0 0 10 12)(font "Arial" ))
+		(text "clk" (rect 21 27 31 39)(font "Arial" ))
 		(line (pt 0 32)(pt 16 32)(line_width 1))
 	)
 	(port
 		(pt 0 48)
 		(input)
+		(text "scan_ready" (rect 0 0 48 12)(font "Arial" ))
+		(text "scan_ready" (rect 21 43 69 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
 		(text "scan_code[7..0]" (rect 0 0 63 12)(font "Arial" ))
-		(text "scan_code[7..0]" (rect 21 43 84 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48)(line_width 3))
+		(text "scan_code[7..0]" (rect 21 59 84 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
 	)
 	(port
 		(pt 200 32)
@@ -46,6 +53,6 @@ agreement for further details.
 		(line (pt 200 32)(pt 184 32)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 184 64)(line_width 1))
+		(rectangle (rect 16 16 184 96)(line_width 1))
 	)
 )
