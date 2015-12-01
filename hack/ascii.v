@@ -13,9 +13,20 @@ module ascii (
     
     reg keyup = 0;
     reg extended = 0;
+    
+    
+    // Handle each scan_ready only once.
+    reg scan_code_processed = 0;
+
 
     always @(posedge clk) begin
-        if (scan_ready) begin 
+        if (!scan_ready) begin
+            scan_code_processed <= 0;
+        end 
+        else if (!scan_code_processed) begin 
+        
+            scan_code_processed <= 1;
+        
             if (scan_code == 8'hf0) begin
                 keyup <= 1;
             end else if (scan_code == 8'he0) begin
