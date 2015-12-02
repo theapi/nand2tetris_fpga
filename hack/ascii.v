@@ -9,15 +9,20 @@ module ascii (
     // @todo: shift, alt etc
     
     reg [7:0] r_ascii;
+    reg [1:0] scan_ready_edge_detect = 2'b00;
     assign ascii = r_ascii;
     
     reg keyup = 0;
-    reg ignore = 0;
     reg extended = 0;
+    
+    always @(posedge clk) begin
+        scan_ready_edge_detect <= {scan_ready_edge_detect[0], scan_ready};
+    end
 
 
     always @(posedge clk) begin
-        if (scan_ready) begin 
+        
+        if (scan_ready_edge_detect == 2'b01) begin // @ posedge scan_ready
         
             if (scan_code == 8'hf0) begin
                 keyup <= 1;
@@ -27,11 +32,7 @@ module ascii (
             end else begin
                 if (keyup) begin
                     keyup <= 0;
-                    ignore <= 1; // ignore the next scan code as it the key that was just released.
                     r_ascii <= 8'd0;
-                end else 
-                if (ignore) begin
-                    ignore <= 0;
                 end else 
                 if (extended) begin
                     extended <= 0;

@@ -28,7 +28,6 @@ module ascii_tb();
         #2
         scan_ready = 1;
         scan_code = 8'h1c;
-        
         #10
         scan_ready = 0;
         
@@ -36,31 +35,55 @@ module ascii_tb();
         #10
         scan_ready = 1;
         scan_code = 8'hf0;
-        #4
+        #10
         scan_ready = 0;
-        #4
+        
+        #10
         scan_ready = 1;
         scan_code = 8'h1c;
-        #4
+        #10
         scan_ready = 0;
         
         
         #10
         scan_ready = 1;
         scan_code = 8'h32;
+        #10
+        scan_ready = 0;
+        
         // Break code (key up)
         #10
         scan_ready = 1;
         scan_code = 8'hf0;
-        #4
+        #10
         scan_ready = 0;
-        #4
+        
+        #10
         scan_ready = 1;
         scan_code = 8'h32;
-        #4
+        #10
         scan_ready = 0;
 
-
+        // Same key again
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32;
+        #10
+        scan_ready = 0;
+        
+        // Break code (key up)
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0;
+        #10
+        scan_ready = 0;
+        
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32;
+        #10
+        scan_ready = 0;
+        
 	end
 
     always begin
