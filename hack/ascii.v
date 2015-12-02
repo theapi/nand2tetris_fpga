@@ -12,20 +12,12 @@ module ascii (
     assign ascii = r_ascii;
     
     reg keyup = 0;
+    reg ignore = 0;
     reg extended = 0;
-    
-    
-    // Handle each scan_ready only once.
-    reg scan_code_processed = 0;
 
 
     always @(posedge clk) begin
-        if (!scan_ready) begin
-            scan_code_processed <= 0;
-        end 
-        else if (!scan_code_processed) begin 
-        
-            scan_code_processed <= 1;
+        if (scan_ready) begin 
         
             if (scan_code == 8'hf0) begin
                 keyup <= 1;
@@ -35,7 +27,11 @@ module ascii (
             end else begin
                 if (keyup) begin
                     keyup <= 0;
+                    ignore <= 1; // ignore the next scan code as it the key that was just released.
                     r_ascii <= 8'd0;
+                end else 
+                if (ignore) begin
+                    ignore <= 0;
                 end else 
                 if (extended) begin
                     extended <= 0;
