@@ -44,6 +44,11 @@ module ascii (
                         8'h74: r_ascii <= 8'd132; // R ARROW
                         8'h72: r_ascii <= 8'd133; // DOWN ARROW
                         8'h6c: r_ascii <= 8'd134; // HOME
+                        8'h69: r_ascii <= 8'd135; // END
+                        8'h7d: r_ascii <= 8'd136; // PAGE UP
+                        8'h7a: r_ascii <= 8'd137; // PAGE DOWN
+                        8'h70: r_ascii <= 8'd138; // INSERT
+                        8'h71: r_ascii <= 8'd139; // DELETE
                         
                         default: r_ascii <= 8'd0; // null
                     endcase
@@ -142,6 +147,7 @@ module ascii (
                         // nand2tetris special codes
                         8'h5a: r_ascii <= 8'd128;  // [enter]
                         8'h66: r_ascii <= 8'd129;  // [back space]
+                        8'h76: r_ascii <= 8'd140;  // ESCAPE
                         8'h05: r_ascii <= 8'd141;  // F1
                         8'h06: r_ascii <= 8'd142;  // F2
                         8'h04: r_ascii <= 8'd143;  // F3
