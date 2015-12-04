@@ -14,6 +14,7 @@ module ascii (
     
     reg keyup = 0;
     reg extended = 0;
+    reg shift = 0;
     
     always @(posedge clk) begin
         scan_ready_edge_detect <= {scan_ready_edge_detect[0], scan_ready};
@@ -29,6 +30,10 @@ module ascii (
             end else if (scan_code == 8'he0) begin
                 // extended make codes
                 extended <= 1;
+            // L SHIFT, R SHIFT, CAPS
+            end else if (scan_code == 8'h12 || scan_code == 8'h59  || scan_code == 8'h58) begin
+                // shift
+                shift <= 1;
             end else begin
                 if (keyup) begin
                     keyup <= 0;
@@ -52,27 +57,43 @@ module ascii (
                         
                         default: r_ascii <= 8'd0; // null
                     endcase
+                end else
+                if (shift) begin
+                    shift <= 0;
+                    case (scan_code)
+                        8'h1c: r_ascii <= 8'd65; // A
+                        8'h32: r_ascii <= 8'd66; // B
+                        8'h21: r_ascii <= 8'd67; // C
+                        8'h23: r_ascii <= 8'd68; // D
+                        8'h24: r_ascii <= 8'd69; // E
+                        8'h2b: r_ascii <= 8'd70; // F
+                        8'h34: r_ascii <= 8'd71; // G
+                        8'h33: r_ascii <= 8'd72; // H
+                        8'h43: r_ascii <= 8'd73; // I
+                        8'h3b: r_ascii <= 8'd74; // J
+                        8'h42: r_ascii <= 8'd75; // K
+                        8'h4b: r_ascii <= 8'd76; // L
+                        8'h3a: r_ascii <= 8'd77; // M
+                        8'h31: r_ascii <= 8'd78; // N
+                        8'h44: r_ascii <= 8'd79; // O
+                        8'h4d: r_ascii <= 8'd80; // P
+                        8'h15: r_ascii <= 8'd81; // Q
+                        8'h2d: r_ascii <= 8'd82; // R
+                        8'h1b: r_ascii <= 8'd83; // S
+                        8'h2c: r_ascii <= 8'd84; // T
+                        8'h3c: r_ascii <= 8'd85; // U
+                        8'h2a: r_ascii <= 8'd86; // V
+                        8'h1d: r_ascii <= 8'd87; // W
+                        8'h22: r_ascii <= 8'd88; // X
+                        8'h35: r_ascii <= 8'd89; // Y
+                        8'h1a: r_ascii <= 8'd90; // Z
+                        default: r_ascii <= 8'd0; // null
+                    endcase
                 end else begin
                     case (scan_code)
                         8'h0d: r_ascii <= 8'd9;  // [tab]
-                        //8'h58: r_ascii <=  CAPS
-                        //8'h12: r_ascii <=  L SHIFT
                         //8'h14: r_ascii <=  L CTRL
                         //8'h11: r_ascii <=  L ALT
-                        //8'h59: r_ascii <=  R SHIFT
-                        //8'h76: r_ascii <=  ESC
-                        //8'h05: r_ascii <=  F1
-                        //8'h06: r_ascii <=  F2
-                        //8'h04: r_ascii <=  F3
-                        //8'h0c: r_ascii <=  F4
-                        //8'h03: r_ascii <=  F5
-                        //8'h0b: r_ascii <=  F6
-                        //8'h83: r_ascii <=  F7
-                        //8'h0a: r_ascii <=  F8
-                        //8'h01: r_ascii <=  F9
-                        //8'h09: r_ascii <=  F10
-                        //8'h78: r_ascii <=  F11
-                        //8'h07: r_ascii <=  F12
                         //8'h7e: r_ascii <=  SCROLL
                         //8'h77: r_ascii <=  NUM
                         
