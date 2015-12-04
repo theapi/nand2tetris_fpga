@@ -61,6 +61,12 @@ module ascii (
                 if (shift) begin
                     shift <= 0;
                     case (scan_code)
+                    
+                        8'h55: r_ascii <= 8'd43; // +
+                    
+                        8'h4a: r_ascii <= 8'd63; // ?
+                        8'h1e: r_ascii <= 8'd64; // @
+                    
                         8'h1c: r_ascii <= 8'd65; // A
                         8'h32: r_ascii <= 8'd66; // B
                         8'h21: r_ascii <= 8'd67; // C
@@ -87,6 +93,16 @@ module ascii (
                         8'h22: r_ascii <= 8'd88; // X
                         8'h35: r_ascii <= 8'd89; // Y
                         8'h1a: r_ascii <= 8'd90; // Z
+                        
+                        8'h36: r_ascii <= 8'd94; // ^
+                        8'h4e: r_ascii <= 8'd95; // _
+                        
+                        8'h54: r_ascii <= 8'd123; // {
+                        8'h5d: r_ascii <= 8'd124; // |
+                        8'h5b: r_ascii <= 8'd125; // }
+                        8'h0e: r_ascii <= 8'd126; // ~
+                        
+                        
                         default: r_ascii <= 8'd0; // null
                     endcase
                 end else begin
@@ -164,6 +180,8 @@ module ascii (
                         8'h22: r_ascii <= 8'd120; // x
                         8'h35: r_ascii <= 8'd121; // y
                         8'h1a: r_ascii <= 8'd122; // z
+                
+                        8'h71: r_ascii <= 8'd127; // DELETE
                         
                         // nand2tetris special codes
                         8'h5a: r_ascii <= 8'd128;  // [enter]
