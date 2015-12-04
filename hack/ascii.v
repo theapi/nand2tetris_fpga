@@ -181,7 +181,7 @@ module ascii (
                         8'h35: r_ascii <= 8'd121; // y
                         8'h1a: r_ascii <= 8'd122; // z
                 
-                        8'h71: r_ascii <= 8'd127; // DELETE
+                        
                         
                         // nand2tetris special codes
                         8'h5a: r_ascii <= 8'd128;  // [enter]
