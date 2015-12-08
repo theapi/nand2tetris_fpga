@@ -6,8 +6,6 @@ module ascii (
     output [7:0] ascii
 );
 
-    // @todo: shift, alt etc
-    
     reg [7:0] r_ascii;
     reg [1:0] scan_ready_edge_detect = 2'b00;
     assign ascii = r_ascii;
@@ -15,11 +13,37 @@ module ascii (
     reg keyup = 0;
     reg extended = 0;
     reg shift = 0;
+    reg [1:0] caps = 2'b00;
+    wire caps_lock;
+    
+    // Caps lock on if an odd number of caps key scan codes
+    assign caps_lock = (caps == 2'b01 || caps == 2'b10);
     
     always @(posedge clk) begin
         scan_ready_edge_detect <= {scan_ready_edge_detect[0], scan_ready};
     end
-
+    
+    always @(posedge clk) begin
+        if (scan_ready_edge_detect == 2'b01) begin
+            // LEFT SHIFT || RIGHT SHIFT
+            if (scan_code == 8'h12 || scan_code == 8'h59) begin
+                if (keyup) begin
+                    shift <= 0;
+                end else begin
+                    shift <= 1;
+                end
+            end
+        end
+    end
+    
+    always @(posedge clk) begin
+        if (scan_ready_edge_detect == 2'b01) begin
+            // CAPS LOCK
+            if (scan_code == 8'h58) begin
+                caps = caps + 2'b01;
+            end
+        end
+    end
 
     always @(posedge clk) begin
         
@@ -30,10 +54,6 @@ module ascii (
             end else if (scan_code == 8'he0) begin
                 // extended make codes
                 extended <= 1;
-            // L SHIFT, R SHIFT, CAPS
-            end else if (scan_code == 8'h12 || scan_code == 8'h59  || scan_code == 8'h58) begin
-                // shift
-                shift <= 1;
             end else begin
                 if (keyup) begin
                     keyup <= 0;
@@ -58,8 +78,8 @@ module ascii (
                         default: r_ascii <= 8'd0; // null
                     endcase
                 end else
-                if (shift) begin
-                    shift <= 0;
+                if ((shift && !caps_lock) || (caps_lock && !shift)) begin
+                    
                     case (scan_code)
                     
                         8'h55: r_ascii <= 8'd43; // +

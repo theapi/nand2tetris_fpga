@@ -30,17 +30,14 @@ module ascii_tb();
         scan_code = 8'h1c;
         #10
         scan_ready = 0;
-        
-        // Break code (key up)
         #10
         scan_ready = 1;
-        scan_code = 8'hf0;
+        scan_code = 8'hf0;  // Break code (key up)
         #10
         scan_ready = 0;
-        
         #10
         scan_ready = 1;
-        scan_code = 8'h1c;
+        scan_code = 8'h1c; // scan code repeated after break code
         #10
         scan_ready = 0;
         
@@ -50,17 +47,14 @@ module ascii_tb();
         scan_code = 8'h32;
         #10
         scan_ready = 0;
-        
-        // Break code (key up)
         #10
         scan_ready = 1;
-        scan_code = 8'hf0;
+        scan_code = 8'hf0; // Break code (key up)
         #10
         scan_ready = 0;
-        
         #10
         scan_ready = 1;
-        scan_code = 8'h32;
+        scan_code = 8'h32; // scan code repeated after break code
         #10
         scan_ready = 0;
 
@@ -70,17 +64,117 @@ module ascii_tb();
         scan_code = 8'h32;
         #10
         scan_ready = 0;
-        
-        // Break code (key up)
         #10
         scan_ready = 1;
-        scan_code = 8'hf0;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32; // scan code repeated after break code
+        #10
+        scan_ready = 0;
+        
+        // Caps lock on
+        #10
+        scan_ready = 1;
+        scan_code = 8'h58;
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h58; // scan code repeated after break code
+        #10
+        scan_ready = 0;
+        
+        // Caps lock still on
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32;
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32; // scan code repeated after break code
+        #10
+        scan_ready = 0;
+        
+        // Shift aswell as caps lock
+        #10
+        scan_ready = 1;
+        scan_code = 8'h12;
         #10
         scan_ready = 0;
         
         #10
         scan_ready = 1;
         scan_code = 8'h32;
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32; // scan code repeated after break code
+        #10
+        scan_ready = 0;
+        
+        // Shift off
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h12; // scan code repeated after break code
+        #10
+        scan_ready = 0;
+        
+        
+        // Caps lock off
+        #10
+        scan_ready = 1;
+        scan_code = 8'h58;
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h58; // scan code repeated after break code
+        #10
+        scan_ready = 0;
+        
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32;
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h32; // scan code repeated after break code
         #10
         scan_ready = 0;
         
