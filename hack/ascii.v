@@ -16,7 +16,7 @@ module ascii (
     reg [1:0] caps = 2'b00;
     wire caps_lock;
     
-    // Caps lock on if an odd number of caps key scan codes
+    // Caps lock on if 1 or 2 caps key scan codes
     assign caps_lock = (caps == 2'b01 || caps == 2'b10);
     
     always @(posedge clk) begin
