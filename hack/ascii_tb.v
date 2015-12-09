@@ -24,6 +24,7 @@ module ascii_tb();
 	initial begin        
 
         clk = 1;
+        scan_ready = 0;
 
         #2
         scan_ready = 1;
@@ -40,6 +41,7 @@ module ascii_tb();
         scan_code = 8'h1c; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: a
         
         
         #10
@@ -57,8 +59,9 @@ module ascii_tb();
         scan_code = 8'h32; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: b
 
-        // Same key again
+
         #10
         scan_ready = 1;
         scan_code = 8'h32;
@@ -74,6 +77,8 @@ module ascii_tb();
         scan_code = 8'h32; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: b
+
         
         // Caps lock on
         #10
@@ -91,6 +96,8 @@ module ascii_tb();
         scan_code = 8'h58; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: b
+        
         
         // Caps lock still on
         #10
@@ -108,6 +115,8 @@ module ascii_tb();
         scan_code = 8'h32; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: B
+        
         
         // Shift aswell as caps lock
         #10
@@ -131,6 +140,8 @@ module ascii_tb();
         scan_code = 8'h32; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: b
+        
         
         // Shift off
         #10
@@ -143,10 +154,11 @@ module ascii_tb();
         scan_code = 8'h12; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: B
         
         
         // Caps lock off
-        #10
+        #50
         scan_ready = 1;
         scan_code = 8'h58;
         #10
@@ -161,10 +173,13 @@ module ascii_tb();
         scan_code = 8'h58; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: b
         
-        #10
+        
+        // c
+        #30
         scan_ready = 1;
-        scan_code = 8'h32;
+        scan_code = 8'h21;
         #10
         scan_ready = 0;
         #10
@@ -174,9 +189,10 @@ module ascii_tb();
         scan_ready = 0;
         #10
         scan_ready = 1;
-        scan_code = 8'h32; // scan code repeated after break code
+        scan_code = 8'h21; // scan code repeated after break code
         #10
         scan_ready = 0;
+        // ascii: c
         
 	end
 
