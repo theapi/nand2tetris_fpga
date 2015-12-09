@@ -82,11 +82,25 @@ module ascii (
                     
                     case (scan_code)
                     
+                        8'h29: r_ascii <= 8'd32; // [space]
+                        8'h16: r_ascii <= 8'd33; // !
+                        8'h52: r_ascii <= 8'd34; // "
+                        8'h26: r_ascii <= 8'd35; // #
+                        8'h25: r_ascii <= 8'd36; // $
+                        8'h2e: r_ascii <= 8'd37; // %
+                        8'h3d: r_ascii <= 8'd38; // &
+                        
+                        8'h46: r_ascii <= 8'd40; // (
+                        8'h45: r_ascii <= 8'd41; // )
+                        8'h3e: r_ascii <= 8'd42; // *
                         8'h55: r_ascii <= 8'd43; // +
+                        
+                        8'h4c: r_ascii <= 8'd58; // :
                     
+                        8'h41: r_ascii <= 8'd60; // <
+                        8'h49: r_ascii <= 8'd62; // >
                         8'h4a: r_ascii <= 8'd63; // ?
                         8'h1e: r_ascii <= 8'd64; // @
-                    
                         8'h1c: r_ascii <= 8'd65; // A
                         8'h32: r_ascii <= 8'd66; // B
                         8'h21: r_ascii <= 8'd67; // C
@@ -165,8 +179,7 @@ module ascii (
                         8'h75: r_ascii <= 8'd56;  // KP 8
                         8'h46: r_ascii <= 8'd57;  // 9
                         8'h7d: r_ascii <= 8'd57;  // KP 9
-                        
-                        8'h4c: r_ascii <= 8'd58;  // ;
+                        8'h4c: r_ascii <= 8'd59;  // ;
                         8'h55: r_ascii <= 8'd61;  // =
                         
                         8'h54: r_ascii <= 8'd91;  // [
