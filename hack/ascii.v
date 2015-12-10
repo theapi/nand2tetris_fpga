@@ -17,6 +17,24 @@ module ascii (
     wire caps_lock;
     
     reg [7:0] code;
+
+
+
+    reg [7:0] char_code [2:0];
+    reg [1:0] char_counter = 0;
+    reg [7:0] action_code;
+
+    always @(posedge clk) begin
+        if (scan_ready_edge_detect == 2'b01) begin
+            char_counter <= char_counter + 2'b01;
+            char_code[char_counter] <= scan_code;
+        end
+    end
+    
+    
+    
+
+
     
     // Caps lock on if 1 or 2 caps key scan codes
     assign caps_lock = (caps == 2'b01 || caps == 2'b10);
