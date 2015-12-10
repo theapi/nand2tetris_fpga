@@ -16,11 +16,31 @@ module ascii (
     reg [1:0] caps = 2'b00;
     wire caps_lock;
     
+    reg [7:0] code;
+    
     // Caps lock on if 1 or 2 caps key scan codes
     assign caps_lock = (caps == 2'b01 || caps == 2'b10);
     
     always @(posedge clk) begin
         scan_ready_edge_detect <= {scan_ready_edge_detect[0], scan_ready};
+    end
+    
+    always @(posedge clk) begin
+        if (scan_ready_edge_detect == 2'b01) begin
+            if (!keyup) begin
+                code <= scan_code;
+            end
+        end
+    end
+    
+    always @(posedge clk) begin
+        if (scan_ready_edge_detect == 2'b01) begin
+            if (scan_code == 8'hf0) begin
+                keyup <= 1;
+            end else begin
+                keyup <= 0;
+            end
+        end
     end
     
     always @(posedge clk) begin
@@ -47,21 +67,16 @@ module ascii (
 
     always @(posedge clk) begin
         
-        if (scan_ready_edge_detect == 2'b01) begin // @ posedge scan_ready
-        
-            if (scan_code == 8'hf0) begin
-                keyup <= 1;
-            end else if (scan_code == 8'he0) begin
+        //if (scan_ready_edge_detect == 2'b01) begin // @ posedge scan_ready
+            if (keyup && !shift) begin
+                r_ascii <= 8'd0;
+            end else if (code == 8'he0) begin
                 // extended make codes
                 extended <= 1;
             end else begin
-                if (keyup) begin
-                    keyup <= 0;
-                    r_ascii <= 8'd0;
-                end else 
                 if (extended) begin
                     extended <= 0;
-                    case (scan_code)
+                    case (code)
                     
                         // nand2tetris special codes
                         8'h6b: r_ascii <= 8'd130; // L ARROW
@@ -80,7 +95,7 @@ module ascii (
                 end else
                 if ((shift && !caps_lock) || (caps_lock && !shift)) begin
                     
-                    case (scan_code)
+                    case (code)
                     
                         8'h29: r_ascii <= 8'd32; // [space]
                         8'h16: r_ascii <= 8'd33; // !
@@ -140,7 +155,7 @@ module ascii (
                         default: r_ascii <= 8'd0; // null
                     endcase
                 end else begin
-                    case (scan_code)
+                    case (code)
                         8'h0d: r_ascii <= 8'd9;  // [tab]
                         //8'h14: r_ascii <=  L CTRL
                         //8'h11: r_ascii <=  L ALT
@@ -238,7 +253,7 @@ module ascii (
                     endcase
                 end
             end
-        end
+        //end
     end
     
 endmodule
