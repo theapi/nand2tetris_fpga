@@ -20,14 +20,33 @@ module ascii (
 
 
 
-    reg [7:0] char_code [2:0];
-    reg [1:0] char_counter = 0;
-    reg [7:0] action_code;
+    reg [7:0] key_code [2:0];
+    reg [1:0] key_mem_index = 2'b00;
+    reg key_clear = 0;
 
+    // Store char codes & remove then when their break code arrives.
     always @(posedge clk) begin
         if (scan_ready_edge_detect == 2'b01) begin
-            char_counter <= char_counter + 2'b01;
-            char_code[char_counter] <= scan_code;
+            if (scan_code == 8'hf0) begin // break code
+                // Clear the next scan code from the key_code memory.
+                key_clear <= 1'b1;
+            end else if (key_clear) begin
+                // Find the key code in the memory & clear it.
+                key_clear <= 1'b0;
+                if (key_code[0] == scan_code) begin
+                    key_code[0] <= 8'h00;
+                end 
+                else if (key_code[1] == scan_code) begin
+                    key_code[1] <= 8'h00;
+                end 
+                else if (key_code[2] == scan_code) begin
+                    key_code[2] <= 8'h00;
+                end
+            end else begin
+                // Store the key code.
+                key_mem_index <= key_mem_index + 2'b01;
+                key_code[key_mem_index] <= scan_code;
+            end
         end
     end
     
