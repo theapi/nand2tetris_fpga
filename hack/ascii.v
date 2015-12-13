@@ -46,12 +46,27 @@ module ascii (
                 extended <= 1'b0;
                 if (key_code[0] == scan_code) begin
                     key_code[0] <= 8'h00;
+                    if (key_current_index == 2'b0) begin
+                        key_current_index <= 2'b10;
+                    end else begin
+                        key_current_index <= key_current_index - 1'b1;
+                    end
                 end 
                 else if (key_code[1] == scan_code) begin
                     key_code[1] <= 8'h00;
+                    if (key_current_index == 2'b0) begin
+                        key_current_index <= 2'b10;
+                    end else begin
+                        key_current_index <= key_current_index - 1'b1;
+                    end
                 end 
                 else if (key_code[2] == scan_code) begin
                     key_code[2] <= 8'h00;
+                    if (key_current_index == 2'b0) begin
+                        key_current_index <= 2'b10;
+                    end else begin
+                        key_current_index <= key_current_index - 1'b1;
+                    end
                 end
             end else begin
                 // Store the key code.

@@ -194,6 +194,46 @@ module ascii_tb();
         scan_ready = 0;
         // ascii: c
         
+        
+        
+        // Multiple keys simulataniously
+        #30
+        scan_ready = 1;
+        scan_code = 8'h23; // d
+        #10
+        scan_ready = 0;
+        #30
+        scan_ready = 1;
+        scan_code = 8'h24; // e
+        #10
+        scan_ready = 0;
+        // ascii: e
+        
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h24; // e key up
+        #10
+        scan_ready = 0;
+        // ascii: d
+        
+        #10
+        scan_ready = 1;
+        scan_code = 8'hf0; // Break code (key up)
+        #10
+        scan_ready = 0;
+        #10
+        scan_ready = 1;
+        scan_code = 8'h23; // d key up
+        #10
+        scan_ready = 0;
+        // none
+        
+        
 	end
 
     always begin
