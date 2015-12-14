@@ -55,15 +55,15 @@ agreement for further details.
 	(port
 		(pt 0 96)
 		(input)
-		(text "in[13..0]" (rect 0 0 29 12)(font "Arial" ))
-		(text "in[13..0]" (rect 21 91 50 103)(font "Arial" ))
+		(text "in[15..0]" (rect 0 0 29 12)(font "Arial" ))
+		(text "in[15..0]" (rect 21 91 50 103)(font "Arial" ))
 		(line (pt 0 96)(pt 16 96)(line_width 3))
 	)
 	(port
 		(pt 168 32)
 		(output)
-		(text "out[13..0]" (rect 0 0 35 12)(font "Arial" ))
-		(text "out[13..0]" (rect 112 27 147 39)(font "Arial" ))
+		(text "out[15..0]" (rect 0 0 35 12)(font "Arial" ))
+		(text "out[15..0]" (rect 112 27 147 39)(font "Arial" ))
 		(line (pt 168 32)(pt 152 32)(line_width 3))
 	)
 	(drawing

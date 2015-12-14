@@ -34,15 +34,15 @@ agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "write_address[13..0]" (rect 0 0 79 12)(font "Arial" ))
-		(text "write_address[13..0]" (rect 21 43 100 55)(font "Arial" ))
+		(text "write_address[15..0]" (rect 0 0 79 12)(font "Arial" ))
+		(text "write_address[15..0]" (rect 21 43 100 55)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port
 		(pt 0 64)
 		(input)
-		(text "read_address[13..0]" (rect 0 0 79 12)(font "Arial" ))
-		(text "read_address[13..0]" (rect 21 59 100 71)(font "Arial" ))
+		(text "read_address[15..0]" (rect 0 0 79 12)(font "Arial" ))
+		(text "read_address[15..0]" (rect 21 59 100 71)(font "Arial" ))
 		(line (pt 0 64)(pt 16 64)(line_width 3))
 	)
 	(port
