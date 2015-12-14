@@ -24,6 +24,18 @@ module ascii (
     reg [1:0] key_mem_index = 2'b00;
     reg [1:0] key_current_index = 2'b00;
     reg key_clear = 0;
+    
+    reg [7:0] current_code;
+    reg [7:0] state_code;
+    reg [2:0] state_reg = 2'b00;
+    // state machine parameters
+    parameter st_idle   = 3'b000;
+    parameter st_code_1   = 3'b001;
+    parameter st_code_2   = 3'b010;
+    parameter st_code_3   = 3'b011;
+    parameter st_break    = 3'b100;
+    parameter st_extended = 3'b101;
+    parameter st_ready    = 3'b110;
 
     
     // Caps lock on if 1 or 2 caps key scan codes
@@ -34,6 +46,65 @@ module ascii (
         scan_ready_edge_detect <= {scan_ready_edge_detect[0], scan_ready};
     end      
     
+//    always @(posedge clk) begin
+//        if (scan_ready_edge_detect == 2'b01) begin
+//            current_code <= scan_code;
+//        end
+//    end
+    
+    always @(posedge clk) begin
+        case (state_reg) 
+            st_idle:
+                begin
+                    if (scan_ready_edge_detect == 2'b01) begin
+                       current_code <= scan_code;
+                       state_reg <= st_code_1;
+                    end 
+                end
+            st_code_1:
+                begin
+                    state_code <= current_code;
+                    state_reg <= st_code_2;
+                end
+            st_code_2:
+                begin
+                    // break code
+                    if (state_code == 8'hf0) begin
+                        state_reg <= st_break;
+                    end else begin
+                        state_reg <= st_code_3;
+                    end
+                end
+            st_code_3:
+                begin
+                    state_reg <= st_ready;
+                end
+            st_break:
+                begin
+                    // ignore the next scan code
+                    code <= 8'h00;
+                    if (scan_ready_edge_detect == 2'b01) begin
+                       state_reg <= st_idle;
+                    end 
+                end
+            st_extended:
+                begin
+                
+                end
+            st_ready:
+                begin
+                    code <= state_code;
+                    state_reg <= st_idle;
+                end
+            default:
+                begin
+                
+                end
+        endcase
+        
+    end
+    
+    /*
     // Store char codes & remove then when their break code arrives.
     always @(posedge clk) begin
         if (scan_ready_edge_detect == 2'b01) begin
@@ -54,33 +125,33 @@ module ascii (
                 extended <= 1'b0;
                 if (key_code[0] == scan_code) begin
                     key_code[0] <= 8'h00;
-                    /*
-                    if (key_current_index == 2'b0) begin
-                        key_current_index <= 2'b10;
-                    end else begin
-                        key_current_index <= key_current_index - 1'b1;
-                    end
-                    */
+                    
+//                    if (key_current_index == 2'b0) begin
+//                        key_current_index <= 2'b10;
+//                    end else begin
+//                        key_current_index <= key_current_index - 1'b1;
+//                    end
+                    
                 end 
                 else if (key_code[1] == scan_code) begin
                     key_code[1] <= 8'h00;
-                    /*
-                    if (key_current_index == 2'b0) begin
-                        key_current_index <= 2'b10;
-                    end else begin
-                        key_current_index <= key_current_index - 1'b1;
-                    end
-                    */
+                    
+//                    if (key_current_index == 2'b0) begin
+//                        key_current_index <= 2'b10;
+//                    end else begin
+//                        key_current_index <= key_current_index - 1'b1;
+//                    end
+                    
                 end 
                 else if (key_code[2] == scan_code) begin
                     key_code[2] <= 8'h00;
-                    /*
-                    if (key_current_index == 2'b0) begin
-                        key_current_index <= 2'b10;
-                    end else begin
-                        key_current_index <= key_current_index - 1'b1;
-                    end
-                    */
+                    
+//                    if (key_current_index == 2'b0) begin
+//                        key_current_index <= 2'b10;
+//                    end else begin
+//                        key_current_index <= key_current_index - 1'b1;
+//                    end
+                    
                 end
             end else begin
                 // Store the key code.
@@ -112,7 +183,7 @@ module ascii (
     always @(posedge clk) begin
         code <= key_code[key_current_index];  
     end
-    
+    */
 
 
     always @(posedge clk) begin
