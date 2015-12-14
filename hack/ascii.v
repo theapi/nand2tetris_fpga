@@ -37,7 +37,15 @@ module ascii (
     // Store char codes & remove then when their break code arrives.
     always @(posedge clk) begin
         if (scan_ready_edge_detect == 2'b01) begin
-            if (scan_code == 8'hf0) begin // break code
+        
+            // LEFT SHIFT || RIGHT SHIFT
+            if (scan_code == 8'h12 || scan_code == 8'h59) begin
+                if (key_clear) begin
+                    shift <= 0;
+                end else begin
+                    shift <= 1;
+                end
+            end else if (scan_code == 8'hf0) begin // break code
                 // Clear the next scan code from the key_code memory.
                 key_clear <= 1'b1;
             end else if (key_clear) begin
@@ -46,27 +54,33 @@ module ascii (
                 extended <= 1'b0;
                 if (key_code[0] == scan_code) begin
                     key_code[0] <= 8'h00;
+                    /*
                     if (key_current_index == 2'b0) begin
                         key_current_index <= 2'b10;
                     end else begin
                         key_current_index <= key_current_index - 1'b1;
                     end
+                    */
                 end 
                 else if (key_code[1] == scan_code) begin
                     key_code[1] <= 8'h00;
+                    /*
                     if (key_current_index == 2'b0) begin
                         key_current_index <= 2'b10;
                     end else begin
                         key_current_index <= key_current_index - 1'b1;
                     end
+                    */
                 end 
                 else if (key_code[2] == scan_code) begin
                     key_code[2] <= 8'h00;
+                    /*
                     if (key_current_index == 2'b0) begin
                         key_current_index <= 2'b10;
                     end else begin
                         key_current_index <= key_current_index - 1'b1;
                     end
+                    */
                 end
             end else begin
                 // Store the key code.
@@ -76,18 +90,11 @@ module ascii (
                 end else begin
                     key_mem_index <= key_mem_index + 2'b01;
                 end
-                key_code[key_mem_index] <= scan_code;
+                key_code[key_mem_index] <= scan_code; 
             end
             
             
-            // LEFT SHIFT || RIGHT SHIFT
-            if (scan_code == 8'h12 || scan_code == 8'h59) begin
-                if (key_clear) begin
-                    shift <= 0;
-                end else begin
-                    shift <= 1;
-                end
-            end
+            
             
             if (scan_code == 8'he0) begin
                 // extended make codes
