@@ -26,6 +26,7 @@ module ascii (
     reg key_clear = 0;
     
     reg [7:0] current_code;
+    reg [7:0] break_code;
     reg [7:0] state_code;
     reg [2:0] state_reg = 2'b00;
     // state machine parameters
@@ -38,20 +39,15 @@ module ascii (
     parameter st_ready    = 3'b110;
 
     
-    // Caps lock on if 1 or 2 caps key scan codes
-    assign caps_lock = (caps == 2'b01 || caps == 2'b10);
+
+    assign caps_lock = caps[0]; // odd number of presses
     
     // posedge of the ps2 clock
     always @(posedge clk) begin
         scan_ready_edge_detect <= {scan_ready_edge_detect[0], scan_ready};
     end      
     
-//    always @(posedge clk) begin
-//        if (scan_ready_edge_detect == 2'b01) begin
-//            current_code <= scan_code;
-//        end
-//    end
-    
+
     always @(posedge clk) begin
         case (state_reg) 
             st_idle:
@@ -81,10 +77,11 @@ module ascii (
                 end
             st_break:
                 begin
-                    // ignore the next scan code
+                    // key up
                     code <= 8'h00;
                     if (scan_ready_edge_detect == 2'b01) begin
                        state_reg <= st_idle;
+                       break_code <= scan_code;
                     end 
                 end
             st_extended:
@@ -102,6 +99,22 @@ module ascii (
                 end
         endcase
         
+    end
+    
+    // Caps lock
+    always @(posedge clk) begin
+        if (scan_ready_edge_detect == 2'b01 && code == 8'h58) begin
+            caps <= caps + 2'b1;
+        end
+    end
+    
+    // LEFT SHIFT || RIGHT SHIFT
+    always @(posedge clk) begin
+        if (code == 8'h12 || code == 8'h59) begin
+            shift <= 1;
+        end else if (break_code == 8'h12 || break_code == 8'h59) begin
+            shift <= 0;
+        end
     end
     
     /*
