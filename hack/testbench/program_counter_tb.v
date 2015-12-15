@@ -23,7 +23,8 @@ module program_counter_tb();
 
 	// Initialize all variables
 	initial begin        
-
+$monitor ("%b %b %b %b %b", 
+	  reset, inc, load, in, out);
         clk = 0;
         reset = 0;
         inc = 0;
@@ -39,15 +40,13 @@ module program_counter_tb();
         inc = 1;
              
 
-        #2
-if (out != 16'd1) begin
-	$display("out != 16'd1");
-end
-        
+        #2 assert(out, 16'd1);     
         in = -16'd32123;
-        #2
+
+        #2 assert(out, 16'd2);
         load = 1;
-        #2
+
+        #2 assert(out, -16'd32123);
         load = 0;
         
         #4
@@ -55,40 +54,38 @@ end
         load = 1;
         inc = 0;
         
-        #2
+        #2 assert(out, 16'd12345);
         reset = 1;
         
-        #2
+        #2 assert(out, 16'd0);
         reset = 0;
         inc = 1;
         
-        #2
+        #2 assert(out, 16'd12345);
         reset = 1;
         
-        #2
+        #2 assert(out, 16'd0);
         reset = 0;
         load = 0;
         
-        #2
-        reset = 1;
+        #2 assert(out, 16'd1); 
+        reset = 1;  
         
-        #2
+        #2 assert(out, 16'd0);
         reset = 0;
         in = 0;
         load = 1;
         
-        #2
+        #2 assert(out, 16'd0);
         load = 0;
         inc = 1;
         
-        #2
+        #2 assert(out, 16'd1); 
         in = 16'd22222;
         reset = 1;
         inc = 0;
-        
-        
-        
 
+        #2 assert(out, 16'd0);
         
 	end
 
@@ -96,4 +93,14 @@ end
         #1 clk = !clk;
     end
 	
+
+
+task assert;
+ input [15:0] x, y;
+begin
+if(x != y)
+  $display( "%t      ---------- assert failed %d != %d\n", $time, x, y );
+end
+endtask
+
 endmodule
