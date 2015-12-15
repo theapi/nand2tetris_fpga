@@ -17,7 +17,7 @@
     output [15:0] out
  );
 
-    reg [15:0] r_out;
+    reg [15:0] r_out = 0;
     
     assign out = r_out;
    
