@@ -23,7 +23,7 @@ module program_counter_tb();
 
 	// Initialize all variables
 	initial begin        
-$monitor ("%b %b %b %b %b", 
+$monitor ("%b %b %b %d %d", 
 	  reset, inc, load, in, out);
         clk = 0;
         reset = 0;
