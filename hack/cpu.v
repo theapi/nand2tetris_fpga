@@ -54,8 +54,8 @@ module cpu (
     reg [15:0] DRegister = 16'b0;
     reg [15:0] ARegister = 16'b0;
     
-    reg [14:0] r_addressM;
-    reg [15:0] r_outM;
+    reg [14:0] r_addressM = 1'b0;
+    reg [15:0] r_outM = 1'b0;
     reg r_writeM;
     
     reg pc_inc = 0;
@@ -100,11 +100,14 @@ module cpu (
     
     always @(posedge clk) begin
         pc_inc <= !pc_inc; // 2 clock cycles per instruction
+        
+        r_addressM <= ARegister;
     
         // If MSB of instruction == 0 then the A register must be set with the 15 bit remaining value.
         if (instruction[15] == 0) begin
             // A instruction
             ARegister <= {1'b0, instruction[14:0]};
+            //r_addressM <= ARegister;
         end else begin
             // C instruction
             
@@ -117,20 +120,21 @@ module cpu (
             
             // if instruction[5] == store ALU out (outM) in A
             if (instruction[5] == 1) begin
-                ARegister <= outM;
+                ARegister <= alu_out;
             end
 
             // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
             if (instruction[4] == 1) begin
-                DRegister <= outM;
+                DRegister <= alu_out;
             end
             
             // if d3 (instruction[3]) == 1 then write to M
             if (instruction[3] == 1) begin
                 r_writeM <= 1'b1;
-                r_addressM <= outM;
+                
             end else begin
                 r_writeM <= 1'b0;
+                
             end
             
         end

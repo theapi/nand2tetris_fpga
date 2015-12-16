@@ -48,6 +48,14 @@ set instruction %B1110110000010000, // D=A
 |2   |     0|1110110000010000|  0  |  12345|   0   |12345|    2|  12345 |
 */
         #4 assert_cpu(16'd0, 16'b1110110000010000, 1'b0, 16'd12345, 1'b0, 16'd12345, 16'd2, 16'd12345);
+        instruction = 16'B0101101110100000; // @23456
+        
+        // |3   |     0|0101101110100000|  0  |     -1|   0   |23456|    3|  12345 |
+        #4 assert_cpu(16'd0, 16'b0101101110100000, 1'b0, -16'd1, 1'b0, 16'd23456, 16'd3, 16'd12345);
+        instruction = 16'B1110000111010000; // D=A-D
+        
+        // |4   |     0|1110000111010000|  0  |  12345|   0   |23456|    4|  11111 |
+        #4 assert_cpu(16'd0, 16'b1110000111010000, 1'b0, 16'd12345, 1'b0, 16'd23456, 16'd4, 16'd11111);
         
 	end
 
@@ -76,10 +84,11 @@ task assert_cpu;
             || pc != i_pc
             || addressM != i_addressM
             || cpu_DUT.DRegister != i_DRegister) begin
+            
             $display ("%d %b %b %d %b %d %d %d : assert failed", 
-                i_inM, i_instruction, i_reset, i_outM, i_writeM, i_addressM, i_pc, i_DRegister);
-            $display ("%d %b %b %d %b %d %d %d <- should be this", 
                 inM, instruction, reset, outM, writeM, addressM, pc, cpu_DUT.DRegister);
+            $display ("%d %b %b %d %b %d %d %d <- should be this", 
+                i_inM, i_instruction, i_reset, i_outM, i_writeM, i_addressM, i_pc, i_DRegister);
         end
     end
 endtask
