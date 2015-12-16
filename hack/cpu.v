@@ -111,21 +111,27 @@ module cpu (
         end else begin
             // C instruction
             
-            // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
-            if (instruction[12] == 1) begin
-                alu_y <= inM;
-            end else begin
-                alu_y <= ARegister;
-            end
             
-            // if instruction[5] == store ALU out (outM) in A
-            if (instruction[5] == 1) begin
-                ARegister <= alu_out;
-            end
+            
+            if (pc_inc) begin
+            // Get the results of the computation
+                // if instruction[5] == store ALU out (outM) in A
+                if (instruction[5] == 1) begin
+                    ARegister <= alu_out;
+                end
 
-            // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
-            if (instruction[4] == 1) begin
-                DRegister <= alu_out;
+                // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
+                if (instruction[4] == 1) begin
+                    DRegister <= alu_out;
+                end
+            end else begin
+            // Start a computation
+                // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
+                if (instruction[12] == 1) begin
+                    alu_y <= inM;
+                end else begin
+                    alu_y <= ARegister;
+                end
             end
             
             // if d3 (instruction[3]) == 1 then write to M

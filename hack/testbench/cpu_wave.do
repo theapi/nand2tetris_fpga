@@ -7,12 +7,13 @@ add wave -noupdate /cpu_tb/cpu_DUT/instruction
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/outM
 add wave -noupdate /cpu_tb/cpu_DUT/writeM
 add wave -noupdate -radix unsigned /cpu_tb/cpu_DUT/addressM
+add wave -noupdate /cpu_tb/cpu_DUT/pc_inc
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/pc
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/ARegister
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/DRegister
 add wave -noupdate -divider ALU
-add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/x
-add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/y
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/alu_inst/x
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/alu_inst/y
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/zx
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/nx
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/zy
