@@ -107,7 +107,7 @@ module cpu (
         if (instruction[15] == 0) begin
             // A instruction
             ARegister <= {1'b0, instruction[14:0]};
-            //r_addressM <= ARegister;
+            r_writeM <= 1'b0;
         end else begin
             // C instruction
             
@@ -124,6 +124,14 @@ module cpu (
                 if (instruction[4] == 1) begin
                     DRegister <= alu_out;
                 end
+                
+                // if d3 (instruction[3]) == 1 then write to M
+                if (instruction[3] == 1) begin
+                    r_writeM <= 1'b1;    
+                end else begin
+                    r_writeM <= 1'b0;
+                end
+            
             end else begin
             // Start a computation
                 // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
@@ -134,14 +142,7 @@ module cpu (
                 end
             end
             
-            // if d3 (instruction[3]) == 1 then write to M
-            if (instruction[3] == 1) begin
-                r_writeM <= 1'b1;
-                
-            end else begin
-                r_writeM <= 1'b0;
-                
-            end
+
             
         end
     end 
