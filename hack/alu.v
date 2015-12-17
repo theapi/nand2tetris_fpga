@@ -66,7 +66,8 @@ module alu (
         r_out = (no == 1) ? ~r_out : r_out;       // if (no == 1) set out = !out
         
         r_zr = (r_out == 0) ? 1 : 0;    // if (out == 0) set zr = 1
-        r_ng = (r_out < 0) ? 1 : 0;     // if (out < 0) set ng = 1
+        r_ng = (r_out[15] == 1) ? 1 : 0;     // if (out < 0) set ng = 1
+        
     end
     
     assign out = r_out;
