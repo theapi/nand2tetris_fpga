@@ -111,7 +111,10 @@ module cpu (
         end else begin
             // C instruction
             
-            
+            if ((instruction[2:0] == 3'b100) && (alu_out < 0)) begin // JLT
+                pc_in <= ARegister;
+                pc_load <= 1'b1;
+            end
             
             if (pc_inc) begin
             // Get the results of the computation
@@ -131,6 +134,36 @@ module cpu (
                 end else begin
                     r_writeM <= 1'b0;
                 end
+                
+                
+                
+                /*
+                // Jump instructions
+                if (instruction[2:0] == 3'b001 && alu_out > 0) begin // JGT
+                    pc_in <= ARegister;
+                    pc_load <= 1'b1;
+                end else if (instruction[2:0] == 3'b010 && alu_out == 0) begin // JEQ
+                    pc_in <= ARegister;
+                    pc_load <= 1'b1;
+                end else if (instruction[2:0] == 3'b011 && alu_out >= 0) begin // JGE
+                    pc_in <= ARegister;
+                    pc_load <= 1'b1;
+                end else if (instruction[2:0] == 3'b100 && alu_out < 0) begin // JLT
+                    pc_in <= ARegister;
+                    pc_load <= 1'b1;
+                end else if (instruction[2:0] == 3'b101 && alu_out != 0) begin // JNE
+                    pc_in <= ARegister;
+                    pc_load <= 1'b1;
+                end else if (instruction[2:0] == 3'b110 && alu_out <= 0) begin // JLE
+                    pc_in <= ARegister;
+                    pc_load <= 1'b1;
+                end else if (instruction[2:0] == 3'b111) begin // JMP
+                    pc_in <= ARegister;
+                    pc_load <= 1'b1;
+                end else begin
+                    pc_load <= 1'b0;
+                end
+                */
             
             end else begin
             // Start a computation

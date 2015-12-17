@@ -8,6 +8,8 @@ add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/outM
 add wave -noupdate /cpu_tb/cpu_DUT/writeM
 add wave -noupdate -radix unsigned /cpu_tb/cpu_DUT/addressM
 add wave -noupdate /cpu_tb/cpu_DUT/pc_inc
+add wave -noupdate /cpu_tb/cpu_DUT/pc_load
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/pc_in
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/pc
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/ARegister
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/DRegister
@@ -26,7 +28,7 @@ add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/ng
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/r_zr
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/r_ng
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {150 ns} 0}
+WaveRestoreCursors {{Cursor 1} {460 ns} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -42,4 +44,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {50 ns} {210 ns}
+WaveRestoreZoom {1750 ns} {1910 ns}
