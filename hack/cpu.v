@@ -122,9 +122,9 @@ module cpu (
 
             // if d3 (instruction[3]) == 1 then write to M
             if (instruction[3] == 1) begin
-                r_writeM <= 1'b1;    
+                r_writeM = 1'b1;    
             end else begin
-                r_writeM <= 1'b0;
+                r_writeM = 1'b0;
             end
             
             // Jump instructions
