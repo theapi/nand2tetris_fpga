@@ -98,23 +98,69 @@ module cpu (
         .ng(alu_ng)
     );
     
+    always @(posedge reset) begin
+        pc_load <= 1'b0;
+    end
+    
+    always @(*) begin
+        // A instruction
+        if (instruction[15] == 0) begin
+            pc_load = 1'b0;
+            r_writeM = 1'b0;
+        end
+        // C instruction
+        else begin
+            // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
+            if (instruction[12] == 1) begin
+                alu_y = inM;
+            end else begin
+                alu_y = ARegister;
+            end
+
+            // Jump instructions
+            if (instruction[2:0] == 3'b001 && (!alu_ng && !alu_zr)) begin // JGT alu_out > 0
+                pc_in = ARegister;
+                pc_load = 1'b1;
+            end else if (instruction[2:0] == 3'b010 && alu_zr) begin // JEQ
+                pc_in = ARegister;
+                pc_load = 1'b1;
+            end else if (instruction[2:0] == 3'b011 && (!alu_ng || alu_zr)) begin // JGE alu_out >= 0
+                pc_in = ARegister;
+                pc_load = 1'b1;
+            end else if (instruction[2:0] == 3'b100 && alu_ng) begin // JLT
+                pc_in = ARegister;
+                pc_load = 1'b1;
+            end else if (instruction[2:0] == 3'b101 && alu_out != 0) begin // JNE
+                pc_in = ARegister;
+                pc_load = 1'b1;
+            end else if (instruction[2:0] == 3'b110 && (alu_ng || alu_zr)) begin // JLE alu_out <= 0
+                pc_in = ARegister;
+                pc_load = 1'b1;
+            end else if (instruction[2:0] == 3'b111) begin // JMP
+                pc_in = ARegister;
+                pc_load = 1'b1;
+            end else begin
+                pc_load = 1'b0;
+            end
+        end
+    end
+    
     always @(posedge clk) begin
         pc_inc <= !pc_inc; // 2 clock cycles per instruction
         
         r_addressM <= ARegister;
+        
+        
     
         // If MSB of instruction == 0 then the A register must be set with the 15 bit remaining value.
         if (instruction[15] == 0) begin
             // A instruction
             ARegister <= {1'b0, instruction[14:0]};
-            r_writeM <= 1'b0;
+            
         end else begin
             // C instruction
             
-            if ((instruction[2:0] == 3'b100) && (alu_out < 0)) begin // JLT
-                pc_in <= ARegister;
-                pc_load <= 1'b1;
-            end
+            
             
             if (pc_inc) begin
             // Get the results of the computation
@@ -138,41 +184,12 @@ module cpu (
                 
                 
                 /*
-                // Jump instructions
-                if (instruction[2:0] == 3'b001 && alu_out > 0) begin // JGT
-                    pc_in <= ARegister;
-                    pc_load <= 1'b1;
-                end else if (instruction[2:0] == 3'b010 && alu_out == 0) begin // JEQ
-                    pc_in <= ARegister;
-                    pc_load <= 1'b1;
-                end else if (instruction[2:0] == 3'b011 && alu_out >= 0) begin // JGE
-                    pc_in <= ARegister;
-                    pc_load <= 1'b1;
-                end else if (instruction[2:0] == 3'b100 && alu_out < 0) begin // JLT
-                    pc_in <= ARegister;
-                    pc_load <= 1'b1;
-                end else if (instruction[2:0] == 3'b101 && alu_out != 0) begin // JNE
-                    pc_in <= ARegister;
-                    pc_load <= 1'b1;
-                end else if (instruction[2:0] == 3'b110 && alu_out <= 0) begin // JLE
-                    pc_in <= ARegister;
-                    pc_load <= 1'b1;
-                end else if (instruction[2:0] == 3'b111) begin // JMP
-                    pc_in <= ARegister;
-                    pc_load <= 1'b1;
-                end else begin
-                    pc_load <= 1'b0;
-                end
+
                 */
             
             end else begin
             // Start a computation
-                // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
-                if (instruction[12] == 1) begin
-                    alu_y <= inM;
-                end else begin
-                    alu_y <= ARegister;
-                end
+                
             end
             
 

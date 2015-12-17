@@ -28,6 +28,10 @@ module cpu_tb();
 
 	// Initialize all variables
 	initial begin    
+    
+    
+    $monitor ("%d %b %b %d %b %d %d %d %t", 
+                inM, instruction, reset, outM, writeM, addressM, pc, cpu_DUT.DRegister, $time);
 
         clk = 1;
         reset = 0;
@@ -169,10 +173,13 @@ instruction = 16'b1110001100000110;
 instruction = 16'b1110001100000111;
 #4 assert_cpu(16'd11111, 16'b1110001100000111, 1'b0, 16'dx, 1'b0, 16'd1000, 16'd1000, 16'd1);
 
+#4 reset = 1;
+
 instruction = 16'b1110001100000111;
 #4 assert_cpu(16'd11111, 16'b1110001100000111, 1'b1, 16'dx, 1'b0, 16'd1000, 16'd0, 16'd1);
 
 instruction = 16'b0111111111111111;
+reset = 0;
 #4 assert_cpu(16'd11111, 16'b0111111111111111, 1'b0, 16'dx, 1'b0, 16'd32767, 16'd1, 16'd1);
 
   
