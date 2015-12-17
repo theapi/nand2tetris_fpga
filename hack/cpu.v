@@ -103,6 +103,9 @@ module cpu (
     end
     
     always @(*) begin
+    
+        r_addressM = ARegister;
+    
         // A instruction
         if (instruction[15] == 0) begin
             pc_load = 1'b0;
@@ -117,6 +120,13 @@ module cpu (
                 alu_y = ARegister;
             end
 
+            // if d3 (instruction[3]) == 1 then write to M
+            if (instruction[3] == 1) begin
+                r_writeM <= 1'b1;    
+            end else begin
+                r_writeM <= 1'b0;
+            end
+            
             // Jump instructions
             if (instruction[2:0] == 3'b001 && (!alu_ng && !alu_zr)) begin // JGT alu_out > 0
                 pc_in = ARegister;
@@ -148,20 +158,13 @@ module cpu (
     always @(posedge clk) begin
         pc_inc <= !pc_inc; // 2 clock cycles per instruction
         
-        r_addressM <= ARegister;
-        
-        
-    
+
         // If MSB of instruction == 0 then the A register must be set with the 15 bit remaining value.
         if (instruction[15] == 0) begin
             // A instruction
             ARegister <= {1'b0, instruction[14:0]};
-            
         end else begin
             // C instruction
-            
-            
-            
             if (pc_inc) begin
             // Get the results of the computation
                 // if instruction[5] == store ALU out (outM) in A
@@ -174,26 +177,9 @@ module cpu (
                     DRegister <= alu_out;
                 end
                 
-                // if d3 (instruction[3]) == 1 then write to M
-                if (instruction[3] == 1) begin
-                    r_writeM <= 1'b1;    
-                end else begin
-                    r_writeM <= 1'b0;
-                end
-                
-                
-                
-                /*
 
-                */
-            
-            end else begin
-            // Start a computation
-                
             end
-            
 
-            
         end
     end 
     
