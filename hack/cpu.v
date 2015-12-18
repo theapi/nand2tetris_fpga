@@ -149,30 +149,58 @@ module cpu (
             end
 
             // Jump instructions
-            if (instruction[2:0] == 3'b001 && (!alu_ng && !alu_zr)) begin // JGT alu_out > 0
-                pc_in = a_out;
-                pc_load = 1'b1;
-            end else if (instruction[2:0] == 3'b010 && alu_zr) begin // JEQ
-                pc_in = a_out;
-                pc_load = 1'b1;
-            end else if (instruction[2:0] == 3'b011 && (!alu_ng || alu_zr)) begin // JGE alu_out >= 0
-                pc_in = a_out;
-                pc_load = 1'b1;
-            end else if (instruction[2:0] == 3'b100 && alu_ng) begin // JLT
-                pc_in = a_out;
-                pc_load = 1'b1;
-            end else if (instruction[2:0] == 3'b101 && alu_out != 0) begin // JNE
-                pc_in = a_out;
-                pc_load = 1'b1;
-            end else if (instruction[2:0] == 3'b110 && (alu_ng || alu_zr)) begin // JLE alu_out <= 0
-                pc_in = a_out;
-                pc_load = 1'b1;
-            end else if (instruction[2:0] == 3'b111) begin // JMP
-                pc_in = a_out;
-                pc_load = 1'b1;
-            end else begin
-                pc_load = 1'b0;
-            end
+            pc_load = 1'b0;
+            case (instruction[2:0])
+                3'b001: // JGT
+                    begin
+                        if (!alu_ng && !alu_zr) begin // alu_out > 0
+                            pc_in = a_out;
+                            pc_load = 1'b1;
+                        end
+                    end
+                3'b010: // JEQ
+                    begin
+                        if (alu_zr) begin // alu_out == 0
+                            pc_in = a_out;
+                            pc_load = 1'b1;
+                        end
+                    end
+                3'b011: // JGE
+                    begin
+                        if (!alu_ng || alu_zr) begin // alu_out >= 0
+                            pc_in = a_out;
+                            pc_load = 1'b1;
+                        end
+                    end
+                3'b100: // JLT
+                    begin
+                        if (alu_ng) begin // alu_out < 0
+                            pc_in = a_out;
+                            pc_load = 1'b1;
+                        end
+                    end
+                3'b101: // JNE
+                    begin
+                        if (!alu_zr) begin //alu_out != 0
+                            pc_in = a_out;
+                            pc_load = 1'b1;
+                        end
+                    end
+                3'b110: // JLE
+                    begin
+                        if (alu_ng || alu_zr) begin // alu_out <= 0
+                            pc_in = a_out;
+                            pc_load = 1'b1;
+                        end
+                    end
+                3'b111: // JMP
+                    begin
+                        pc_in = a_out;
+                        pc_load = 1'b1;
+                    end
+                default: pc_load = 1'b0;
+            endcase
+            
             
             // The registers can only be set on the second clock cycle.
             if (pc_inc) begin
