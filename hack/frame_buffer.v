@@ -16,6 +16,8 @@
     input [14:0] pc, // debug the current program count on the vga
     input [15:0] instruction, // debug the current instruction register on the vga
     input [15:0] data_register, // debug the current instruction register on the vga
+    input [15:0] areg, // debug the ARegister
+    input [15:0] dreg, // debug the DRegister
     
     input [10:0] vga_h, // the current vertical pixel count being displayed
     input [10:0] vga_v, // the current horizontal pixel count being displayed
@@ -85,7 +87,23 @@
     );
 
     
+    // ARegister debug
+    wire [2:0] areg_display_out;
+    wire areg_display_on;
+    register_display #(.START_H(11'd200), .START_V(11'd10)) areg_display (
+        .clk(clk), .data_in({8'd0, areg}),
+        .vga_h(vga_h), .vga_v(vga_v),
+        .bg(3'b001), .pixel_out(areg_display_out), .display_on(areg_display_on)
+    );
 
+    // DRegister debug
+    wire [2:0] dreg_display_out;
+    wire dreg_display_on;
+    register_display #(.START_H(11'd200), .START_V(11'd20)) dreg_display (
+        .clk(clk), .data_in({8'd0, dreg}),
+        .vga_h(vga_h), .vga_v(vga_v),
+        .bg(3'b001), .pixel_out(dreg_display_out), .display_on(dreg_display_on)
+    );
       
     always @ (posedge clk) begin
         // border surrounding the hack screen of 512 x 256 
@@ -100,6 +118,10 @@
                 out <= data_register_display_out;
             end else if (pc_display_on) begin
                 out <= pc_display_out;
+            end else if (areg_display_on) begin
+                out <= areg_display_out;
+            end else if (dreg_display_on) begin
+                out <= dreg_display_out;
             end else begin
                 out <= 3'b001;
             end

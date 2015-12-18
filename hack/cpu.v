@@ -46,9 +46,14 @@ module cpu (
     input [15:0] inM,
 
     output [15:0] outM,
+    
     output [14:0] addressM,
     output writeM,
-    output [14:0] pc
+    output [14:0] pc,
+    
+    
+    output [15:0] areg,
+    output [15:0] dreg
 );
 
     
@@ -63,15 +68,6 @@ module cpu (
     reg [15:0] alu_y;
     wire [15:0] alu_out;
     wire alu_zr, alu_ng;
-    /*
-    reg [15:0] a_in = 16'b0;
-    wire [15:0] a_out;
-    reg a_we = 1'b1;
-    
-    reg [15:0] d_in = 16'b0;
-    wire [15:0] d_out;
-    reg d_we = 1'b0;
-    */
 
     assign pc = pc_out[14:0];
     
@@ -82,6 +78,8 @@ module cpu (
     
     reg [15:0] DRegister = 16'b0;
     reg [15:0] ARegister = 16'b0;
+    assign dreg = DRegister;
+    assign areg = ARegister;
   
 
     program_counter program_counter_inst (
