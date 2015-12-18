@@ -56,10 +56,19 @@
         .bg(3'b001), .pixel_out(kb_display_out), .display_on(kb_display_on)
     );
     
+    // program counter debug
+    wire [2:0] pc_display_out;
+    wire pc_display_on;
+    register_display #(.START_H(11'd10), .START_V(11'd20)) pc_display (
+        .clk(clk), .data_in(pc),
+        .vga_h(vga_h), .vga_v(vga_v),
+        .bg(3'b001), .pixel_out(pc_display_out), .display_on(pc_display_on)
+    );
+    
     // Instruction debug
     wire [2:0] instruction_display_out;
     wire instruction_display_on;
-    register_display #(.START_H(11'd10), .START_V(11'd20)) instruction_display (
+    register_display #(.START_H(11'd10), .START_V(11'd30)) instruction_display (
         .clk(clk), .data_in(instruction),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(instruction_display_out), .display_on(instruction_display_on)
@@ -69,21 +78,14 @@
     // data_register debug
     wire [2:0] data_register_display_out;
     wire data_register_display_on;
-    register_display #(.START_H(11'd10), .START_V(11'd30)) data_register_display (
+    register_display #(.START_H(11'd10), .START_V(11'd40)) data_register_display (
         .clk(clk), .data_in(data_register),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(data_register_display_out), .display_on(data_register_display_on)
     );
 
     
-    // program counter debug
-    wire [2:0] pc_display_out;
-    wire pc_display_on;
-    register_display #(.START_H(11'd10), .START_V(11'd40)) pc_display (
-        .clk(clk), .data_in(pc),
-        .vga_h(vga_h), .vga_v(vga_v),
-        .bg(3'b001), .pixel_out(pc_display_out), .display_on(pc_display_on)
-    );
+
       
     always @ (posedge clk) begin
         // border surrounding the hack screen of 512 x 256 
