@@ -8,11 +8,18 @@ add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/outM
 add wave -noupdate /cpu_tb/cpu_DUT/writeM
 add wave -noupdate -radix unsigned /cpu_tb/cpu_DUT/addressM
 add wave -noupdate /cpu_tb/cpu_DUT/pc_inc
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/a_in
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/a_out
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/d_in
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/d_out
+add wave -noupdate /cpu_tb/cpu_DUT/d_we
+add wave -noupdate -divider PC
 add wave -noupdate /cpu_tb/cpu_DUT/pc_load
-add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/pc_in
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/pc
-add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/ARegister
-add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/DRegister
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/pc_in
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/program_counter_inst/in
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/program_counter_inst/out
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/program_counter_inst/r_out
 add wave -noupdate -divider ALU
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/alu_inst/x
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/alu_inst/y
@@ -28,9 +35,9 @@ add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/ng
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/r_zr
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/r_ng
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {540 ns} 0}
+WaveRestoreCursors {{Cursor 1} {20 ns} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 150
+configure wave -namecolwidth 137
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 1
@@ -44,4 +51,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {490 ns} {650 ns}
+WaveRestoreZoom {870 ns} {1010 ns}
