@@ -31,7 +31,7 @@ module cpu_tb();
     
     
     $monitor ("%d %b %b %d %b %d %d %d %t", 
-                inM, instruction, reset, outM, writeM, addressM, pc, cpu_DUT.d_out, $time);
+                inM, instruction, reset, outM, writeM, addressM, pc, cpu_DUT.DRegister, $time);
 
         clk = 1;
         reset = 0;
@@ -209,10 +209,10 @@ task assert_cpu;
             || writeM != i_writeM
             || pc != i_pc
             || addressM != i_addressM
-            || cpu_DUT.d_out != i_DRegister) begin
+            || cpu_DUT.DRegister != i_DRegister) begin
             
             $display ("%d %b %b %d %b %d %d %d : assert failed", 
-                inM, instruction, reset, outM, writeM, addressM, pc, cpu_DUT.d_out);
+                inM, instruction, reset, outM, writeM, addressM, pc, cpu_DUT.DRegister);
             $display ("%d %b %b %d %b %d %d %d <- should be this", 
                 i_inM, i_instruction, i_reset, i_outM, i_writeM, i_addressM, i_pc, i_DRegister);
         end

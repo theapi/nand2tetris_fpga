@@ -42,18 +42,17 @@
 module cpu (
     input clk,
     input reset,
-    input [15:0] inM,
     input [15:0] instruction,
+    input [15:0] inM,
 
     output [15:0] outM,
-    output writeM,
     output [14:0] addressM,
+    output writeM,
     output [14:0] pc
 );
 
     
     reg [14:0] r_addressM = 1'b0;
-    reg [15:0] r_outM = 1'b0;
     reg r_writeM;
     
     reg pc_inc = 1;
@@ -64,7 +63,7 @@ module cpu (
     reg [15:0] alu_y;
     wire [15:0] alu_out;
     wire alu_zr, alu_ng;
-    
+    /*
     reg [15:0] a_in = 16'b0;
     wire [15:0] a_out;
     reg a_we = 1'b1;
@@ -72,14 +71,19 @@ module cpu (
     reg [15:0] d_in = 16'b0;
     wire [15:0] d_out;
     reg d_we = 1'b0;
+    */
 
     assign pc = pc_out[14:0];
     
     assign outM = alu_out; 
     assign writeM = r_writeM;
     assign addressM = r_addressM;
+    
+    
+    reg [15:0] DRegister = 16'b0;
+    reg [15:0] ARegister = 16'b0;
   
-
+/*
     register ARegister (
         .q(a_out),
         .d(a_in),
@@ -93,7 +97,7 @@ module cpu (
         .we(d_we),
         .clk(clk)
     );
-    
+  */  
     program_counter program_counter_inst (
         .clk(clk),
         .reset(reset),
@@ -105,7 +109,7 @@ module cpu (
     
 
     alu alu_inst(
-        .x(d_out),
+        .x(DRegister),
         .y(alu_y),
         .zx(instruction[11]),
         .nx(instruction[10]),
@@ -124,105 +128,102 @@ module cpu (
         pc_inc <= !pc_inc;
     end
     
-    always @(*) begin
+    always @(posedge clk) begin
         
         // A instruction
         if (instruction[15] == 0) begin
-            a_in = {1'b0, instruction[14:0]};
-            pc_load = 1'b0;
-            r_writeM = 1'b0;
+            ARegister <= {1'b0, instruction[14:0]};
+            pc_load <= 1'b0;
+            r_writeM <= 1'b0;
         end
         // C instruction
         else begin
             // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
             if (instruction[12] == 1) begin
-                alu_y = inM;
+                alu_y <= inM;
             end else begin
-                alu_y = a_out;
+                alu_y <= ARegister;
             end
 
             // if d3 (instruction[3]) == 1 then write to M
             if (instruction[3] == 1) begin
-                r_writeM = 1'b1;    
+                r_writeM <= 1'b1;    
             end else begin
-                r_writeM = 1'b0;
+                r_writeM <= 1'b0;
             end
 
             // Jump instructions
-            pc_load = 1'b0;
+            pc_load <= 1'b0;
             case (instruction[2:0])
                 3'b001: // JGT
                     begin
                         if (!alu_ng && !alu_zr) begin // alu_out > 0
-                            pc_in = a_out;
-                            pc_load = 1'b1;
+                            pc_in <= ARegister;
+                            pc_load <= 1'b1;
                         end
                     end
                 3'b010: // JEQ
                     begin
                         if (alu_zr) begin // alu_out == 0
-                            pc_in = a_out;
-                            pc_load = 1'b1;
+                            pc_in <= ARegister;
+                            pc_load <= 1'b1;
                         end
                     end
                 3'b011: // JGE
                     begin
                         if (!alu_ng || alu_zr) begin // alu_out >= 0
-                            pc_in = a_out;
-                            pc_load = 1'b1;
+                            pc_in <= ARegister;
+                            pc_load <= 1'b1;
                         end
                     end
                 3'b100: // JLT
                     begin
                         if (alu_ng) begin // alu_out < 0
-                            pc_in = a_out;
-                            pc_load = 1'b1;
+                            pc_in <= ARegister;
+                            pc_load <= 1'b1;
                         end
                     end
                 3'b101: // JNE
                     begin
                         if (!alu_zr) begin //alu_out != 0
-                            pc_in = a_out;
-                            pc_load = 1'b1;
+                            pc_in <= ARegister;
+                            pc_load <= 1'b1;
                         end
                     end
                 3'b110: // JLE
                     begin
                         if (alu_ng || alu_zr) begin // alu_out <= 0
-                            pc_in = a_out;
-                            pc_load = 1'b1;
+                            pc_in <= ARegister;
+                            pc_load <= 1'b1;
                         end
                     end
                 3'b111: // JMP
                     begin
-                        pc_in = a_out;
-                        pc_load = 1'b1;
+                        pc_in <= ARegister;
+                        pc_load <= 1'b1;
                     end
-                default: pc_load = 1'b0;
+                default: pc_load <= 1'b0;
             endcase
             
             
             // The registers can only be set on the second clock cycle.
             if (pc_inc) begin
                 if (instruction[5] == 1) begin
-                    a_in = alu_out;
+                    ARegister <= alu_out;
                 end
 
                 // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
                 if (instruction[4] == 1) begin
-                    d_in = alu_out;
-                    d_we = 1'b1;
-                end else begin
-                    d_we = 1'b0;
+                    DRegister <= alu_out;
                 end
             end
             
         end
         
-        r_addressM = a_out;
+        r_addressM <= ARegister;
         
         if (reset) begin
-            pc_load = 1'b0;
+            pc_load <= 1'b0;
         end
     end
 

@@ -7,9 +7,7 @@
 module instruction_memory(
     output reg [15:0] q,
     input [15:0] d,
-    input [15:0] write_address, read_address, // not all these addresses are used
-    //input [14:0] write_address, read_address,
-    //input [13:0] write_address, read_address,
+    input [14:0] write_address, read_address,
     input we, clk
 );
     //(* ramstyle = "M9K" *)
