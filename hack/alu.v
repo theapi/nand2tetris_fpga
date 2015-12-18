@@ -56,17 +56,17 @@ module alu (
     reg r_ng;
     
     always @ (*) begin
-        r_x = (zx == 1) ? 0 : x;      // if (zx == 1) set x = 0 
+        r_x = (zx == 1) ? 16'b0 : x;      // if (zx == 1) set x = 0 
         r_x = (nx == 1) ? ~r_x : r_x; // if (nx == 1) set x = !x
         
-        r_y = (zy == 1) ? 0 : y;      // if (zy == 1) set y = 0
+        r_y = (zy == 1) ? 16'b0 : y;      // if (zy == 1) set y = 0
         r_y = (ny == 1) ? ~r_y : r_y; // if (ny == 1) set y = !y
         
         r_out = (f == 1) ? r_x + r_y : r_x & r_y; // if (f == 1)  set out = x + y else set out = x & y
         r_out = (no == 1) ? ~r_out : r_out;       // if (no == 1) set out = !out
         
-        r_zr = (r_out == 0) ? 1 : 0;    // if (out == 0) set zr = 1
-        r_ng = (r_out[15] == 1) ? 1 : 0;     // if (out < 0) set ng = 1
+        r_zr = (r_out == 0) ? 1'b1 : 1'b0;    // if (out == 0) set zr = 1
+        r_ng = (r_out[15] == 1) ? 1'b1 : 1'b0;     // if (out < 0) set ng = 1
         
     end
     
