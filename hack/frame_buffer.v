@@ -13,6 +13,7 @@
     input load,            // write-enable bit
     
     input [7:0] keyboard, // debug the current keypress on the vga
+    input [14:0] pc, // debug the current program count on the vga
     input [15:0] instruction, // debug the current instruction register on the vga
     input [15:0] data_register, // debug the current instruction register on the vga
     
@@ -74,6 +75,15 @@
         .bg(3'b001), .pixel_out(data_register_display_out), .display_on(data_register_display_on)
     );
 
+    
+    // program counter debug
+    wire [2:0] pc_display_out;
+    wire pc_display_on;
+    register_display #(.START_H(11'd10), .START_V(11'd40)) pc_display (
+        .clk(clk), .data_in(pc),
+        .vga_h(vga_h), .vga_v(vga_v),
+        .bg(3'b001), .pixel_out(pc_display_out), .display_on(pc_display_on)
+    );
       
     always @ (posedge clk) begin
         // border surrounding the hack screen of 512 x 256 
@@ -86,6 +96,8 @@
                 out <= instruction_display_out;
             end else if (data_register_display_on) begin
                 out <= data_register_display_out;
+            end else if (pc_display_on) begin
+                out <= pc_display_out;
             end else begin
                 out <= 3'b001;
             end
