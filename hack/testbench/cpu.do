@@ -5,4 +5,4 @@ vlog -reportprogress 300 -work work ../../alu.v
 vlog -reportprogress 300 -work work ../../program_counter.v
 vsim work.cpu_tb
 do ../../testbench/cpu_wave.do
-run 1000
+run 1900

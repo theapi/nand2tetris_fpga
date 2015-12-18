@@ -4,14 +4,14 @@ module register (
     input we, clk
 );
 
-    reg [15:0] mem;
+    reg [15:0] mem = 0;
     
     always @ (posedge clk) begin
-        if (we) begin
+        if (we) begin 
             mem <= d;
             q <= d;
         end else begin
-            q <= mem; 
+            q <= mem;
         end
     end
     

@@ -118,14 +118,14 @@ module cpu (
         .ng(alu_ng)
     );
     
-    always @(posedge reset) begin
-        pc_load <= 1'b0;
+    always @(posedge clk) begin
+        // Need 2 clock cycles per instruction due to the registers needing a clock cycle
+        // and the registers can be changed in each instruction.
+        pc_inc <= !pc_inc;
     end
     
     always @(*) begin
         
-        r_addressM = a_out;
-    
         // A instruction
         if (instruction[15] == 0) begin
             a_in = {1'b0, instruction[14:0]};
@@ -147,19 +147,7 @@ module cpu (
             end else begin
                 r_writeM = 1'b0;
             end
-            
-            if (instruction[5] == 1) begin
-                a_in = alu_out;
-            end
 
-            // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
-            if (instruction[4] == 1) begin
-                d_in = alu_out;
-                d_we = 1'b1;
-            end else begin
-                d_we = 1'b0;
-            end
-            
             // Jump instructions
             if (instruction[2:0] == 3'b001 && (!alu_ng && !alu_zr)) begin // JGT alu_out > 0
                 pc_in = a_out;
@@ -185,41 +173,30 @@ module cpu (
             end else begin
                 pc_load = 1'b0;
             end
-        end
-    end
-    
-    always @(posedge clk) begin
-//        pc_inc <= !pc_inc;
-    end
-
-    /*
-    always @(posedge clk) begin
-//        pc_inc <= !pc_inc; // 2 clock cycles per instruction
-        
-
-        // If MSB of instruction == 0 then the A register must be set with the 15 bit remaining value.
-        if (instruction[15] == 0) begin
-            // A instruction
-            a_in <= {1'b0, instruction[14:0]};
-        end else begin
-            // C instruction
-            //if (pc_inc) begin
-            // Get the results of the computation
-                // if instruction[5] == store ALU out (outM) in A
+            
+            // The registers can only be set on the second clock cycle.
+            if (pc_inc) begin
                 if (instruction[5] == 1) begin
-                    a_in <= alu_out;
+                    a_in = alu_out;
                 end
 
                 // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
                 if (instruction[4] == 1) begin
-                    d_in <= alu_out;
+                    d_in = alu_out;
+                    d_we = 1'b1;
+                end else begin
+                    d_we = 1'b0;
                 end
-                
-
-            //end
-
+            end
+            
         end
-    end 
-    */
+        
+        r_addressM = a_out;
+        
+        if (reset) begin
+            pc_load = 1'b0;
+        end
+    end
+
 
 endmodule
