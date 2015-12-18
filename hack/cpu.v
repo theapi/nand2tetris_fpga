@@ -115,10 +115,11 @@ module cpu (
         alu_y = ARegister;
         r_addressM = ARegister[14:0];
 
-        if (instruction[15] == 0) begin // A instruction
+        if (reset) begin
+            pc_in = 16'b0;
             pc_load = 1'b0;
             r_writeM = 1'b0;
-        end else begin                  // C instruction
+        end else if (instruction[15] == 1) begin  // C instruction
         
             // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
             if (instruction[12] == 1) begin

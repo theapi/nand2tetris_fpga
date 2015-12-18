@@ -175,9 +175,7 @@ instruction = 16'b1110001100000110;
 instruction = 16'b1110001100000111;
 #4 assert_cpu(16'd11111, 16'b1110001100000111, 1'b0, 16'dx, 1'b0, 16'd1000, 16'd1000, 16'd1);
 
-#4 reset = 1;
-
-instruction = 16'b1110001100000111;
+reset = 1;
 #4 assert_cpu(16'd11111, 16'b1110001100000111, 1'b1, 16'dx, 1'b0, 16'd1000, 16'd0, 16'd1);
 
 instruction = 16'b0111111111111111;
@@ -189,7 +187,6 @@ reset = 0;
 
     always begin
         #1 clk = !clk;
-        //if (clk) line_num = line_num + 1'b1;
     end
 	
 
