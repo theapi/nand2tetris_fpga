@@ -86,38 +86,6 @@ module core_tb();
         .we(im_we)
     );
 
-    /*
-    cpu cpu(
-        .clk(clk),
-        .reset(reset),
-        .inM(inM),
-        .instruction(instruction),
-        .outM(dm_in),
-        .writeM(dm_load),
-        .addressM(dm_address),
-        .pc(pc),
-        .areg(areg),
-        .dreg(dreg)
-    );
-    
-    data_mux data_mux(
-        .clk(clk),
-        .sel(dm_sel),
-        
-        .a_in(dinit_in),
-        .a_address(dinit_address),
-        .a_we(dinit_load),
-        
-        .b_in(dm_in),
-        .b_address(dm_address),
-        .b_we(dm_load),
-        
-        .out(outM),
-        .write(writeM),
-        .address(addressM)
-    );
- */
- 
  cpu cpu(
         .clk(clk),
         .reset(reset),
@@ -152,20 +120,7 @@ module core_tb();
                 dreg, areg, screen_address, screen_data, screen_we,  $time);
 
         clk = 1;
-        reset = 0;
-
-// Initialize memory
-/*
-#2 
-dm_sel = 1;
-dinit_address = 15'd0;
-dinit_in = 15'd2;
-dinit_load = 1'b1;
-
-#2
-dm_sel = 0;
-dinit_load = 1'b0;
-*/
+        reset = 1;
 
 /*
 // Load the program
