@@ -121,7 +121,7 @@ module cpu (
         
             // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
             if (instruction[12] == 1) begin
-                alu_y = inM;
+                if (inM) alu_y = inM; // wait for the memory data to be available.
             end 
 
             // if d3 (instruction[3]) == 1 then write to M
@@ -199,10 +199,13 @@ module cpu (
             
             // A instruction
             if (instruction[15] == 0) begin
-                ARegister <= {1'b0, instruction[14:0]};
-                //pc_load <= 1'b0;
-                //r_writeM <= 1'b0;
+                if (pc_inc) begin
+                    ARegister <= {1'b0, instruction[14:0]};
+                    //pc_load <= 1'b0;
+                    //r_writeM <= 1'b0;
+                end
             end
+            
             // C instruction
             else begin
                 
