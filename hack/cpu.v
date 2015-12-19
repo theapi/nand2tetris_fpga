@@ -186,10 +186,24 @@ module cpu (
         
     end
     
+    reg [2:0] timer = 1'b0;
+    
     always @(posedge clk) begin
+        if (timer == 4'd3) begin
+            timer <= 4'd0;
+        end else begin
+            timer <= timer + 1'b1;
+        end
+    
+        if (timer == 4'd2) begin
+            pc_inc <= 1'b1;
+        end else begin
+            pc_inc <= 1'b0;
+        end
+    
         // Need 2 clock cycles per instruction due to the registers needing a clock cycle
         // and the registers can be changed in each instruction.
-        pc_inc <= !pc_inc;
+        //pc_inc <= !pc_inc;
     end
     
     always @(posedge clk or posedge reset) begin
