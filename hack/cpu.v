@@ -56,9 +56,9 @@ module cpu (
     output [15:0] dreg
 );
 
-    reg [15:0] r_outM;
-    reg [14:0] r_addressM = 1'b0;
-    reg r_writeM;
+    reg [15:0] r_outM = 16'b0;
+    reg [14:0] r_addressM = 15'b0;
+    reg r_writeM = 0;
     
     reg pc_inc = 0;
     reg pc_load = 0;
@@ -66,7 +66,7 @@ module cpu (
     reg [15:0] pc_in = 0;
     wire [15:0] pc_out;
     
-    reg [15:0] alu_y;
+    reg [15:0] alu_y = 16'b0;
     wire [15:0] alu_out;
     wire alu_zr, alu_ng;
 
@@ -120,82 +120,119 @@ module cpu (
         end
     end
     
+    always @(*) begin
+    // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
+                if (instruction[12] == 1) begin
+                    alu_y = inM;
+                end else begin
+                    alu_y = ARegister;
+                end
+    end
+    
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            pc_inc <= 1'b0;
+            //pc_inc <= 1'b0;
+            pc_in <= 1'b0;
+            //pc_load <= 1'b1;
         end else begin
+            pc_inc <= 1'b1;
+            
+            //r_outM <= alu_out;
+            
+            if (instruction[15] == 0) begin  
+                // A instruction
+                ARegister <= {1'b0, instruction[14:0]};
+                r_writeM <= 1'b0;
+                pc_load <= 1'b0;
+                
+            end else begin
+                // C instruction
+                
+                
+                
+                
+                
+                // If d3 (instruction[3]) == 1 then write the output of the alu to M (RAM).
+                if (instruction[3] == 1) begin
+                    r_writeM <= 1'b1;
+                    r_outM <= alu_out;
+                    r_addressM <= ARegister;
+                end else begin
+                    r_writeM <= 1'b0;
+                end
+                
+                if (instruction[5] == 1) begin
+                    ARegister <= alu_out;
+                    
+                end
+
+                // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
+                if (instruction[4] == 1) begin
+                    DRegister <= alu_out;
+                end
+                                
+                // Jump instructions
+                if (instruction[2:0] == 3'b000) begin
+                    pc_load <= 1'b0;
+                end else begin
+                case (instruction[2:0])
+                    3'b001: // JGT
+                        begin
+                            if (!alu_ng && !alu_zr) begin // alu_out > 0
+                                pc_in <= ARegister;
+                                pc_load <= 1'b1;
+                            end
+                        end
+                    3'b010: // JEQ
+                        begin
+                            if (alu_zr) begin // alu_out == 0
+                                pc_in <= ARegister;
+                                pc_load <= 1'b1;
+                            end
+                        end
+                    3'b011: // JGE
+                        begin
+                            if (!alu_ng || alu_zr) begin // alu_out >= 0
+                                pc_in <= ARegister;
+                                pc_load <= 1'b1;
+                            end
+                        end
+                    3'b100: // JLT
+                        begin
+                            if (alu_ng) begin // alu_out < 0
+                                pc_in <= ARegister;
+                                pc_load <= 1'b1;
+                            end
+                        end
+                    3'b101: // JNE
+                        begin
+                            if (!alu_zr) begin //alu_out != 0
+                                pc_in <= ARegister;
+                                pc_load <= 1'b1;
+                            end
+                        end
+                    3'b110: // JLE
+                        begin
+                            if (alu_ng || alu_zr) begin // alu_out <= 0
+                                pc_in <= ARegister;
+                                pc_load <= 1'b1;
+                            end
+                        end
+                    3'b111: // JMP
+                        begin
+                            pc_in <= ARegister;
+                            pc_load <= 1'b1;
+                        end
+                    default: pc_load <= 1'b0;
+                endcase
+                end
+            end
+/*
             case (timer)
                 3'd0: // Parse the instruction
                     begin
                         
-                        if (instruction[15] == 0) begin  
-                            // A instruction
-                            ARegister <= {1'b0, instruction[14:0]};
-                        end else begin
-                            // C instruction
-                            
-                            // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
-                            if (instruction[12] == 1) begin
-                                if (inM) begin 
-                                    alu_y <= inM;
-                                end
-                            end else begin
-                                alu_y <= ARegister;
-                            end
-                            
-                                                        // Jump instructions
-                            case (instruction[2:0])
-                                3'b001: // JGT
-                                    begin
-                                        if (!alu_ng && !alu_zr) begin // alu_out > 0
-                                            pc_in <= ARegister;
-                                            pc_load_en <= 1'b1;
-                                        end
-                                    end
-                                3'b010: // JEQ
-                                    begin
-                                        if (alu_zr) begin // alu_out == 0
-                                            pc_in <= ARegister;
-                                            pc_load_en <= 1'b1;
-                                        end
-                                    end
-                                3'b011: // JGE
-                                    begin
-                                        if (!alu_ng || alu_zr) begin // alu_out >= 0
-                                            pc_in <= ARegister;
-                                            pc_load_en <= 1'b1;
-                                        end
-                                    end
-                                3'b100: // JLT
-                                    begin
-                                        if (alu_ng) begin // alu_out < 0
-                                            pc_in <= ARegister;
-                                            pc_load_en <= 1'b1;
-                                        end
-                                    end
-                                3'b101: // JNE
-                                    begin
-                                        if (!alu_zr) begin //alu_out != 0
-                                            pc_in <= ARegister;
-                                            pc_load_en <= 1'b1;
-                                        end
-                                    end
-                                3'b110: // JLE
-                                    begin
-                                        if (alu_ng || alu_zr) begin // alu_out <= 0
-                                            pc_in <= ARegister;
-                                            pc_load_en <= 1'b1;
-                                        end
-                                    end
-                                3'b111: // JMP
-                                    begin
-                                        pc_in <= ARegister;
-                                        pc_load_en <= 1'b1;
-                                    end
-                                default: pc_load_en <= 1'b0;
-                            endcase
-
-                        end
+                        
                     end
                 3'd1: 
                     begin
@@ -234,23 +271,7 @@ module cpu (
                             // C instruction
                             
                             
-                            // If d3 (instruction[3]) == 1 then write the output of the alu to M (RAM).
-                            // This must be done now as only now do we have the results of the alu.
-                            if (instruction[3] == 1) begin
-                                r_writeM <= 1'b1;   
-                            end 
                             
-                            if (instruction[5] == 1) begin
-                                ARegister <= alu_out;
-                                r_addressM <= alu_out;
-                            end else begin
-                                r_addressM <= ARegister[14:0]; // The current contents of A from the previous step.
-                            end
-
-                            // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
-                            if (instruction[4] == 1) begin
-                                DRegister <= alu_out;
-                            end
                             
                             
                         end
@@ -274,7 +295,7 @@ module cpu (
                     begin
                         // Never get here.
                     end 
-            endcase
+            endcase*/
         end
     end
     
