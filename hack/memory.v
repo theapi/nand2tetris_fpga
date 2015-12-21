@@ -43,45 +43,35 @@ module memory (
     always @ (*) begin
         ram_we = 1'b0;
         r_screen_we = 1'b0;
-        //r_mem_ram = 1'b0;
-       // r_out = r_in;
-            
+         
         if (load) begin
-            
-            
             if (address < 15'd16384) begin
                 ram_we = 1'b1;
                 r_screen_we = 1'b0;
-                
             end else if (address < 15'd24575) begin
                 ram_we = 1'b0;
                 r_screen_we = 1'b1;
             end
             
-        end else begin
-            if (address < 15'd16384) begin
-                r_out = ram_q;
-            end else begin
-                r_out = r_screen_mem;
-            end
         end
+        
+        if (address < 15'd16384) begin
+            r_out = ram_q;
+        end else begin
+            r_out = r_screen_mem;
+        end
+        
     end
-    
     
     always @ (posedge clk) begin
         if (load) begin
-            //r_out <= in;
             if (address < 15'd16384) begin 
-                r_in <= in;
+                //r_in = in;
             end else if (address < 15'd24575) begin 
-                r_screen_mem <= in;
+                r_screen_mem = in;
             end
-        end else begin
-            //r_out <= ram_q;
         end
     end
-    
-
     
     
 

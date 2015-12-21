@@ -23,6 +23,7 @@ add wave -noupdate -radix unsigned /core_tb/data_memory/address
 add wave -noupdate -radix unsigned /core_tb/data_memory/in
 add wave -noupdate -radix unsigned /core_tb/data_memory/out
 add wave -noupdate -radix unsigned /core_tb/data_memory/r_out
+add wave -noupdate -radix unsigned /core_tb/data_memory/r_screen_mem
 add wave -noupdate -radix unsigned /core_tb/data_memory/ram_q
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[20]}
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[19]}
@@ -62,4 +63,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {760 ns} {960 ns}
+WaveRestoreZoom {780 ns} {980 ns}
