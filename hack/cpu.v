@@ -121,7 +121,7 @@ module cpu (
     
     always @(*) begin
     
-        if (timer == 3'd0) begin
+        //if (timer == 3'd0) begin
  
         // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
         if (instruction[15] == 1 && instruction[12] == 1) begin
@@ -154,20 +154,27 @@ module cpu (
         end
     
         r_outM = alu_out;
-        r_addressM = ARegister[14:0];
+        if (instruction[15] == 0) begin  
+            // Load from memory now so it's ready in the next cycle.
+            r_addressM = {1'b0, instruction[14:0]};
+                
+            end else begin
+            r_addressM = ARegister[14:0];
+        end
+        
         pc_in = ARegister;
         pc_inc = 1'b1;
         
-        end else begin
-            pc_inc = 1'b0;
-            pc_load = 1'b0;
-            r_writeM = 1'b0;
-        end 
+//        end else begin
+//            pc_inc = 1'b0;
+//            pc_load = 1'b0;
+//            r_writeM = 1'b0;
+//        end 
     end
     
     
-    always @(posedge clk or posedge reset) begin
-        if (timer == 3'd1) begin
+    always @(posedge clk) begin
+        //if (timer == 3'd1) begin
 
             if (instruction[15] == 0) begin  
                 // A instruction
@@ -189,7 +196,7 @@ module cpu (
                 
             end
 
-        end
+        //end
     end
     
 
