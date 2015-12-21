@@ -120,6 +120,9 @@ module cpu (
     end
     
     always @(*) begin
+    
+        if (timer == 3'd0) begin
+ 
         // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
         if (instruction[15] == 1 && instruction[12] == 1) begin
             alu_y = inM;
@@ -154,12 +157,17 @@ module cpu (
         r_addressM = ARegister[14:0];
         pc_in = ARegister;
         pc_inc = 1'b1;
-    end
-    
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
         
         end else begin
+            pc_inc = 1'b0;
+            pc_load = 1'b0;
+            r_writeM = 1'b0;
+        end 
+    end
+    
+    
+    always @(posedge clk or posedge reset) begin
+        if (timer == 3'd1) begin
 
             if (instruction[15] == 0) begin  
                 // A instruction

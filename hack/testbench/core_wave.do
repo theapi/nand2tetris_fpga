@@ -5,7 +5,7 @@ add wave -noupdate /core_tb/reset
 add wave -noupdate -radix decimal /core_tb/cpu/pc_in
 add wave -noupdate /core_tb/cpu/pc_load
 add wave -noupdate -radix decimal /core_tb/pc
-add wave -noupdate /core_tb/inM
+add wave -noupdate -radix unsigned /core_tb/inM
 add wave -noupdate /core_tb/instruction
 add wave -noupdate -radix unsigned /core_tb/outM
 add wave -noupdate /core_tb/writeM
