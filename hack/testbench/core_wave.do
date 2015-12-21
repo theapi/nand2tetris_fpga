@@ -22,7 +22,6 @@ add wave -noupdate /core_tb/data_memory/load
 add wave -noupdate -radix unsigned /core_tb/data_memory/address
 add wave -noupdate -radix unsigned /core_tb/data_memory/in
 add wave -noupdate -radix unsigned /core_tb/data_memory/out
-add wave -noupdate -radix unsigned /core_tb/data_memory/r_mem_ram
 add wave -noupdate -radix unsigned /core_tb/data_memory/r_out
 add wave -noupdate -radix unsigned /core_tb/data_memory/ram_q
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[20]}
@@ -47,7 +46,7 @@ add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[2]}
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[1]}
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[0]}
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 2} {700 ns} 0}
+WaveRestoreCursors {{Cursor 2} {880 ns} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 193
 configure wave -valuecolwidth 124
@@ -63,4 +62,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {600 ns} {800 ns}
+WaveRestoreZoom {760 ns} {960 ns}

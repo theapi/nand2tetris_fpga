@@ -19,7 +19,7 @@ module memory (
     assign screen_we      = r_screen_we;
 
     reg [15:0] r_out = 16'b0;
-    //assign out = r_out;
+    assign out = r_out;
 
     reg [15:0] r_in;
     reg [15:0] r_screen_mem;
@@ -31,7 +31,7 @@ module memory (
     wire [15:0] ram_q;
     reg ram_we;
     ram_16 ram16(
-        .q(out), // from ram
+        .q(ram_q), // from ram
         .d(in), // to ram
         .write_address(address[13:0]), // where to write in ram
         .read_address(address[13:0]), // where to read from
@@ -60,9 +60,9 @@ module memory (
             
         end else begin
             if (address < 15'd16384) begin
-            //    r_out = ram_q;
+                r_out = ram_q;
             end else begin
-            //    r_out = r_screen_mem;
+                r_out = r_screen_mem;
             end
         end
     end
@@ -73,7 +73,6 @@ module memory (
             //r_out <= in;
             if (address < 15'd16384) begin 
                 r_in <= in;
-                r_mem_ram <= in;
             end else if (address < 15'd24575) begin 
                 r_screen_mem <= in;
             end
