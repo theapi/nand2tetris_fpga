@@ -2,44 +2,6 @@
 
 `timescale 10ns/10ns
 
-module data_mux(
-    input clk,
-    input sel,
-    
-    input [15:0] a_in,
-    input [14:0] a_address,
-    input a_we,
-    
-    input [15:0] b_in,
-    input [14:0] b_address,
-    input b_we,
-    
-    output [15:0] out,
-    output write,
-    output [14:0] address
-);
-
-    reg [15:0] r_out;
-    reg r_write;
-    reg [14:0] r_address;
-
-    assign out = r_out;
-    assign write = r_write;
-    assign address = r_address;
-            
-    always @ (posedge clk) begin
-        if (sel) begin
-            r_out <= a_in; 
-            r_write <= a_we;
-            r_address <= a_address;
-        end else begin
-            r_out <= b_in; 
-            r_write <= b_we;
-            r_address <= b_address;
-        end
-    end
-
-endmodule
 
 module core_tb();
    
@@ -50,13 +12,6 @@ module core_tb();
     
     reg [7:0] keyboard;
 
-    reg [14:0] dinit_address;
-    reg dinit_load;
-    reg [15:0] dinit_in;
-    wire [15:0] dm_in;
-    wire [14:0] dm_address;
-    wire dm_load;
-    reg dm_sel;
     
 	wire [15:0] outM;
     wire writeM;

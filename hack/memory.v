@@ -14,22 +14,24 @@ module memory (
 );
 
     reg r_screen_we;
-    reg [15:0] r_screen_data;
-    assign screen_data    = r_screen_data;
+    assign screen_data    = in;
     assign screen_address = address[12:0];
     assign screen_we      = r_screen_we;
 
-    reg [15:0] r_out = 0;
-    assign out = r_out;
+    reg [15:0] r_out = 16'b0;
+    //assign out = r_out;
 
-
+    reg [15:0] r_in;
+    reg [15:0] r_screen_mem;
+    
+    reg[15:0] r_mem_ram;
     
     wire [13:0] write_address, read_address;
 
     wire [15:0] ram_q;
     reg ram_we;
     ram_16 ram16(
-        .q(ram_q), // from ram
+        .q(out), // from ram
         .d(in), // to ram
         .write_address(address[13:0]), // where to write in ram
         .read_address(address[13:0]), // where to read from
@@ -38,47 +40,49 @@ module memory (
     );
     
 
+    always @ (*) begin
+        ram_we = 1'b0;
+        r_screen_we = 1'b0;
+        //r_mem_ram = 1'b0;
+       // r_out = r_in;
+            
+        if (load) begin
+            
+            
+            if (address < 15'd16384) begin
+                ram_we = 1'b1;
+                r_screen_we = 1'b0;
+                
+            end else if (address < 15'd24575) begin
+                ram_we = 1'b0;
+                r_screen_we = 1'b1;
+            end
+            
+        end else begin
+            if (address < 15'd16384) begin
+            //    r_out = ram_q;
+            end else begin
+            //    r_out = r_screen_mem;
+            end
+        end
+    end
+    
     
     always @ (posedge clk) begin
         if (load) begin
-            // Writing...
-            // ram < 15'd16384; screen < 15'd24575
-            if (address < 15'd16384) begin
-                ram_we <= 1;
-                r_screen_we <= 0;
-            end else if (address < 15'd24575) begin
-                ram_we <= 0;
-                r_screen_we <= 1;
-                r_screen_data <= in;
-            end else begin
-                ram_we <= 0;
-                r_screen_we <= 0;
+            //r_out <= in;
+            if (address < 15'd16384) begin 
+                r_in <= in;
+                r_mem_ram <= in;
+            end else if (address < 15'd24575) begin 
+                r_screen_mem <= in;
             end
         end else begin
-        // Reading...
-            ram_we <= 0;
-            r_screen_we <= 0;
+            //r_out <= ram_q;
         end
-        
-            
-        
-        // 110 0000 0000 0000 is the keyboard address.
-        if (address[14] == 1 && address[13] == 1) begin
-            // Retun the value of the currently pressed key.
-            r_out <= keyboard;
-        end else if (address < 15'd16384) begin
-            r_out <= ram_q;
-        end else if (address < 15'd24575) begin
-            r_out <= r_screen_data; // Screen memory is handled by the frame buffer.
-        end else begin
-            // Read other memory here...
-            r_out <= 0;
-        end
-        
-        
-    
     end
     
+
     
     
 
