@@ -87,20 +87,20 @@
     );
 
     
-    // ARegister debug
+    // ARegister debug (Screen address ATM)
     wire [2:0] areg_display_out;
     wire areg_display_on;
     register_display #(.START_H(11'd200), .START_V(11'd10)) areg_display (
-        .clk(clk), .data_in({8'd0, areg}),
+        .clk(clk), .data_in({8'd0, write_address}),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(areg_display_out), .display_on(areg_display_on)
     );
 
-    // DRegister debug
+    // DRegister debug (Screen load ATM)
     wire [2:0] dreg_display_out;
     wire dreg_display_on;
     register_display #(.START_H(11'd200), .START_V(11'd20)) dreg_display (
-        .clk(clk), .data_in({8'd0, dreg}),
+        .clk(clk), .data_in({8'd0, load}),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(dreg_display_out), .display_on(dreg_display_on)
     );

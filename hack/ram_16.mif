@@ -7,6 +7,6 @@ ADDRESS_RADIX=UNS;
 DATA_RADIX=HEX;
 
 CONTENT BEGIN
-	0      :   0004;
+	0      :   000C;
 	[1..16383]  :   0000;
 END;

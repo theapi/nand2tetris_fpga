@@ -13,7 +13,7 @@ module clock_cpu (
     assign clk_cpu = r_clk;
 
     always @(posedge clk) begin
-        if (counter == 32'd25000000) begin
+        if (counter == 32'd2500000) begin
             r_clk <= ~r_clk;
             counter <= 32'd0; 
         end else begin
