@@ -111,7 +111,7 @@ module cpu (
         if (reset) begin
             timer <= 1'b0;
         end else begin
-            if (timer == 3'd3) begin
+            if (timer == 3'd2) begin
                 timer <= 3'd0;
             end else begin
                 timer <= timer + 1'b1;
@@ -130,7 +130,7 @@ module cpu (
     
     always @(*) begin
     
-        //if (timer == 3'd0) begin
+        if (timer == 3'd0) begin
  
        
         
@@ -157,50 +157,55 @@ module cpu (
             endcase
         end
     
-        r_outM = alu_out;
+        //r_outM = alu_out;
         if (instruction[15] == 0) begin  
             // Load from memory now so it's ready in the next cycle.
-            r_addressM = {1'b0, instruction[14:0]};
-                
-            end else begin
-            r_addressM = ARegister[14:0];
+            //r_addressM = {1'b0, instruction[14:0]};
+        end else begin
+            //r_addressM = ARegister[14:0];
         end
         
-        pc_in = ARegister;
+        //r_addressM = ARegister[14:0];
+        
         pc_inc = 1'b1;
         
-//        end else begin
-//            pc_inc = 1'b0;
-//            pc_load = 1'b0;
-//            r_writeM = 1'b0;
-//        end 
+        end else begin
+            
+            pc_inc = 1'b0;
+            pc_load = 1'b0;
+            r_writeM = 1'b0;
+        end 
+        
+        r_addressM = ARegister[14:0];
+        pc_in = ARegister;
+        r_outM = alu_out;
     end
     
     
     always @(posedge clk) begin
-        //if (timer == 3'd1) begin
+        if (timer == 3'd0) begin
 
             if (instruction[15] == 0) begin  
                 // A instruction
-                ARegister <= {1'b0, instruction[14:0]};
+                ARegister = {1'b0, instruction[14:0]};
                 
             end else begin
                 // C instruction  
                 
                 if (instruction[5] == 1) begin
-                    ARegister <= alu_out;
+                    ARegister = alu_out;
                     
                 end
 
                 // If bit[4] "d2" is 1 then store ALU out (outM) in the D register
                 if (instruction[4] == 1) begin
-                    DRegister <= alu_out;
+                    DRegister = alu_out;
                 end
                                 
                 
             end
 
-        //end
+        end
     end
     
 

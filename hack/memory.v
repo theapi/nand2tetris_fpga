@@ -17,7 +17,7 @@ module memory (
     reg [12:0] r_screen_address;
     reg [15:0] r_screen_data;
     assign screen_data    = r_screen_data;
-    assign screen_address = r_screen_address;
+    assign screen_address = r_screen_address[12:0];
     assign screen_we      = r_screen_we;
 
     reg [15:0] r_out = 16'b0;
@@ -40,8 +40,45 @@ module memory (
         .clk(clk)
     );
     
-
-    always @ (*) begin
+    always @(*) begin
+        if (address < 15'd16384) begin
+            r_out = ram_q;
+        end else begin
+            r_out = r_screen_data;
+        end
+    end
+    
+    always @ (posedge clk) begin
+        ram_we = 1'b0;
+        if (load) begin
+            if (address < 15'd16384) begin
+                ram_we = 1'b1;
+            end
+        end
+        
+    end
+    
+    always @ (posedge clk) begin
+//        r_screen_we = 1'b0;
+//        r_screen_data = 1'b0;
+//        r_screen_address = 1'b0;
+         
+        if (load) begin
+            if (address < 15'd16384) begin
+                r_screen_we <= 1'b0;
+            end else if (address < 15'd24575) begin
+                r_screen_we <= 1'b1;
+                r_screen_address <= address - 15'd16384;
+                r_screen_data <= in;
+            end
+            
+        end
+        
+    end
+    
+    
+    /*
+        always @ (posedge clk) begin
         ram_we = 1'b0;
         r_screen_we = 1'b0;
         r_screen_data = 1'b0;
@@ -61,13 +98,8 @@ module memory (
             
         end
         
-        if (address < 15'd16384) begin
-            r_out = ram_q;
-        end else begin
-            r_out = r_screen_data;
-        end
-        
     end
+    */
     
     always @ (posedge clk) begin
         if (load) begin

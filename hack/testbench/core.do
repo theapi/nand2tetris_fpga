@@ -7,4 +7,4 @@ vlog -reportprogress 300 -work work ../../alu.v
 vlog -reportprogress 300 -work work ../../program_counter.v
 vsim work.core_tb
 do ../../testbench/core_wave.do
-run 2000
+run 4000
