@@ -5,7 +5,7 @@
 -- (including device programming or simulation files), and any 
 -- associated documentation or information are expressly subject 
 -- to the terms and conditions of the Altera Program License 
--- Subscription Agreement, the Altera Quartus II License Agreement,
+-- Subscription Agreement, the Altera Quartus Prime License Agreement,
 -- the Altera MegaCore Function License Agreement, or other 
 -- applicable license agreement, including, without limitation, 
 -- that your use is for the sole purpose of programming logic 
@@ -13,7 +13,7 @@
 -- authorized distributors.  Please refer to the applicable 
 -- agreement for further details.
 
--- Quartus II generated Memory Initialization File (.mif)
+-- Quartus Prime generated Memory Initialization File (.mif)
 
 WIDTH=16;
 DEPTH=8192;
@@ -22,5 +22,5 @@ ADDRESS_RADIX=UNS;
 DATA_RADIX=HEX;
 
 CONTENT BEGIN
-	[0..8191]  :   FFFF;
+	[0..8191]  :   0000;
 END;

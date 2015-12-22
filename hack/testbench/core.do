@@ -1,5 +1,6 @@
 vlog -reportprogress 300 -work work ../../testbench/core_tb.v
 vlog -reportprogress 300 -work work ../../ram_16.v
+vlog -reportprogress 300 -work work ../../vga_ram.v
 vlog -reportprogress 300 -work work ../../instruction_memory.v
 vlog -reportprogress 300 -work work ../../memory.v
 vlog -reportprogress 300 -work work ../../cpu.v

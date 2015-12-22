@@ -8,6 +8,7 @@
  module frame_buffer(
     input clk,             // the system clock
     
+    input [15:0] read_value,
     input [12:0] write_address,
     input [15:0] data_in,       // what to write (16 pixels, black or white)
     input load,            // write-enable bit
@@ -22,11 +23,12 @@
     input [10:0] vga_h, // the current vertical pixel count being displayed
     input [10:0] vga_v, // the current horizontal pixel count being displayed
     
-    output [2:0] pixel_out    // The requested  pixel value at vga_h x vga_v
+    output [2:0] pixel_out,    // The requested  pixel value at vga_h x vga_v
+    output [12:0] read_address
  );
  
-    wire[15:0] read_value;
-    wire[12:0] read_address;
+    //wire[15:0] read_value;
+    //wire[12:0] read_address;
     reg [2:0] out;
 
     wire[4:0] pixel_bit;
@@ -38,7 +40,7 @@
     assign read_address = pixel_addr[12:0];
     
     assign pixel_out = out;
-    
+    /*
     // Screen ram
     vga_ram vgaram(
         .q(read_value), // from ram
@@ -48,6 +50,8 @@
         .we(load), // do a write
         .clk(clk)
     );
+    */
+    
     
     // Keyboard debug
     wire [2:0] kb_display_out;
@@ -87,20 +91,20 @@
     );
 
     
-    // ARegister debug (Screen address ATM)
+    // ARegister debug (Screen  ATM)
     wire [2:0] areg_display_out;
     wire areg_display_on;
     register_display #(.START_H(11'd200), .START_V(11'd10)) areg_display (
-        .clk(clk), .data_in({8'd0, write_address}),
+        .clk(clk), .data_in({8'd0, read_value}),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(areg_display_out), .display_on(areg_display_on)
     );
 
-    // DRegister debug (Screen load ATM)
+    // DRegister debug (Screen ATM)
     wire [2:0] dreg_display_out;
     wire dreg_display_on;
     register_display #(.START_H(11'd200), .START_V(11'd20)) dreg_display (
-        .clk(clk), .data_in({8'd0, load}),
+        .clk(clk), .data_in({8'd0, read_address}),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(dreg_display_out), .display_on(dreg_display_on)
     );
@@ -128,9 +132,9 @@
         end else begin
         // hack screen contents from the screen ram
             if (read_value[pixel_bit]) begin
-                out <= 3'b111;
-            end else begin
                 out <= 3'b000;
+            end else begin
+                out <= 3'b111;
             end
         end
     end

@@ -19,8 +19,8 @@ module vga_ram(
     
     always @ (posedge clk) begin
         if (we)
-            mem[write_address] <= d;
-        q <= mem[read_address]; // q doesn't get d in this clock cycle
+            mem[write_address] = d;
+        q = mem[read_address]; // q does get d in this clock cycle
     end
     
 endmodule

@@ -10,11 +10,14 @@ add wave -noupdate /core_tb/instruction
 add wave -noupdate -radix unsigned /core_tb/outM
 add wave -noupdate /core_tb/writeM
 add wave -noupdate -radix unsigned /core_tb/addressM
-add wave -noupdate /core_tb/screen_we
-add wave -noupdate -radix unsigned /core_tb/data_memory/screen_address
-add wave -noupdate /core_tb/data_memory/screen_data
 add wave -noupdate -radix decimal /core_tb/areg
 add wave -noupdate -radix decimal /core_tb/dreg
+add wave -noupdate -divider {VGA ram}
+add wave -noupdate -radix unsigned /core_tb/data_memory/vgaram/d
+add wave -noupdate /core_tb/data_memory/vgaram/q
+add wave -noupdate /core_tb/data_memory/vgaram/we
+add wave -noupdate -radix unsigned /core_tb/data_memory/vgaram/write_address
+add wave -noupdate -radix unsigned {/core_tb/data_memory/vgaram/mem[0]}
 add wave -noupdate -divider ALU
 add wave -noupdate -radix decimal /core_tb/cpu/alu_inst/out
 add wave -noupdate -radix decimal /core_tb/cpu/alu_inst/x

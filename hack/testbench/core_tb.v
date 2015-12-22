@@ -19,8 +19,8 @@ module core_tb();
     
     wire [14:0] pc;
     
-    wire [12:0] screen_address;
-    wire [15:0] screen_data;
+    wire [12:0] screen_read_address;
+    wire [15:0] read_value;
     wire screen_we;
     
     wire [15:0] areg;
@@ -57,22 +57,24 @@ module core_tb();
     memory data_memory (
         .clk(clk),
         .in(outM),
+        .screen_read_address(screen_read_address),
         .address(addressM),
         .load(writeM),
         .keyboard(keyboard),
         .out(inM),
-        .screen_address(screen_address),
-        .screen_data(screen_data),
-        .screen_we(screen_we)
+        //.screen_address(screen_address),
+        //.screen_data(screen_data),
+        //.screen_we(screen_we)
+        .read_value(read_value)
     );
     
 
 	// Initialize all variables
 	initial begin    
 
-    $monitor ("%d %b %b %b %b %d %d %d %d %d %d %d %b %t", 
+    $monitor ("%d %b %b %b %b %d %d %d %d %d %t", 
                 inM, instruction, reset, outM, writeM, addressM, pc, cpu.DRegister,
-                dreg, areg, screen_address, screen_data, screen_we,  $time);
+                dreg, areg,  $time);
 
         clk = 1;
         reset = 1;
