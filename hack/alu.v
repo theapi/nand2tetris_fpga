@@ -49,24 +49,75 @@ module alu (
     output ng
 );
 
+    reg [15:0] r_x_a;
     reg [15:0] r_x;
+    
+    reg [15:0] r_y_a;
     reg [15:0] r_y;
-    reg [15:0] r_out;
+    reg [15:0] r_out = 16'b0;
     reg r_zr;
     reg r_ng;
     
     always @ (*) begin
-        r_x = (zx == 1) ? 16'b0 : x;      // if (zx == 1) set x = 0 
-        r_x = (nx == 1) ? ~r_x : r_x; // if (nx == 1) set x = !x
+
+        // if (zx == 1) set x = 0 
+        if (zx == 1) begin 
+            r_x_a = 16'b0;      
+        end else begin
+            r_x_a = x;
+        end
         
-        r_y = (zy == 1) ? 16'b0 : y;      // if (zy == 1) set y = 0
-        r_y = (ny == 1) ? ~r_y : r_y; // if (ny == 1) set y = !y
+        // if (nx == 1) set x = !x
+        if (nx == 1) begin
+            r_x = ~r_x_a;
+        end else begin
+            r_x = r_x_a;
+        end
         
-        r_out = (f == 1) ? r_x + r_y : r_x & r_y; // if (f == 1)  set out = x + y else set out = x & y
-        r_out = (no == 1) ? ~r_out : r_out;       // if (no == 1) set out = !out
         
-        r_zr = (r_out == 0) ? 1'b1 : 1'b0;    // if (out == 0) set zr = 1
-        r_ng = (r_out[15] == 1) ? 1'b1 : 1'b0;     // if (out < 0) set ng = 1
+        // if (zy == 1) set y = 0
+        if (zy) begin
+            r_y_a = 1'b0;
+        end else begin
+            r_y_a = y;
+        end
+        
+        // if (ny == 1) set y = !y
+        if (ny == 1) begin
+            r_y = ~r_y_a;
+        end else begin
+            r_y = r_y_a;
+        end
+        
+        // if (f == 1)  set out = x + y else set out = x & y
+        if (f == 1) begin
+            r_out = r_x + r_y;
+        end else begin
+            r_out = r_x & r_y;
+        end
+        
+        // if (no == 1) set out = !out
+        if (no == 1) begin
+            r_out = ~r_out;
+        end else begin
+            r_out = r_out;
+        end
+        
+
+        // if (out == 0) set zr = 1
+        if (r_out == 0) begin
+            r_zr = 1'b1;
+        end else begin
+            r_zr = 1'b0;
+        end
+        
+
+        // if (out < 0) set ng = 1
+        if (r_out[15] == 1) begin
+            r_ng = 1'b1;
+        end else begin
+            r_ng = 1'b0;
+        end
         
     end
     

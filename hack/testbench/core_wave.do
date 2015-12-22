@@ -11,6 +11,9 @@ add wave -noupdate -radix unsigned /core_tb/outM
 add wave -noupdate /core_tb/writeM
 add wave -noupdate -radix unsigned /core_tb/addressM
 add wave -noupdate /core_tb/screen_we
+add wave -noupdate /core_tb/data_memory/r_screen_address
+add wave -noupdate -radix unsigned /core_tb/data_memory/screen_address
+add wave -noupdate /core_tb/data_memory/screen_data
 add wave -noupdate -radix decimal /core_tb/areg
 add wave -noupdate -radix decimal /core_tb/dreg
 add wave -noupdate -divider ALU
@@ -23,7 +26,6 @@ add wave -noupdate -radix unsigned /core_tb/data_memory/address
 add wave -noupdate -radix unsigned /core_tb/data_memory/in
 add wave -noupdate -radix unsigned /core_tb/data_memory/out
 add wave -noupdate -radix unsigned /core_tb/data_memory/r_out
-add wave -noupdate -radix unsigned /core_tb/data_memory/r_screen_mem
 add wave -noupdate -radix unsigned /core_tb/data_memory/ram_q
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[20]}
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[19]}
@@ -47,7 +49,7 @@ add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[2]}
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[1]}
 add wave -noupdate -radix unsigned {/core_tb/data_memory/ram16/mem[0]}
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 2} {880 ns} 0}
+WaveRestoreCursors {{Cursor 2} {840 ns} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 193
 configure wave -valuecolwidth 124
@@ -63,4 +65,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {780 ns} {980 ns}
+WaveRestoreZoom {0 ns} {2100 ns}

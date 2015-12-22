@@ -119,16 +119,20 @@ module cpu (
         end
     end
     
-    always @(*) begin
-    
-        //if (timer == 3'd0) begin
- 
+    always @(posedge clk) begin
         // Alu_y input: If bit[12], the "a" bit is 1 then use M (inM) otherwise use A register content.
         if (instruction[15] == 1 && instruction[12] == 1) begin
             alu_y = inM;
         end else begin
             alu_y = ARegister;
         end
+    end
+    
+    always @(*) begin
+    
+        //if (timer == 3'd0) begin
+ 
+       
         
         // If d3 (instruction[3]) == 1 then write the output of the alu to M (RAM).
         if (instruction[15] == 1 && instruction[3] == 1) begin
