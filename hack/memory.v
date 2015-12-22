@@ -14,7 +14,7 @@ module memory (
 );
 
     reg r_screen_we;
-    reg [12:0] r_screen_address;
+    reg [14:0] r_screen_address;
     reg [15:0] r_screen_data;
     assign screen_data    = r_screen_data;
     assign screen_address = r_screen_address[12:0];
