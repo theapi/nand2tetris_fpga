@@ -41,7 +41,7 @@ module core_tb();
         .we(im_we)
     );
 
- cpu cpu(
+    cpu #(.SPEED(32'd2)) cpu(
         .clk(clk),
         .reset(reset),
         .inM(inM),

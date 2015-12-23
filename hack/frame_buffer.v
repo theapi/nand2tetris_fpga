@@ -40,19 +40,8 @@
     assign read_address = pixel_addr[12:0];
     
     assign pixel_out = out;
-    /*
-    // Screen ram
-    vga_ram vgaram(
-        .q(read_value), // from ram
-        .d(data_in), // to ram
-        .write_address(write_address), // where to write in ram
-        .read_address(read_address), // where to read from
-        .we(load), // do a write
-        .clk(clk)
-    );
-    */
-    
-    
+
+
     // Keyboard debug
     wire [2:0] kb_display_out;
     wire kb_display_on;
@@ -91,20 +80,20 @@
     );
 
     
-    // ARegister debug (Screen  ATM)
+    // ARegister debug 
     wire [2:0] areg_display_out;
     wire areg_display_on;
     register_display #(.START_H(11'd200), .START_V(11'd10)) areg_display (
-        .clk(clk), .data_in({8'd0, read_value}),
+        .clk(clk), .data_in({8'd0, areg}),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(areg_display_out), .display_on(areg_display_on)
     );
 
-    // DRegister debug (Screen ATM)
+    // DRegister debug
     wire [2:0] dreg_display_out;
     wire dreg_display_on;
     register_display #(.START_H(11'd200), .START_V(11'd20)) dreg_display (
-        .clk(clk), .data_in({8'd0, read_address}),
+        .clk(clk), .data_in({8'd0, dreg}),
         .vga_h(vga_h), .vga_v(vga_v),
         .bg(3'b001), .pixel_out(dreg_display_out), .display_on(dreg_display_on)
     );

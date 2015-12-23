@@ -1,6 +1,7 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate /core_tb/clk
+add wave -noupdate -radix unsigned /core_tb/cpu/timer
 add wave -noupdate /core_tb/reset
 add wave -noupdate -radix decimal /core_tb/cpu/pc_in
 add wave -noupdate /core_tb/cpu/pc_load
@@ -70,4 +71,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {1180 ns} {1460 ns}
+WaveRestoreZoom {3740 ns} {4020 ns}
