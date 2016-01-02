@@ -76,7 +76,7 @@ module memory (
     );
     */
     
-    //wire [15:0] sdram_q;
+
     sdram sdram_inst(
         .CLOCK_50(clk) ,	// input  CLOCK_50_sig
         .q(read_value) ,	// output [15:0] q_sig
@@ -94,10 +94,12 @@ module memory (
         
         .write_address(address), // where to write in ram
         .read_address(screen_read_address + 15'd16384), // where to read from
+        //.read_address(screen_read_address),
         //.d(16'b0),
         .d(in),
         .write_en(r_screen_we)
     );
+
 
     always @(posedge clk) begin
         if (timer == 32'd25000000) begin

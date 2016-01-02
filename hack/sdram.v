@@ -153,6 +153,7 @@ module sdram(
 
     assign q = r_q;
     
+    /*
     always @(posedge CLOCK_50) begin
         if (counter == 32'd500000) begin
             //counter <= 32'd0;
@@ -161,7 +162,7 @@ module sdram(
             counter <= counter + 32'b1;
         end
     end
-
+*/
     
 /*
     // Write
@@ -201,21 +202,22 @@ module sdram(
 */
     
     always @(posedge CLOCK_50) begin
-//        if (counter < 32'd500000) begin
-//            if (r_write_en) begin
-//                r_write_buffer <= 1'b0;
-//                r_write_en = 1'b0;
-//            end else if (write_done && !write_buffer_full) begin
-//                r_write_address <= r_write_address + 1'b1;
-//                r_input_data <= 16'b0;
-//                r_write_buffer <= 1'b1;
-//                r_write_en = 1'b1;
-//            end
-//            
-//        end else begin
-            //r_write_en = 1'b0;
+        if (counter < 32'd500000) begin
+            // Clear RAM
+            if (r_write_en) begin
+                r_write_buffer <= 1'b0;
+                r_write_en = 1'b0;
+            end else if (write_done && !write_buffer_full) begin
+                r_write_address <= r_write_address + 1'b1;
+                r_input_data <= 16'b0;
+                r_write_buffer <= 1'b1;
+                r_write_en = 1'b1;
+                counter <= counter + 32'b1;
+            end
+            
+        end else begin
             if (write_en) begin
-                r_write_address <= write_address;
+                r_write_address <= write_address * 8'd16; // for the base address
                 r_input_data <= d;
                 r_write_buffer <= 1'b1;
                 r_write_en = 1'b1;
@@ -224,16 +226,16 @@ module sdram(
                 r_write_en = 1'b0;
             end
             
-        //end
+        end
     end
     
     // Read
     always @(posedge CLOCK_50) begin
-        if (counter < 32'd50000) begin
+        if (counter < 32'd500000) begin
             r_read_en <= 1'b0;
         end else begin
-            if (!write_en) begin
-                r_read_address <= read_address;
+            if (!write_en && read_done) begin
+                r_read_address <= read_address * 8'd16; // for the base address
                 r_read_en <= 1'b1;
             end else begin
                 r_read_en <= 1'b0;
