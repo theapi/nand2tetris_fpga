@@ -154,7 +154,7 @@ module sdram(
     assign q = r_q;
     
     always @(posedge CLOCK_50) begin
-        if (counter == 32'd25000000) begin
+        if (counter == 32'd500000) begin
             //counter <= 32'd0;
             // stop
         end else begin
@@ -201,19 +201,19 @@ module sdram(
 */
     
     always @(posedge CLOCK_50) begin
-        if (counter < 32'd50000) begin
-            if (r_write_en) begin
-                r_write_buffer <= 1'b0;
-                r_write_en = 1'b0;
-            end else begin
-                r_write_address <= r_write_address + 1'b1;
-                r_input_data <= 16'b0;
-                r_write_buffer <= 1'b1;
-                r_write_en = 1'b1;
-            end
-            
-        end else begin
-
+//        if (counter < 32'd500000) begin
+//            if (r_write_en) begin
+//                r_write_buffer <= 1'b0;
+//                r_write_en = 1'b0;
+//            end else if (write_done && !write_buffer_full) begin
+//                r_write_address <= r_write_address + 1'b1;
+//                r_input_data <= 16'b0;
+//                r_write_buffer <= 1'b1;
+//                r_write_en = 1'b1;
+//            end
+//            
+//        end else begin
+            //r_write_en = 1'b0;
             if (write_en) begin
                 r_write_address <= write_address;
                 r_input_data <= d;
@@ -224,7 +224,7 @@ module sdram(
                 r_write_en = 1'b0;
             end
             
-        end
+        //end
     end
     
     // Read
