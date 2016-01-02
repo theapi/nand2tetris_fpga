@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 320 256)
+	(rect 16 16 320 288)
 	(text "memory" (rect 5 0 40 12)(font "Arial" ))
-	(text "inst" (rect 8 224 20 236)(font "Arial" ))
+	(text "inst" (rect 8 256 20 268)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -144,6 +144,13 @@ agreement for further details.
 		(line (pt 304 208)(pt 288 208)(line_width 1))
 	)
 	(port
+		(pt 304 224)
+		(output)
+		(text "ready" (rect 0 0 23 12)(font "Arial" ))
+		(text "ready" (rect 260 219 283 231)(font "Arial" ))
+		(line (pt 304 224)(pt 288 224)(line_width 1))
+	)
+	(port
 		(pt 304 160)
 		(bidir)
 		(text "DRAM_DQ[15..0]" (rect 0 0 75 12)(font "Arial" ))
@@ -151,6 +158,6 @@ agreement for further details.
 		(line (pt 304 160)(pt 288 160)(line_width 3))
 	)
 	(drawing
-		(rectangle (rect 16 16 288 224)(line_width 1))
+		(rectangle (rect 16 16 288 256)(line_width 1))
 	)
 )

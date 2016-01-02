@@ -21,7 +21,12 @@ module sdram(
     DRAM_DQ,
     DRAM_DQM,
     DRAM_RAS_N,
-    DRAM_WE_N 
+    DRAM_WE_N,
+    
+    write_address,
+    read_address,
+    d,
+    write_en
 );
 
 //=======================================================
@@ -54,6 +59,10 @@ module sdram(
     output              DRAM_RAS_N;
     output              DRAM_WE_N;
 
+    input       [12:0]  write_address;
+    input       [12:0]  read_address;
+    input       [15:0]  d;
+    input               write_en;
 
 //=======================================================
 //  REG/WIRE declarations
@@ -83,8 +92,8 @@ module sdram(
     wire        write_done;
     wire [15:0] input_data;
 
-    reg [31:0]  r_write_address;
-    reg         r_write_en;
+    reg [31:0]  r_write_address = 32'b0;
+    reg         r_write_en = 1'b0;
     reg         r_write_buffer;
     reg [15:0]  r_input_data;
 
@@ -143,7 +152,7 @@ module sdram(
     assign write_go     = r_write_en;
 
     assign q = r_q;
-
+    
     always @(posedge CLOCK_50) begin
         if (counter == 32'd25000000) begin
             //counter <= 32'd0;
@@ -153,6 +162,8 @@ module sdram(
         end
     end
 
+    
+/*
     // Write
     always @(posedge CLOCK_50) begin
         if (counter == 32'd2) begin
@@ -162,7 +173,8 @@ module sdram(
             //r_input_data <= 16'b1100_1100_1100_1100;
             //r_input_data <= 16'b1010_1010_1010_1010;
             //r_input_data <= 16'b1111_0000_1110_1101;
-            r_input_data <= 16'b1111_1111_0000_0000;
+            //r_input_data <= 16'b1111_1111_0000_0000;
+            r_input_data <= 16'b0000_0000_0000_0000;
             r_write_buffer <= 1'b1;
             r_write_en <= 1'b1;
         end else begin
@@ -185,6 +197,52 @@ module sdram(
         end
     end
 
+
+*/
+    
+    always @(posedge CLOCK_50) begin
+        if (counter < 32'd50000) begin
+            if (r_write_en) begin
+                r_write_buffer <= 1'b0;
+                r_write_en = 1'b0;
+            end else begin
+                r_write_address <= r_write_address + 1'b1;
+                r_input_data <= 16'b0;
+                r_write_buffer <= 1'b1;
+                r_write_en = 1'b1;
+            end
+            
+        end else begin
+
+            if (write_en) begin
+                r_write_address <= write_address;
+                r_input_data <= d;
+                r_write_buffer <= 1'b1;
+                r_write_en = 1'b1;
+            end else begin
+                r_write_buffer <= 1'b0;
+                r_write_en = 1'b0;
+            end
+            
+        end
+    end
+    
+    // Read
+    always @(posedge CLOCK_50) begin
+        if (counter < 32'd50000) begin
+            r_read_en <= 1'b0;
+        end else begin
+            if (!write_en) begin
+                r_read_address <= read_address;
+                r_read_en <= 1'b1;
+            end else begin
+                r_read_en <= 1'b0;
+            end
+        end
+    end
+    
+ 
+    
     always @(posedge CLOCK_50) begin
         if (read_data_available) begin
             r_q <= output_data;
@@ -193,5 +251,6 @@ module sdram(
             r_read_buffer <= 1'b0;
         end
     end
+
 
 endmodule

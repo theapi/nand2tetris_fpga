@@ -25,8 +25,14 @@ module memory (
     inout       [15:0]  DRAM_DQ,
     output       [1:0]  DRAM_DQM,
     output              DRAM_RAS_N,
-    output              DRAM_WE_N
+    output              DRAM_WE_N,
+    
+    output ready
 );
+
+    reg [31:0]  timer = 32'b0;
+    reg r_ready = 1'b0;
+    assign ready = r_ready; // Set to ready when memory is initialised.
 
     reg r_screen_we;
     reg [14:0] r_screen_address;
@@ -70,7 +76,7 @@ module memory (
     );
     */
     
-    wire [15:0] sdram_q;
+    //wire [15:0] sdram_q;
     sdram sdram_inst(
         .CLOCK_50(clk) ,	// input  CLOCK_50_sig
         .q(read_value) ,	// output [15:0] q_sig
@@ -84,9 +90,24 @@ module memory (
         .DRAM_DQ(DRAM_DQ) ,	// inout [15:0] DRAM_DQ_sig
         .DRAM_DQM(DRAM_DQM) ,	// output [1:0] DRAM_DQM_sig
         .DRAM_RAS_N(DRAM_RAS_N) ,	// output  DRAM_RAS_N_sig
-        .DRAM_WE_N(DRAM_WE_N) 	// output  DRAM_WE_N_sig
+        .DRAM_WE_N(DRAM_WE_N), 	// output  DRAM_WE_N_sig
+        
+        .write_address(address), // where to write in ram
+        .read_address(screen_read_address + 15'd16384), // where to read from
+        //.d(16'b0),
+        .d(in),
+        .write_en(r_screen_we)
     );
 
+    always @(posedge clk) begin
+        if (timer == 32'd25000000) begin
+            // ready
+            r_ready <= 1'b1;
+        end else begin
+            timer <= timer + 32'b1;
+        end
+    end
+ 
     
     always @(*) begin
         if (address < 15'd16384) begin
