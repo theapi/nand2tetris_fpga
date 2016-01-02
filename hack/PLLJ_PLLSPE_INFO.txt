@@ -1,0 +1,5 @@
+PLL_Name	memory:inst4|sdram:sdram_inst|qsys:u0|qsys_sdram_clock:sdram_clock|qsys_sdram_clock_altpll_l942:sd1|pll7
+PLLJITTER	35
+PLLSPEmax	84
+PLLSPEmin	-53
+

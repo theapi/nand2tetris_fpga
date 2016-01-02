@@ -1,0 +1,15 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst qsys -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst qsys.sdram_clock -pg 1 -lvl 2 -y 30
+preplace inst qsys.sdram -pg 1 -lvl 2 -y 170
+preplace inst qsys.clk -pg 1 -lvl 1 -y 90
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)sdram.wire,(SLAVE)qsys.sdram_wire) 1 0 2 NJ 240 NJ
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)clk.clk_in_reset,(SLAVE)qsys.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_clock_areset_conduit,(SLAVE)sdram_clock.areset_conduit) 1 0 2 NJ 40 NJ
+preplace netloc FAN_OUT<net_container>qsys</net_container>(SLAVE)sdram.clk,(MASTER)clk.clk,(SLAVE)sdram_clock.inclk_interface) 1 1 1 380
+preplace netloc EXPORT<net_container>qsys</net_container>(MASTER)sdram_clock.c0,(MASTER)qsys.sdram_clock_c0) 1 2 1 N
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.clk,(SLAVE)clk.clk_in) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>qsys</net_container>(MASTER)clk.clk_reset,(SLAVE)sdram_clock.inclk_interface_reset,(SLAVE)sdram.reset) 1 1 1 400
+levelinfo -pg 1 0 170 740
+levelinfo -hier qsys 180 210 430 620
