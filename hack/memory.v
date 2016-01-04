@@ -64,7 +64,7 @@ module memory (
         .clk(clk)
     );
     
-    /*
+    
     // Screen ram
     vga_ram vgaram(
         .q(read_value), // from ram
@@ -74,9 +74,9 @@ module memory (
         .we(r_screen_we), // do a write
         .clk(clk)
     );
-    */
     
-
+    
+/*
     sdram sdram_inst(
         .CLOCK_50(clk) ,	// input  CLOCK_50_sig
         .q(read_value) ,	// output [15:0] q_sig
@@ -99,7 +99,7 @@ module memory (
         .d(in),
         .write_en(r_screen_we)
     );
-
+*/
 
     always @(posedge clk) begin
         if (timer == 32'd25000000) begin
