@@ -1,14 +1,15 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate /cpu_tb/cpu_DUT/clk
+add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/timer
 add wave -noupdate /cpu_tb/cpu_DUT/reset
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/inM
 add wave -noupdate /cpu_tb/cpu_DUT/instruction
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/outM
 add wave -noupdate /cpu_tb/cpu_DUT/writeM
 add wave -noupdate -radix unsigned /cpu_tb/cpu_DUT/addressM
-add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/DRegister
-add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/ARegister
+add wave -noupdate -radix unsigned /cpu_tb/cpu_DUT/DRegister
+add wave -noupdate -radix unsigned /cpu_tb/cpu_DUT/ARegister
 add wave -noupdate -divider PC
 add wave -noupdate -radix decimal /cpu_tb/cpu_DUT/pc
 add wave -noupdate /cpu_tb/cpu_DUT/pc_inc
@@ -32,7 +33,7 @@ add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/ng
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/r_zr
 add wave -noupdate /cpu_tb/cpu_DUT/alu_inst/r_ng
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {480 ns} 0}
+WaveRestoreCursors {{Cursor 1} {80 ns} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 160
 configure wave -valuecolwidth 100
@@ -48,4 +49,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {1770 ns} {1910 ns}
+WaveRestoreZoom {1660 ns} {1920 ns}
