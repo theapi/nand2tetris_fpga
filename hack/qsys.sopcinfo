@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="qsys" kind="qsys" version="1.0" fabric="QSYS">
  <!-- Format version 15.1 185 (Future versions may contain additional information.) -->
- <!-- 2016.01.02.12:24:12 -->
+ <!-- 2016.01.16.16:50:45 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1451737452</value>
+  <value>1452963045</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -3388,7 +3388,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>16</value>
+   <value>64</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -3869,13 +3869,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>master_byteenable</name>
     <direction>Output</direction>
-    <width>2</width>
+    <width>8</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>master_readdata</name>
     <direction>Input</direction>
-    <width>16</width>
+    <width>64</width>
     <role>readdata</role>
    </port>
    <port>
@@ -4021,7 +4021,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>user_buffer_output_data</name>
     <direction>Output</direction>
-    <width>16</width>
+    <width>64</width>
     <role>export</role>
    </port>
    <port>

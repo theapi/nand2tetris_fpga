@@ -311,7 +311,7 @@
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone IV E" />
   <parameter name="BURST_CAPABLE" value="0" />
   <parameter name="BURST_COUNT_WIDTH" value="2" />
-  <parameter name="DATA_WIDTH" value="16" />
+  <parameter name="DATA_WIDTH" value="64" />
   <parameter name="FIFO_DEPTH" value="8" />
   <parameter name="FIFO_DEPTH_LOG2" value="3" />
   <parameter name="MASTER_DIRECTION" value="0" />

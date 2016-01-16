@@ -99,6 +99,10 @@ module sdram(
 
     reg [31:0]  counter = 32'b0;
     reg [15:0]  r_q = 16'b0;
+    
+    
+    reg [7:0] r_write_length = 8'd2;  // 16 bit word. NB this MUST match that of the qsys sdram_write
+    reg [7:0] r_read_length = 8'd8;  // 64 bit word. NB this MUST match that of the qsys sdram_read
 
 //=======================================================
 //  Structural coding
@@ -124,7 +128,7 @@ module sdram(
 
         .sdram_read_control_fixed_location  (1'b1), // do not auto increment address
         .sdram_read_control_read_base       (read_base),
-        .sdram_read_control_read_length     (32'd2), // 16 bit word
+        .sdram_read_control_read_length     (32'd8), // 64 bit word
         .sdram_read_control_go              (read_go),
         .sdram_read_control_done            (read_done),
         .sdram_read_control_early_done      (read_early_done),
@@ -152,54 +156,7 @@ module sdram(
     assign write_go     = r_write_en;
 
     assign q = r_q;
-    
-    /*
-    always @(posedge CLOCK_50) begin
-        if (counter == 32'd500000) begin
-            //counter <= 32'd0;
-            // stop
-        end else begin
-            counter <= counter + 32'b1;
-        end
-    end
-*/
-    
-/*
-    // Write
-    always @(posedge CLOCK_50) begin
-        if (counter == 32'd2) begin
-            // Write data.
-            r_write_address <= 32'd0;
-            
-            //r_input_data <= 16'b1100_1100_1100_1100;
-            //r_input_data <= 16'b1010_1010_1010_1010;
-            //r_input_data <= 16'b1111_0000_1110_1101;
-            //r_input_data <= 16'b1111_1111_0000_0000;
-            r_input_data <= 16'b0000_0000_0000_0000;
-            r_write_buffer <= 1'b1;
-            r_write_en <= 1'b1;
-        end else begin
-            // Ensure the request only lasts one clock cycle.
-            r_write_buffer <= 1'b0;
-            r_write_en <= 1'b0;
-        end
-        
-    end
 
-    // Read
-    always @(posedge CLOCK_50) begin
-        if (counter == 32'd3) begin
-            // Send the read command.
-            r_read_address <= 32'd0;
-            r_read_en <= 1'b1;
-        end else begin
-            // Ensure the request only lasts one clock cycle.
-            r_read_en <= 1'b0;
-        end
-    end
-
-
-*/
     
     always @(posedge CLOCK_50) begin
         if (counter < 32'd500000) begin
@@ -208,7 +165,7 @@ module sdram(
                 r_write_buffer <= 1'b0;
                 r_write_en = 1'b0;
             end else if (write_done && !write_buffer_full) begin
-                r_write_address <= r_write_address + 1'b1;
+                r_write_address <= r_write_address + r_write_length;
                 r_input_data <= 16'b0;
                 r_write_buffer <= 1'b1;
                 r_write_en = 1'b1;
@@ -217,7 +174,7 @@ module sdram(
             
         end else begin
             if (write_en) begin
-                r_write_address <= write_address * 8'd16; // for the base address
+                r_write_address <= write_address + r_write_length;
                 r_input_data <= d;
                 r_write_buffer <= 1'b1;
                 r_write_en = 1'b1;
@@ -235,7 +192,7 @@ module sdram(
             r_read_en <= 1'b0;
         end else begin
             if (!write_en && read_done) begin
-                r_read_address <= read_address * 8'd16; // for the base address
+                r_read_address <= read_address + r_read_length;
                 r_read_en <= 1'b1;
             end else begin
                 r_read_en <= 1'b0;
@@ -246,7 +203,7 @@ module sdram(
  
     
     always @(posedge CLOCK_50) begin
-        if (read_data_available) begin
+        if (read_data_available && r_read_buffer == 1'b0) begin
             r_q <= output_data;
             r_read_buffer <= 1'b1;
         end else begin

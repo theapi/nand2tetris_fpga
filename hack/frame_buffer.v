@@ -37,6 +37,12 @@
     assign pixel_addr = ((vga_h - 11'd144) + ((vga_v - 11'd112) * 32'd512)) >> 4;
     assign pixel_bit_calc = (vga_h - 11'd144) + (vga_v - 11'd112);
     assign pixel_bit = pixel_bit_calc[3:0];
+    
+    
+    // When using SDRAM for video memory, read 64 bit words
+    // so we don't have to continually read from ram.
+    
+    
     assign read_address = pixel_addr[12:0];
     
     assign pixel_out = out;

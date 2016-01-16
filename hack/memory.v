@@ -93,8 +93,7 @@ module memory (
         .DRAM_WE_N(DRAM_WE_N), 	// output  DRAM_WE_N_sig
         
         .write_address(address), // where to write in ram
-        .read_address(screen_read_address + 15'd16384), // where to read from
-        //.read_address(screen_read_address),
+        .read_address(screen_read_address),
         //.d(16'b0),
         .d(in),
         .write_en(r_screen_we)
