@@ -5,18 +5,18 @@ preplace inst qsys.sdram_clock -pg 1 -lvl 3 -y 30
 preplace inst qsys.sdram -pg 1 -lvl 3 -y 170
 preplace inst qsys.sdram_write -pg 1 -lvl 2 -y 250
 preplace inst qsys.sdram_read -pg 1 -lvl 2 -y 110
-preplace inst qsys.clk -pg 1 -lvl 1 -y 90
-preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)clk.clk_in,(SLAVE)qsys.clk) 1 0 1 NJ
-preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)sdram.wire,(SLAVE)qsys.sdram_wire) 1 0 3 NJ 240 NJ 360 NJ
-preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)sdram_write.control,(SLAVE)qsys.sdram_write_control) 1 0 2 NJ 200 NJ
-preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_read_control,(SLAVE)sdram_read.control) 1 0 2 NJ 160 NJ
+preplace inst qsys.clk -pg 1 -lvl 1 -y 70
+preplace netloc FAN_IN<net_container>qsys</net_container>(MASTER)sdram_write.avalon_master,(MASTER)sdram_read.avalon_master,(SLAVE)sdram.s1) 1 2 1 760
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_wire,(SLAVE)sdram.wire) 1 0 3 NJ 140 NJ 100 NJ
+preplace netloc EXPORT<net_container>qsys</net_container>(MASTER)qsys.sdram_clock_c0,(MASTER)sdram_clock.c0) 1 3 1 N
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)clk.clk_in_reset,(SLAVE)qsys.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)sdram_read.user,(SLAVE)qsys.sdram_read_user) 1 0 2 NJ 180 NJ
 preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_clock_areset_conduit,(SLAVE)sdram_clock.areset_conduit) 1 0 3 NJ 40 NJ 40 NJ
-preplace netloc FAN_OUT<net_container>qsys</net_container>(SLAVE)sdram.clk,(SLAVE)sdram_read.clock_reset,(MASTER)clk.clk,(SLAVE)sdram_write.clock_reset,(SLAVE)sdram_clock.inclk_interface) 1 1 2 460 220 720
-preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_write_user,(SLAVE)sdram_write.user) 1 0 2 NJ 220 NJ
-preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.reset,(SLAVE)clk.clk_in_reset) 1 0 1 NJ
-preplace netloc FAN_OUT<net_container>qsys</net_container>(MASTER)clk.clk_reset,(SLAVE)sdram_write.clock_reset_reset,(SLAVE)sdram.reset,(SLAVE)sdram_clock.inclk_interface_reset,(SLAVE)sdram_read.clock_reset_reset) 1 1 2 440 240 760
-preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_read_user,(SLAVE)sdram_read.user) 1 0 2 NJ 180 NJ
-preplace netloc EXPORT<net_container>qsys</net_container>(MASTER)sdram_clock.c0,(MASTER)qsys.sdram_clock_c0) 1 3 1 N
-preplace netloc FAN_IN<net_container>qsys</net_container>(MASTER)sdram_read.avalon_master,(MASTER)sdram_write.avalon_master,(SLAVE)sdram.s1) 1 2 1 740
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_write_user,(SLAVE)sdram_write.user) 1 0 2 NJ 320 NJ
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.sdram_write_control,(SLAVE)sdram_write.control) 1 0 2 NJ 300 NJ
+preplace netloc FAN_OUT<net_container>qsys</net_container>(SLAVE)sdram_clock.inclk_interface_reset,(SLAVE)sdram.reset,(SLAVE)sdram_read.clock_reset_reset,(SLAVE)sdram_write.clock_reset_reset,(MASTER)clk.clk_reset) 1 1 2 380 240 740
+preplace netloc FAN_OUT<net_container>qsys</net_container>(SLAVE)sdram_clock.inclk_interface,(SLAVE)sdram.clk,(MASTER)clk.clk,(SLAVE)sdram_read.clock_reset,(SLAVE)sdram_write.clock_reset) 1 1 2 420 220 720
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)qsys.clk,(SLAVE)clk.clk_in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>qsys</net_container>(SLAVE)sdram_read.control,(SLAVE)qsys.sdram_read_control) 1 0 2 NJ 160 NJ
 levelinfo -pg 1 0 170 1120
 levelinfo -hier qsys 180 210 490 810 1000

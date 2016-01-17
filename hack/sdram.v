@@ -78,7 +78,7 @@ module sdram(
     wire        read_done;
     wire        read_early_done;
     wire        read_data_available;
-    wire [15:0] output_data;
+    wire [63:0] output_data;
 
     reg [31:0]  r_read_address;
     reg         r_read_en;
@@ -128,7 +128,7 @@ module sdram(
 
         .sdram_read_control_fixed_location  (1'b1), // do not auto increment address
         .sdram_read_control_read_base       (read_base),
-        .sdram_read_control_read_length     (32'd8), // 64 bit word
+        .sdram_read_control_read_length     (r_read_length), // 64 bit word
         .sdram_read_control_go              (read_go),
         .sdram_read_control_done            (read_done),
         .sdram_read_control_early_done      (read_early_done),
@@ -141,7 +141,7 @@ module sdram(
         .sdram_write_user_buffer_full       (write_buffer_full),
         .sdram_write_control_fixed_location (1'b1), // do not auto increment address
         .sdram_write_control_write_base     (write_base),
-        .sdram_write_control_write_length   (32'd2),  // 16 bit word
+        .sdram_write_control_write_length   (r_write_length), 
         .sdram_write_control_go             (write_go),
         .sdram_write_control_done           (write_done)
     );
@@ -156,31 +156,36 @@ module sdram(
     assign write_go     = r_write_en;
 
     assign q = r_q;
-
     
+
+    // Write
     always @(posedge CLOCK_50) begin
         if (counter < 32'd500000) begin
+            counter <= counter + 32'b1;
+        /*
             // Clear RAM
             if (r_write_en) begin
                 r_write_buffer <= 1'b0;
-                r_write_en = 1'b0;
+                r_write_en <= 1'b0;
             end else if (write_done && !write_buffer_full) begin
                 r_write_address <= r_write_address + r_write_length;
                 r_input_data <= 16'b0;
                 r_write_buffer <= 1'b1;
-                r_write_en = 1'b1;
+                r_write_en <= 1'b1;
                 counter <= counter + 32'b1;
             end
-            
+         */
         end else begin
-            if (write_en) begin
-                r_write_address <= write_address + r_write_length;
+            // Expects calling module to think that addresses are sequential.
+            if (write_en && write_done && !write_buffer_full) begin
+                //r_write_address <= write_address * r_write_length;
+                r_write_address <= 32'd0; // Alway to the same address for now
                 r_input_data <= d;
                 r_write_buffer <= 1'b1;
-                r_write_en = 1'b1;
+                r_write_en <= 1'b1;
             end else begin
                 r_write_buffer <= 1'b0;
-                r_write_en = 1'b0;
+                r_write_en <= 1'b0;
             end
             
         end
@@ -191,12 +196,14 @@ module sdram(
         if (counter < 32'd500000) begin
             r_read_en <= 1'b0;
         end else begin
-            if (!write_en && read_done) begin
+        /* DISABLING READ FOR NOW
+            if (!write_en && read_done && write_done) begin // cannot read & right at the same time
                 r_read_address <= read_address + r_read_length;
                 r_read_en <= 1'b1;
             end else begin
                 r_read_en <= 1'b0;
             end
+            */
         end
     end
     

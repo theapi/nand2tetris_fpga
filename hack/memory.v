@@ -35,13 +35,18 @@ module memory (
     assign ready = r_ready; // Set to ready when memory is initialised.
 
     reg r_screen_we;
+    reg [12:0] r_screen_write_address = 13'b0;
+    wire [12:0] screen_write_address;
+    
+    assign screen_write_address = r_screen_write_address;
+    
     reg [14:0] r_screen_address;
     reg [15:0] r_screen_data;
     //assign screen_data    = r_screen_data;
     //assign screen_data    = in;
     //assign screen_address = r_screen_address[12:0];
     //assign screen_address = address[12:0];
-    //assign screen_we      = r_screen_we;
+    assign screen_we      = r_screen_we;
     //assign screen_we      = 1'b1;
 
     reg [15:0] r_out = 16'b0;
@@ -92,11 +97,11 @@ module memory (
         .DRAM_RAS_N(DRAM_RAS_N) ,	// output  DRAM_RAS_N_sig
         .DRAM_WE_N(DRAM_WE_N), 	// output  DRAM_WE_N_sig
         
-        .write_address(address), // where to write in ram
+        .write_address(screen_write_address), // where to write in ram
         .read_address(screen_read_address),
         //.d(16'b0),
         .d(in),
-        .write_en(r_screen_we)
+        .write_en(screen_we)
     );
 
 
@@ -130,11 +135,16 @@ module memory (
     
     
     always @ (posedge clk) begin
-        r_screen_we = 1'b0;
+        
         if (load) begin
             if (address >= 15'd16384) begin
-                r_screen_we = 1'b1;
+                r_screen_we <= 1'b1;
+                r_screen_write_address <= address - 15'd16384;
+            end else begin
+                r_screen_we <= 1'b0;
             end
+        end else begin
+            r_screen_we <= 1'b0;
         end
         
     end

@@ -312,11 +312,11 @@
   <parameter name="BURST_CAPABLE" value="0" />
   <parameter name="BURST_COUNT_WIDTH" value="2" />
   <parameter name="DATA_WIDTH" value="64" />
-  <parameter name="FIFO_DEPTH" value="8" />
-  <parameter name="FIFO_DEPTH_LOG2" value="3" />
+  <parameter name="FIFO_DEPTH" value="32" />
+  <parameter name="FIFO_DEPTH_LOG2" value="5" />
   <parameter name="MASTER_DIRECTION" value="0" />
   <parameter name="MAXIMUM_BURST_COUNT" value="2" />
-  <parameter name="MEMORY_BASED_FIFO" value="0" />
+  <parameter name="MEMORY_BASED_FIFO" value="1" />
  </module>
  <module name="sdram_write" kind="master_template" version="15.1" enabled="1">
   <parameter name="ADDRESS_WIDTH" value="32" />
@@ -325,11 +325,11 @@
   <parameter name="BURST_CAPABLE" value="0" />
   <parameter name="BURST_COUNT_WIDTH" value="2" />
   <parameter name="DATA_WIDTH" value="16" />
-  <parameter name="FIFO_DEPTH" value="8" />
-  <parameter name="FIFO_DEPTH_LOG2" value="3" />
+  <parameter name="FIFO_DEPTH" value="32" />
+  <parameter name="FIFO_DEPTH_LOG2" value="5" />
   <parameter name="MASTER_DIRECTION" value="1" />
   <parameter name="MAXIMUM_BURST_COUNT" value="2" />
-  <parameter name="MEMORY_BASED_FIFO" value="0" />
+  <parameter name="MEMORY_BASED_FIFO" value="1" />
  </module>
  <connection
    kind="avalon"

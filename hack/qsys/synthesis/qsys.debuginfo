@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="qsys" kind="system" version="15.1" fabric="QSYS">
  <!-- Format version 15.1 185 (Future versions may contain additional information.) -->
- <!-- 2016.01.16.16:51:06 -->
+ <!-- 2016.01.17.11:39:09 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1452963045</value>
+  <value>1453030728</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -3492,7 +3492,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="FIFO_DEPTH">
    <type>int</type>
-   <value>8</value>
+   <value>32</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -3500,7 +3500,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="FIFO_DEPTH_LOG2">
    <type>int</type>
-   <value>3</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -3508,7 +3508,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEMORY_BASED_FIFO">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -4153,7 +4153,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="FIFO_DEPTH">
    <type>int</type>
-   <value>8</value>
+   <value>32</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -4161,7 +4161,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="FIFO_DEPTH_LOG2">
    <type>int</type>
-   <value>3</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -4169,7 +4169,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEMORY_BASED_FIFO">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -7020,5 +7020,5 @@ parameters are a RESULT of the module parameters. -->
   <version>15.1</version>
  </plugin>
  <reportVersion>15.1 185</reportVersion>
- <uniqueIdentifier>001FD0AC5F5C000001524B58A87F</uniqueIdentifier>
+ <uniqueIdentifier>001FD0AC5F5C000001524F616A9A</uniqueIdentifier>
 </EnsembleReport>

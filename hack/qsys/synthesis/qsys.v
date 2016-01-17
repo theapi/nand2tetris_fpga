@@ -102,9 +102,9 @@ module qsys (
 		.BURST_CAPABLE       (0),
 		.MAXIMUM_BURST_COUNT (2),
 		.BURST_COUNT_WIDTH   (2),
-		.FIFO_DEPTH          (8),
-		.FIFO_DEPTH_LOG2     (3),
-		.MEMORY_BASED_FIFO   (0)
+		.FIFO_DEPTH          (32),
+		.FIFO_DEPTH_LOG2     (5),
+		.MEMORY_BASED_FIFO   (1)
 	) sdram_read (
 		.clk                     (clk_clk),                                                              //       clock_reset.clk
 		.reset                   (rst_controller_reset_out_reset),                                       // clock_reset_reset.reset
@@ -140,9 +140,9 @@ module qsys (
 		.BURST_CAPABLE       (0),
 		.MAXIMUM_BURST_COUNT (2),
 		.BURST_COUNT_WIDTH   (2),
-		.FIFO_DEPTH          (8),
-		.FIFO_DEPTH_LOG2     (3),
-		.MEMORY_BASED_FIFO   (0)
+		.FIFO_DEPTH          (32),
+		.FIFO_DEPTH_LOG2     (5),
+		.MEMORY_BASED_FIFO   (1)
 	) sdram_write (
 		.clk                     (clk_clk),                               //       clock_reset.clk
 		.reset                   (rst_controller_reset_out_reset),        // clock_reset_reset.reset
