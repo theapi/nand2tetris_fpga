@@ -9,9 +9,6 @@
     input clk,             // the system clock
     
     input [15:0] read_value,
-    input [12:0] write_address,
-    input [15:0] data_in,       // what to write (16 pixels, black or white)
-    input load,            // write-enable bit
     
     input [7:0] keyboard, // debug the current keypress on the vga
     input [14:0] pc, // debug the current program count on the vga
@@ -27,8 +24,6 @@
     output [12:0] read_address
  );
  
-    //wire[15:0] read_value;
-    //wire[12:0] read_address;
     reg [2:0] out;
 
     wire[4:0] pixel_bit;

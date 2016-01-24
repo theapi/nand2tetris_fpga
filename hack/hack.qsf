@@ -138,6 +138,5 @@ set_global_assignment -name VERILOG_FILE register_display.v
 set_global_assignment -name VERILOG_FILE ram_8.v
 set_global_assignment -name VERILOG_FILE alu.v
 set_global_assignment -name VERILOG_FILE cpu.v
-set_global_assignment -name VERILOG_FILE clock_cpu.v
 set_global_assignment -name MIF_FILE programs/Rect.mif
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
