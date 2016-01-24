@@ -13,20 +13,7 @@ module memory (
     //output [15:0] screen_data,    // pixel values for ram address in the buffer
     //output        screen_we,      // load the screen data into the screen address
     output [15:0] read_value,
-    
-    
-    //////////// SDRAM //////////
-    output      [12:0]  DRAM_ADDR,
-    output       [1:0]  DRAM_BA,
-    output              DRAM_CAS_N,
-    output              DRAM_CKE,
-    output              DRAM_CLK,
-    output              DRAM_CS_N,
-    inout       [15:0]  DRAM_DQ,
-    output       [1:0]  DRAM_DQM,
-    output              DRAM_RAS_N,
-    output              DRAM_WE_N,
-    
+
     
     output ready
 );
@@ -82,32 +69,7 @@ module memory (
         .clk(clk)
     );
    
-    
-/*
-    sdram sdram_inst(
-        .CLOCK_50(clk) ,	// input  CLOCK_50_sig
-        .q(read_value) ,	// output [15:0] q_sig
-        .RESET(1'b0) ,	// input  RESET_sig
-        .DRAM_ADDR(DRAM_ADDR) ,	// output [12:0] DRAM_ADDR_sig
-        .DRAM_BA(DRAM_BA) ,	// output [1:0] DRAM_BA_sig
-        .DRAM_CAS_N(DRAM_CAS_N) ,	// output  DRAM_CAS_N_sig
-        .DRAM_CKE(DRAM_CKE) ,	// output  DRAM_CKE_sig
-        .DRAM_CLK(DRAM_CLK) ,	// output  DRAM_CLK_sig
-        .DRAM_CS_N(DRAM_CS_N) ,	// output  DRAM_CS_N_sig
-        .DRAM_DQ(DRAM_DQ) ,	// inout [15:0] DRAM_DQ_sig
-        .DRAM_DQM(DRAM_DQM) ,	// output [1:0] DRAM_DQM_sig
-        .DRAM_RAS_N(DRAM_RAS_N) ,	// output  DRAM_RAS_N_sig
-        .DRAM_WE_N(DRAM_WE_N), 	// output  DRAM_WE_N_sig
-        
-        .write_address(screen_write_address), // where to write in ram
-        .read_address(screen_read_address),
-        //.d(16'b0),
-        .d(in),
-        .write_en(screen_we)
-    );
-*/
-
-    always @(posedge clk) begin
+     always @(posedge clk) begin
         if (timer == 32'd25000000) begin
             // ready
             r_ready <= 1'b1;
