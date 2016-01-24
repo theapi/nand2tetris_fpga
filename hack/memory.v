@@ -36,6 +36,7 @@ module memory (
     assign ready = r_ready; // Set to ready when memory is initialised.
 
     reg r_screen_we;
+    wire screen_we;
     reg [12:0] r_screen_write_address = 13'b0;
     wire [12:0] screen_write_address;
     
@@ -77,7 +78,7 @@ module memory (
         .d(in), // to ram
         .write_address(address[12:0]), // where to write in ram
         .read_address(screen_read_address), // where to read from
-        .we(r_screen_we), // do a write
+        .we(screen_we), // do a write
         .clk(clk)
     );
    
@@ -115,14 +116,28 @@ module memory (
         end
     end
  
-    
+    always @(posedge clk) begin
+        if (address == 15'd24576) begin
+            r_out <= keyboard;
+        end if (address < 15'd16384) begin
+            r_out <= ram_q;
+        end
+    end
+ 
+    /*
     always @(*) begin
-        if (address < 15'd16384) begin
+        //r_out = keyboard;
+    
+        if (address == 15'd24576) begin
+            r_out = keyboard;
+        end if (address < 15'd16384) begin
             r_out = ram_q;
         end else begin
             r_out = read_value;
         end
+        
     end
+    */
     
     always @ (posedge clk) begin
         ram_we = 1'b0;
@@ -217,6 +232,7 @@ module memory (
     end
     */
     
+    /*
     always @ (posedge clk) begin
         if (load) begin
             if (address < 15'd16384) begin 
@@ -228,7 +244,7 @@ module memory (
             end
         end
     end
-    
+    */
     
 
 endmodule

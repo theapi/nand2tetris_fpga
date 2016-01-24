@@ -57,7 +57,8 @@ module cpu (
 );
 
     // Fastest = 2
-    parameter SPEED = 32'd2500000; 
+    //parameter SPEED = 32'd2500000; 
+    parameter SPEED = 32'd5;
 
     reg [15:0] r_outM = 16'b0;
     reg [14:0] r_addressM = 15'b0;
