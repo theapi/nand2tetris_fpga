@@ -114,9 +114,7 @@ set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
 
 set_global_assignment -name ENABLE_SIGNALTAP OFF
 set_global_assignment -name USE_SIGNALTAP_FILE stp.stp
-set_global_assignment -name MIF_FILE Fill.mif
-set_global_assignment -name VERILOG_FILE Screen_export_tb.v
-set_global_assignment -name VERILOG_FILE Screen_export.v
+set_global_assignment -name MIF_FILE programs/Fill.mif
 set_global_assignment -name BDF_FILE hack.bdf
 set_global_assignment -name VERILOG_FILE vga_ram.v
 set_global_assignment -name VERILOG_FILE frame_buffer.v
@@ -133,7 +131,6 @@ set_global_assignment -name VERILOG_FILE ps2decoder.v
 set_global_assignment -name VERILOG_FILE ascii.v
 set_global_assignment -name VERILOG_FILE ram_16.v
 set_global_assignment -name MIF_FILE ram_16.mif
-set_global_assignment -name VERILOG_FILE temporary_memory_user.v
 set_global_assignment -name VERILOG_FILE instruction_memory.v
 set_global_assignment -name VERILOG_FILE program_counter.v
 set_global_assignment -name MIF_FILE program.mif
@@ -141,8 +138,6 @@ set_global_assignment -name VERILOG_FILE register_display.v
 set_global_assignment -name VERILOG_FILE ram_8.v
 set_global_assignment -name VERILOG_FILE alu.v
 set_global_assignment -name VERILOG_FILE cpu.v
-set_global_assignment -name VERILOG_FILE register.v
 set_global_assignment -name VERILOG_FILE clock_cpu.v
-set_global_assignment -name VERILOG_FILE testbench/core_tb.v
-set_global_assignment -name COMMAND_MACRO_FILE testbench/core.do
+set_global_assignment -name MIF_FILE programs/Rect.mif
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

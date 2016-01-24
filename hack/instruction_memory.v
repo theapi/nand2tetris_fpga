@@ -15,8 +15,10 @@ module instruction_memory(
     
     // 32k is too much for internal ram on cyclone IV
     //reg [15:0] mem [16383:0] /* synthesis ram_init_file = "program.mif" */; // 16K 16-bit RAM
-    //reg [15:0] mem [8191:0] /* synthesis ram_init_file = "program.mif" */; // 8K 16-bit RAM
-    reg [15:0] mem [8191:0] /* synthesis ram_init_file = "Fill.mif" */; // Fill.hack test
+    
+    // 8K 16-bit RAM
+    //reg [15:0] mem [8191:0] /* synthesis ram_init_file = "programs/Rect.mif" */; 
+    reg [15:0] mem [8191:0] /* synthesis ram_init_file = "programs/Fill.mif" */;
     
     always @ (posedge clk) begin
         if (we)
