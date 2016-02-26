@@ -15,7 +15,7 @@ module vga_ram(
 );
     // 512 x 256 black-and-white ( / 16 = 8192)
     (* ramstyle = "M9K" *)
-    reg [15:0] mem [8191:0] /* synthesis ram_init_file = "screen.mif" */; // 8K 16-bit RAM
+    reg [15:0] mem [8191:0] /* synthesis ram_init_file = "mif/screen.mif" */; // 8K 16-bit RAM
     
     always @ (posedge clk) begin
         if (we)

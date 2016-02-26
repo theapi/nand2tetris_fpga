@@ -1,6 +1,18 @@
+
 *.bak
 *.qws
 *.rpt
+*.jdi
+*.done
+*.summary
+*.sld
+*.smsg
+*.cdf
+*.sof
+
+.idea/
+
+c5_pin_model_dump.txt
 
 # ignore Quartus II generated folders
 db/

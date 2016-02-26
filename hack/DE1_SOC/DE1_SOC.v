@@ -64,13 +64,33 @@ module DE1_SOC(
 //  REG/WIRE declarations
 //=======================================================
 
-
-
+wire sys_clk; 
+pll pll_inst(
+    .refclk(CLOCK_50),
+    .rst(!KEY[0]), 
+    .outclk_0(VGA_CLK), // 25 MHz
+    .outclk_1(sys_clk) // 100 MHz
+);
 
 //=======================================================
 //  Structural coding
 //=======================================================
 
+// If it is not required to encode sync
+// information onto the ADV7123, the SYNC input should be tied
+// to logic low. datasheet p.18
+assign VGA_SYNC_N = 1'b0;
 
+vga_controller vga_ins(
+    .reset(!KEY[0]),
+    .sys_clk(sys_clk),
+    .vga_clk(VGA_CLK),
+    .blank_n(VGA_BLANK_N),
+    .HS(VGA_HS),
+    .VS(VGA_VS),
+    .red(VGA_R),
+    .green(VGA_G),
+    .blue(VGA_B)
+);
 
 endmodule
