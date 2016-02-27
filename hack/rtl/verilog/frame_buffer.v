@@ -20,13 +20,13 @@
     input [10:0] vga_h, // the current vertical pixel count being displayed
     input [10:0] vga_v, // the current horizontal pixel count being displayed
     
-    output [2:0] pixel_out,    // The requested  pixel value at vga_h x vga_v
+    output [23:0] pixel_out,    // The requested  pixel value at vga_h x vga_v
     output [12:0] read_address
  );
  
     reg [2:0] out;
 
-    wire[4:0] pixel_bit;
+    wire [4:0] pixel_bit;
     wire [15:0] pixel_bit_calc;
     wire [31:0] pixel_addr;
     assign pixel_addr = ((vga_h - 11'd144) + ((vga_v - 11'd112) * 32'd512)) >> 4;
@@ -34,8 +34,10 @@
     assign pixel_bit = pixel_bit_calc[3:0];
     assign read_address = pixel_addr[12:0];
     
-    assign pixel_out = out;
-
+    assign pixel_out[23:16] = out[2];
+    assign pixel_out[15:8]  = out[1];
+    assign pixel_out[7:0]   = out[0];
+    
 
     // Keyboard debug
     wire [2:0] kb_display_out;

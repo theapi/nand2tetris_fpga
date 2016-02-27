@@ -18,7 +18,7 @@ module instruction_memory(
     
     // 8K 16-bit RAM
     //reg [15:0] mem [8191:0] /* synthesis ram_init_file = "programs/Rect.mif" */; 
-    reg [15:0] mem [8191:0] /* synthesis ram_init_file = "programs/Fill.mif" */;
+    reg [15:0] mem [8191:0] /* synthesis ram_init_file = "../programs/Fill.mif" */;
     
     always @ (posedge clk) begin
         if (we)

@@ -97,8 +97,8 @@ agreement for further details.
 	(port
 		(pt 256 32)
 		(output)
-		(text "pixel_out[2..0]" (rect 0 0 54 12)(font "Arial" ))
-		(text "pixel_out[2..0]" (rect 181 27 235 39)(font "Arial" ))
+		(text "pixel_out[23..0]" (rect 0 0 59 12)(font "Arial" ))
+		(text "pixel_out[23..0]" (rect 176 27 235 39)(font "Arial" ))
 		(line (pt 256 32)(pt 240 32)(line_width 3))
 	)
 	(port
