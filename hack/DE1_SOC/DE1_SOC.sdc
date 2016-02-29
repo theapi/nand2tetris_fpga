@@ -7,11 +7,11 @@
 # Create Clock
 #**************************************************************
 create_clock -period 20.000ns [get_ports CLOCK_50]
-create_clock -period 20.000ns [get_ports CLOCK2_50]
-create_clock -period 20.000ns [get_ports CLOCK3_50]
-create_clock -period 20.000ns [get_ports CLOCK4_50]
+# create_clock -period 20.000ns [get_ports CLOCK2_50]
+# create_clock -period 20.000ns [get_ports CLOCK3_50]
+# create_clock -period 20.000ns [get_ports CLOCK4_50]
 
-create_clock -period "100 MHz" -name clk_dram [get_ports DRAM_CLK]
+# create_clock -period "100 MHz" -name clk_dram [get_ports DRAM_CLK]
 # VGA : 640x480@60Hz
 #create_clock -period "25.18 MHz" -name clk_vga [get_ports VGA_CLK]
 # VGA : 800x600@60Hz
@@ -24,16 +24,21 @@ create_clock -period "25.0 MHz" -name clk_vga [get_ports VGA_CLK]
 
 
 # for enhancing USB BlasterII to be reliable, 25MHz
-create_clock -name {altera_reserved_tck} -period 40 {altera_reserved_tck}
-set_input_delay -clock altera_reserved_tck -clock_fall 3 [get_ports altera_reserved_tdi]
-set_input_delay -clock altera_reserved_tck -clock_fall 3 [get_ports altera_reserved_tms]
-set_output_delay -clock altera_reserved_tck 3 [get_ports altera_reserved_tdo]
+# create_clock -name {altera_reserved_tck} -period 40 {altera_reserved_tck}
+# set_input_delay -clock altera_reserved_tck -clock_fall 3 [get_ports altera_reserved_tdi]
+# set_input_delay -clock altera_reserved_tck -clock_fall 3 [get_ports altera_reserved_tms]
+# set_output_delay -clock altera_reserved_tck 3 [get_ports altera_reserved_tdo]
+
+
+create_clock -name {PS2_CLK} -period 80.000 -waveform { 0.000 40.000 } [get_ports {PS2_CLK}]
 
 #**************************************************************
 # Create Generated Clock
 #**************************************************************
 derive_pll_clocks
 
+
+create_generated_clock -name {clk_25} -source [get_ports {CLOCK_50}] -divide_by 2 -master_clock {CLOCK_50} [get_registers {clock_25:pixel_clock|clk}]
 
 
 #**************************************************************
@@ -89,8 +94,8 @@ set_output_delay -max -clock clk_vga 0.212 [get_ports VGA_G*]
 set_output_delay -min -clock clk_vga -1.519 [get_ports VGA_G*]
 set_output_delay -max -clock clk_vga 0.264 [get_ports VGA_B*]
 set_output_delay -min -clock clk_vga -1.519 [get_ports VGA_B*]
-set_output_delay -max -clock clk_vga 0.215 [get_ports VGA_BLANK]
-set_output_delay -min -clock clk_vga -1.485 [get_ports VGA_BLANK]
+set_output_delay -max -clock clk_vga 0.215 [get_ports VGA_BLANK_N]
+set_output_delay -min -clock clk_vga -1.485 [get_ports VGA_BLANK_N]
 
 
 
@@ -104,7 +109,8 @@ set_output_delay -min -clock clk_vga -1.485 [get_ports VGA_BLANK]
 #**************************************************************
 # Set False Path
 #**************************************************************
-
+# LED output path
+set_false_path -from * -to [get_ports LED*]
 
 
 #**************************************************************

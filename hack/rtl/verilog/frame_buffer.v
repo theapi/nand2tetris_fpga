@@ -34,9 +34,9 @@
     assign pixel_bit = pixel_bit_calc[3:0];
     assign read_address = pixel_addr[12:0];
     
-    assign pixel_out[23:16] = out[2];
-    assign pixel_out[15:8]  = out[1];
-    assign pixel_out[7:0]   = out[0];
+    assign pixel_out[23:16] = {8{out[2]}}; // translate the single bit to 8 bits
+    assign pixel_out[15:8]  = {8{out[1]}}; // translate the single bit to 8 bits
+    assign pixel_out[7:0]   = {8{out[0]}}; // translate the single bit to 8 bits
     
 
     // Keyboard debug
