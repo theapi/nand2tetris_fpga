@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE EP4CE22F17C7
 set_global_assignment -name TOP_LEVEL_ENTITY hack
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.0.2
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:54:59  OCTOBER 23, 2015"
-set_global_assignment -name LAST_QUARTUS_VERSION 15.1.0
+set_global_assignment -name LAST_QUARTUS_VERSION 16.0.2
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -113,7 +113,9 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
 
 set_global_assignment -name ENABLE_SIGNALTAP OFF
-set_global_assignment -name USE_SIGNALTAP_FILE stp.stp
+set_global_assignment -name USE_SIGNALTAP_FILE signaltap/stp.stp
+set_global_assignment -name VERILOG_FILE rtl/verilog/vga_sync_generator.v
+set_global_assignment -name VERILOG_FILE rtl/verilog/vga_controller.v
 set_global_assignment -name VERILOG_FILE rtl/verilog/vga_ram.v
 set_global_assignment -name VERILOG_FILE rtl/verilog/vga_driver.v
 set_global_assignment -name VERILOG_FILE rtl/verilog/vga_buffer.v
