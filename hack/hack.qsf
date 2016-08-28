@@ -37,8 +37,8 @@
 # -------------------------------------------------------------------------- #
 
 
-set_global_assignment -name FAMILY "Cyclone IV E"
-set_global_assignment -name DEVICE EP4CE22F17C7
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name DEVICE 5CSEMA5F31C6
 set_global_assignment -name TOP_LEVEL_ENTITY hack
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.0.2
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:54:59  OCTOBER 23, 2015"
@@ -54,44 +54,10 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 
-set_location_assignment PIN_R8 -to CLOCK_50
-set_location_assignment PIN_T15 -to VGA_GREEN
-set_location_assignment PIN_T13 -to VGA_BLUE
-set_location_assignment PIN_F13 -to VGA_RED
-set_location_assignment PIN_T12 -to VGA_VSYNC
-set_location_assignment PIN_T11 -to VGA_HSYNC
-set_location_assignment PIN_J15 -to RESET
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_GREEN
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_BLUE
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to RESET
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_VSYNC
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_HSYNC
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to VGA_RED
-set_location_assignment PIN_P16 -to PS2_CLOCK
-set_location_assignment PIN_N16 -to PS2_DATA
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_DATA
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_CLOCK
 
 #============================================================
 # LED
 #============================================================
-set_location_assignment PIN_A15 -to LED[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[0]
-set_location_assignment PIN_A13 -to LED[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[1]
-set_location_assignment PIN_B13 -to LED[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[2]
-set_location_assignment PIN_A11 -to LED[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[3]
-set_location_assignment PIN_D1 -to LED[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[4]
-set_location_assignment PIN_F3 -to LED[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[5]
-set_location_assignment PIN_B1 -to LED[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[6]
-set_location_assignment PIN_L3 -to LED[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to LED[7]
 
 
 #============================================================
@@ -145,4 +111,5 @@ set_global_assignment -name SDC_FILE hack.sdc
 set_global_assignment -name MIF_FILE ram_16.mif
 set_global_assignment -name MIF_FILE program.mif
 set_global_assignment -name MIF_FILE programs/Rect.mif
+set_global_assignment -name BOARD "DE1-SoC Board"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
